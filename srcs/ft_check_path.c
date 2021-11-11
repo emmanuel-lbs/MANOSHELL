@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structure.h                                        :+:      :+:    :+:   */
+/*   ft_check_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 15:41:50 by rozhou            #+#    #+#             */
-/*   Updated: 2021/11/11 15:48:25 by rozhou           ###   ########.fr       */
+/*   Created: 2021/11/11 15:45:43 by rozhou            #+#    #+#             */
+/*   Updated: 2021/11/11 15:51:42 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURE_H
-# define STRUCTURE_H
+#include "../includes/minishell.h"
+#include "../includes/structure.h"
 
-typedef struct s_data
+void	ft_check_path(t_data *data, char **envp)
 {
-	char	**env_path;
-}				t_data;
+	int	i;
 
-#endif
+	i = 0;
+	while (ft_strncmp(envp[i], "PATH=", 5))
+		i++;
+	data->env_path = ft_split((envp[i]), ':');
+	data->env_path[0] = (data->env_path[0] + 5);
+}
