@@ -1,8 +1,9 @@
-
 ##############################  SOURCE & OBJETS  ###############################
 
 SRCS = srcs/main.c \
 		srcs/ft_check_path.c \
+		srcs/ft_shell_split.c \
+		
 
 OBJS = $(SRCS:.c=.o)
 

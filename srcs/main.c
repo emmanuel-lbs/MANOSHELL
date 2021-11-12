@@ -12,7 +12,7 @@ int	main(int ac, char **av, char **envp)
 
 	i = 0;
 	str = "";
-	ft_check_path(&s.data, envp);
+	ft_check_path(&s, envp);
 	while (s.data.env_path[i])
 	{
 		printf("data = %s\n", s.data.env_path[i]);
@@ -23,13 +23,9 @@ int	main(int ac, char **av, char **envp)
 		//On stocke le stdin dans str,
 		//on peut changer ça en le mettant dans une struct au besoin.
 		str = readline("MANULL le sang$ ");
-		printf("%s\n",str);
+		printf("%s\n", str);
 		if (str == NULL)
-			break;
-		if (parsing)
-		{
-			exec
-		}
-		dprintf(1, "%d\n", ft_countwords(str));;
+			break ;
+		dprintf(1, "%d\n", ft_countwords(str, ' '));
 	}
 }
