@@ -2,17 +2,18 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "structure.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "structure.h"
 
 
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PARSSING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PARSING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+int			ft_countwords(const char *s, char c);
 char		**shell_split(char *str);
 int			parsing(char *str, t_struct *s);
 

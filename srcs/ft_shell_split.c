@@ -1,10 +1,10 @@
 
 #include "../includes/minishell.h"
 
-static int	ft_countwords(const char *s, char c)
+int	ft_countwords(const char *s, char c)
 {
 	int	nb;
-	int i;
+	int	i;
 
 	i = 0;
 	nb = 0;
@@ -28,13 +28,13 @@ static int	ft_countwords(const char *s, char c)
 	return (nb);
 }
 
-char	**shell_split(char *str)
+/*char	**shell_split(char *str)
 {
-	int i;
-	char **token;
+	int		i;
+	char	**token;
 
-	token = ft_calloc(sizeof(char *), (ft_countwords(s) + 1));
+	token = ft_calloc(sizeof(char *), (ft_countwords(str, ' ') + 1));
 	if (!(tab))
 		return (NULL);
 	return (token);
-}
+}*/
