@@ -10,6 +10,11 @@ void	ft_check_path(t_struct *s, char **envp)
 		ft_lstadd_back(&s->env.next, ft_lstnew(envp[i]));
 		i++;
 	}
+	while (s->env.next != NULL)
+	{
+		printf("env = %s\n", s->env.content);
+		s->env = *s->env.next;
+	}
 	i = 0;
 	while (ft_strncmp(envp[i], "PATH=", 5))
 		i++;
