@@ -12,7 +12,7 @@ int	main(int ac, char **av, char **envp)
 
 	i = 0;
 	str = "";
-	ft_check_path(&s.data, envp);
+	ft_check_path(&s, envp);
 	while (s.data.env_path[i])
 	{
 		printf("data = %s\n", s.data.env_path[i]);

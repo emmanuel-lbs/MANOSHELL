@@ -2,6 +2,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/libft.h"
 # include "structure.h"
 # include <stdlib.h>
 # include <stdio.h>
@@ -29,9 +30,7 @@ int			parsing(char *str, t_struct *s);
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UTILS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-char		**ft_split(char const *s, char c);
-void		ft_check_path(t_data *data, char **envp);
+void		ft_check_path(t_struct *s, char **envp);
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 

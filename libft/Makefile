@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: elabasqu <elabasqu@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 15:33:24 by elabasqu          #+#    #+#              #
-#    Updated: 2021/10/24 16:44:45 by elabasqu         ###   ########lyon.fr    #
+#    Updated: 2021/11/12 13:57:57 by rozhou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,11 @@ SRCS = ft_memset.c \
 	   ft_printf_error.c \
 	   ft_free_double_char.c \
 	   get_next_line.c \
-	   get_next_line_utils.c 
+	   get_next_line_utils.c \
+	   ft_lstlast.c \
+	   ft_lstadd_back.c \
+	   ft_lstclear.c \
+	   ft_lstnew.c \
 
 NAME		= libft.a
 LIB			= libft.h
