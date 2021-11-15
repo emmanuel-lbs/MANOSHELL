@@ -14,9 +14,14 @@
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PARSING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-int			ft_countwords(const char *s, char c);
-char		**shell_split(char *str);
+/*main fct of parsing*/
 int			parsing(char *str, t_struct *s);
+/*syntax*/
+int			skip_quote(const char *s, char quote, int *i);
+int			command_syntax(char *str);
+/*split*/
+int			ft_countwords(const char *s);
+char		**shell_split(char *str, t_struct *s);
 
 
 

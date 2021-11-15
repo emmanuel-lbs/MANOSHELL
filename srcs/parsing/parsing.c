@@ -1,59 +1,18 @@
+#include "../../includes/minishell.h"
 
-#include "../includes/minishell.h"
-
-int parsing(char *str, t_struct *s)
+int	parsing(char *str, t_struct *s)
 {
-
-
-
-}
-
-int		skip_quote(const char *s, char quote, int *i)
-{
-	if (s[*i] && s[*i] == quote)
-	{
-		(*i)++;
-		while (s[*i] && s[*i] != quote)
-			(*i)++;
-		if (s[*i] != quote)
-		{
-			printf("missing one quote\n");
-			return(-1);
-		}
-		(*i)++;
-		return (1);
-	}
+	if (command_syntax(str) == -1)
+		return (-1);
+//	if (shell_split(str, s) == -1)
+//		return (-1);
 	return (0);
 }
 
-static int	ft_countwords(const char *s)
-{
-	int	nb;
-	int i;
-
-	i = 0;
-	nb = 0;
-	if (s[i] && s[i] != ' ')
-	{
-		nb++;
-		i++;
-	}
-	while (s[i])
-	{
-		//		printf("%c",s[i]);
-		if (s[i] && s[i] == ' ')
-		{
-			while (s[i] && s[i] == ' ')
-				i++;
-			if (s[i] && s[i] != ' ')
-				nb++;
-		}
-		else if (s[i] && s[i] == 34)
-			nb += skip_quote(s, 34, &i);
-		else if (s[i] && s[i] == 39)
-			nb += skip_quote(s, 39, &i);
-		else
-			i++;
-	}
-	return (nb);
-}
+/*
+ * params	: la commande qui viens d'etre taper + la struct principal
+ * return	: -1 si erreur, 0 si tout est ok
+ * def		:	cree chainlst de char** de toutes les commande
+ *				check toutes les erros possibles de chaques char **
+ *
+ */
