@@ -5,6 +5,7 @@ void	ft_check_path(t_struct *s, char **envp)
 	int	i;
 
 	i = 0;
+
 	while (envp[i])
 	{
 		ft_lstadd_back(&s->env.next, ft_lstnew(envp[i]));

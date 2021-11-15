@@ -2,7 +2,9 @@
 
 SRCS = srcs/main.c \
 		srcs/ft_check_path.c \
-		srcs/ft_shell_split.c \
+		srcs/parsing/parsing.c \
+		srcs/parsing/ft_shell_split.c \
+		srcs/parsing/syntax.c \
 		
 
 OBJS = $(SRCS:.c=.o)
@@ -15,7 +17,7 @@ INCLUDE = includes/minishell.h includes/structure.h
 
 RM = rm -f
 
-GCCF = gcc -Wall -Wextra #-Werror
+GCCF = gcc -Wall -Wextra -fsanitize=address #-Werror
 
 ##################################  RULES  #####################################
 
