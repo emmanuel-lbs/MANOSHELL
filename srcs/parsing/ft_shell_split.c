@@ -13,8 +13,6 @@ int	skip_quote(const char *s, char quote, int *i)
 			printf("missing one quote\n");
 			return (-1);
 		}
-		while (s[*i] && s[*i] != ' ')
-			(*i)++;
 	}
 	return (0);
 }
@@ -42,6 +40,8 @@ int	ft_countwords(const char *s)
 		else if (s[i] == '\'' || s[i] == '\"' )
 		{
 			skip_quote(s, s[i], &i);
+			while (s[i] && s[i] != ' ')
+				i++;
 			nb++;
 		}
 	}

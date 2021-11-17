@@ -29,9 +29,7 @@ int	main(int ac, char **av, char **envp)
 		if (str)
 			add_history(str);
 		if (parsing(str, &s) == -1)
-		{
 			printf ("\033[31;01mERROR\033[00m\n");
-		}
 		else
 			printf ("\033[34;01mPERFECT\033[00m\n");
 	}
