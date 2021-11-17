@@ -23,11 +23,9 @@ int	main(int ac, char **av, char **envp)
 		//On stocke le stdin dans str,
 		//on peut changer ça en le mettant dans une struct au besoin.
 		str = readline("MANULL le sang$ ");
-		printf("%s\n", str);
 		if (str == NULL)
 			break ;
-		if (str)
-			add_history(str);
+		add_history(str);
 		if (parsing(str, &s) == -1)
 			printf ("\033[31;01mERROR\033[00m\n");
 		else

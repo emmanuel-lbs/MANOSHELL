@@ -74,10 +74,6 @@ int	operator_support(char c)
 {
 	if (c == '&')
 		return (1);
-	if (c == ']')
-		return (1);
-	if (c == '[')
-		return (1);
 	if (c == ';')
 		return (1);
 	return (0);
@@ -88,6 +84,8 @@ int	command_syntax(char *str)
 	int	i;
 
 	i = 0;
+	if (specific_case_syntax(str) == -1)
+		return (-1);
 	while (str[i])
 	{
 		if (operator_support(str[i]))
