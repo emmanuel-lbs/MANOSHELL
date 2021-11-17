@@ -48,6 +48,29 @@ int	ft_countwords(const char *s)
 	}
 	return (nb);
 }
+
+char	*pre_split(char *str)
+{
+	int i;
+	char *command;
+
+	i = 0;
+	while (str[i] && !ft_is_chevron(str[i]) && str[i] != '|')
+	{
+		i++;
+	}
+
+	int j;
+
+	j = 0;
+	while (j <= i)
+	{
+		printf("%c",str[j]);
+		j++;
+	}
+
+}
+
 //void	(char *str)
 //{
 //
