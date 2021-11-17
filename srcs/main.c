@@ -12,7 +12,7 @@ int	main(int ac, char **av, char **envp)
 
 	i = 0;
 	str = "";
-	ft_check_path(&s, envp);
+	ft_check_path(&s, envp, ac, av);
 	while (s.data.env_path[i])
 	{
 		printf("data = %s\n", s.data.env_path[i]);
@@ -30,5 +30,6 @@ int	main(int ac, char **av, char **envp)
 			printf ("\033[31;01mERROR\033[00m\n");
 		else
 			printf ("\033[34;01mPERFECT\033[00m\n");
+		ft_exec(&s);
 	}
 }

@@ -5,6 +5,7 @@ SRCS = srcs/main.c \
 		srcs/parsing/parsing.c \
 		srcs/parsing/ft_shell_split.c \
 		srcs/parsing/syntax.c \
+		srcs/execute/ft_exec.c \
 		
 
 OBJS = $(SRCS:.c=.o)

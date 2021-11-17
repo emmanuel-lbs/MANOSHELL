@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <elabasqu@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 17:04:15 by elabasqu          #+#    #+#             */
-/*   Updated: 2021/03/20 16:43:33 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2021/11/17 15:05:27 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	ns[i + j] = '\0';
-	free((char *)s1);
+	//free((char *)s1);
 	return (ns);
 }
