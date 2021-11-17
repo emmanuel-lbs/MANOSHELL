@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 13:35:48 by elabasqu          #+#    #+#             */
-/*   Updated: 2021/11/17 11:55:35 by rozhou           ###   ########.fr       */
+/*   Updated: 2021/11/17 15:36:36 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_gnl_join(const char *s1, const char *s2)
 	while (++j < ft_gnl_strlen(s2))
 		concat[i + j] = s2[j];
 	concat[i + j] = 0;
-	//free((char *)s1);
+	free((char *)s1);
 	return (concat);
 }
 

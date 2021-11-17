@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 18:36:25 by elabasqu          #+#    #+#             */
-/*   Updated: 2021/11/17 11:53:26 by rozhou           ###   ########.fr       */
+/*   Updated: 2021/11/17 15:36:25 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ char	**ft_free_split(char **str)
 
 	i = -1;
 	(void)str;
-	/*while (str[++i])
+	while (str[++i])
 		free(str[i]);
-	free(str);*/
+	free(str);
 	return (NULL);
 }
 
