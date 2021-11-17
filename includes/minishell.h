@@ -22,7 +22,8 @@ int			command_syntax(char *str);
 /*split*/
 int			ft_countwords(const char *s);
 char		**shell_split(char *str, t_struct *s);
-
+/*utils*/
+int			ft_is_chevron(char c);
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

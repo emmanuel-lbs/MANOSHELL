@@ -41,26 +41,25 @@ int	chevron(char *str)
 /*
  * params	:	la commande entiere qui vient d'etre taper
  * return	:	-1 si erreur, 0 si tout est ok
- * def		:	vas les erreur de syntax "<<< << <> >< <| >|"
+ * def		:	check les erreur de syntax chevron "<<< << <> >< <| >|"
  */
 
 int	specific_case_syntax(char *str)
 {
+	int last_caract;
+
+	last_caract = ft_strlen(str) - 1;
 	if (str[0] == '|')
 	{
 		printf("syntax error near unexpected token `%c'\n", str[0]);
 		return (-1);
 	}
-	if (str[ft_strlen(str) - 1] == '|')
+	while (ft_is_ispaces(str[last_caract]))
+		last_caract--;
+	if (str[last_caract] == '|' || ft_is_chevron(str[last_caract]))
 	{
 		printf("syntax error near unexpected token");
-		printf(" `%c'\n", str[ft_strlen(str) - 1]);
-		return (-1);
-	}
-	if (ft_is_chevron(str[ft_strlen(str) - 1]))
-	{
-		printf("syntax error near unexpected token");
-		printf(" `%c'\n", str[ft_strlen(str) - 1]);
+		printf(" `%c'\n", str[last_caract]);
 		return (-1);
 	}
 	return (0);
@@ -80,41 +79,20 @@ int	operator_support(char c)
 	return (0);
 }
 
-int	check_operator(char *str)
-{
-	int i;
-
-	i = 0;
-
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '\"' )
-		{
-			if (skip_quote(str, str[i], &i) == -1)
-				return (-1);
-		}
-		if (operator_support)
-		{
-			printf("syntax error near unexpected token `%c'\n", str[i]);
-			return (-1);
-		}
-		i++;
-	}
-}
-
 int	command_syntax(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (check_operator(str) == -1)
-	{
-		return (-1);
-	}
 	if (specific_case_syntax(str) == -1)
 		return (-1);
 	while (str[i])
 	{
+		if (operator_support(str[i]))
+		{
+			printf("syntax error near unexpected token `%c'\n", str[i]);
+			return (-1);
+		}
 		if (ft_is_chevron(str[i]))
 		{
 			if (chevron(&str[i]) == -1)
@@ -129,6 +107,7 @@ int	command_syntax(char *str)
 	}
 	return (0);
 }
+
 /*
  * params	:	la commande entiere qui vient d'etre taper
  * return	:	-1 si erreur, 0 si tout est ok

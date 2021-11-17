@@ -8,9 +8,10 @@ typedef struct s_data{
 
 typedef struct p_bob {
 	char			**token;
-	int				in;
-	int				out;
-	struct t_lst	*next;
+	int				fd_in;
+	int				fd_out;
+	int				mode_out;
+	struct t_bob	*next;
 }				t_bob;
 
 typedef struct p_struc {
