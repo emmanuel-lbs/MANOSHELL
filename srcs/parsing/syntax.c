@@ -54,7 +54,7 @@ int	specific_case_syntax(char *str)
 		printf("syntax error near unexpected token `%c'\n", str[0]);
 		return (-1);
 	}
-	while (ft_is_ispaces(str[last_caract]))
+	while (last_caract > 0 && ft_is_ispaces(str[last_caract]))
 		last_caract--;
 	if (str[last_caract] == '|' || ft_is_chevron(str[last_caract]))
 	{

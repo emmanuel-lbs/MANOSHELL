@@ -16,6 +16,7 @@
 
 /*main fct of parsing*/
 int			parsing(char *str, t_struct *s);
+char		*pre_split(char *str);
 /*syntax*/
 int			skip_quote(const char *s, char quote, int *i);
 int			command_syntax(char *str);
@@ -28,7 +29,7 @@ int			ft_is_chevron(char c);
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-
+int			ft_exec(t_struct *s);
 
 
 
@@ -36,7 +37,7 @@ int			ft_is_chevron(char c);
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UTILS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-void		ft_check_path(t_struct *s, char **envp);
+int			ft_check_path(t_struct *s, char **envp, int ac, char **av);
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
