@@ -26,13 +26,7 @@ int	ft_countwords(const char *s)
 	nb = 0;
 	while (s[i])
 	{
-		if (ft_isalpha(s[i]))
-		{
-			while (s[i] && ft_isalpha(s[i]))
-				i++;
-			nb++;
-		}
-		else if (s[i] == ' ')
+		if (s[i] == ' ')
 		{
 			while (s[i] && s[i] == ' ')
 				i++;
@@ -44,6 +38,13 @@ int	ft_countwords(const char *s)
 				i++;
 			nb++;
 		}
+		else if (ft_isprint(s[i]))
+		{
+			while (s[i] && ft_isprint(s[i]) && s[i] != ' ')
+				i++;
+			nb++;
+		}
+		i++;
 	}
 	return (nb);
 }
