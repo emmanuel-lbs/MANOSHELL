@@ -3,6 +3,26 @@
 #include "../includes/minishell.h"
 #include "../includes/structure.h"
 
+int		heredocs(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '<')
+		{
+			i++;
+			if (str[i] == '<')
+			{
+//				fct_heredoc(str);
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -30,6 +50,7 @@ int	main(int ac, char **av, char **envp)
 			printf ("\033[31;01mERROR\033[00m\n");
 		else
 			printf ("\033[34;01mPERFECT\033[00m\n");
-		ft_exec(&s);
+		if (heredocs(str) == 0)
+			ft_exec(&s);
 	}
 }

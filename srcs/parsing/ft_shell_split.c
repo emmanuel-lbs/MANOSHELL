@@ -50,39 +50,29 @@ int	ft_countwords(const char *s)
 	return (nb);
 }
 
-char	*pre_split(char *str)
-{
-	int i;
-	char *command;
-
-	i = 0;
-	while (str[i] && !ft_is_chevron(str[i]) && str[i] != '|')
-	{
-		i++;
-	}
-
-	int j;
-
-	j = 0;
-	while (j <= i)
-	{
-		printf("%c",str[j]);
-		j++;
-	}
-
-}
-
-//void	(char *str)
+//char	*pre_split(char *str)
 //{
+//	int i;
+//	char *command;
 //
-//	s->bob.token = ft_calloc(sizeof(char *), (ft_countwords(str, ' ') + 1));
-//	if (!(tab))
-//		return (NULL);
 //}
 //
-//void	shell_split(char *str, t_struct *s)
+//int	cut_cmd()
 //{
-//	int		i;
+//}
 //
+//int	create_bob(t_struct *s, char *str)
+//{
+//	int word;
+//	char *cmd;
 //
+//	word = cut_word(&cmd, str);
+//	s->lst = lst_new(new_block(cmd));
+//	while (str[i])
+//	{
+//		free(cmd);
+//		i = cut_cmd(&cmd, &str[i]);
+//		lst_add_back(s->lst, ft_lstnew(new_block(cmd)));
+//	}
+//	free(cmd);
 //}
