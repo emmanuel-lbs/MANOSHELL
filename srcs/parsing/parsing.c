@@ -22,9 +22,27 @@ int	parsing(char *str, t_struct *s)
 		return (-1);
 	if (command_syntax(str) == -1)
 		return (-1);
-	printf("nb de token = %d\n", ft_countwords(str));
-//	if (shell_split(str, s) == -1)
-//		return (-1);
+
+	//choisie
+	int i;
+	char *cmd;
+
+	i = cut_word(&cmd, str);
+	s->lst = lst_new(new_block(cmd));
+	while (str[i])
+	{
+		free(cmd);
+		i = cut_cmd(&cmd, &str[i]);
+		lst_add_back(s->lst, ft_lstnew(new_block(cmd)));
+	}
+	free(cmd);
+
+
+	//ou
+	create_bob(s, cmd);
+
+	//	if (shell_split(str, s) == -1)
+	//		return (-1);
 	pre_split(str);
 	return (0);
 }
