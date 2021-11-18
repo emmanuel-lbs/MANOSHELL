@@ -50,29 +50,56 @@ int	ft_countwords(const char *s)
 	return (nb);
 }
 
-//char	*pre_split(char *str)
-//{
-//	int i;
-//	char *command;
-//
-//}
-//
-//int	cut_cmd()
-//{
-//}
-//
-//int	create_bob(t_struct *s, char *str)
-//{
-//	int word;
-//	char *cmd;
-//
-//	word = cut_word(&cmd, str);
-//	s->lst = lst_new(new_block(cmd));
-//	while (str[i])
-//	{
-//		free(cmd);
-//		i = cut_cmd(&cmd, &str[i]);
-//		lst_add_back(s->lst, ft_lstnew(new_block(cmd)));
-//	}
-//	free(cmd);
-//}
+char *cut_cmd(char *str, int *i)
+{
+	char *cmd;
+	int tmp;
+	int j;
+
+	j = 0;
+	tmp = *i;
+	while (str[*i] && str[*i] != '|')
+	{
+		j++;
+		(*i)++;
+	}
+	cmd = malloc(sizeof(char) * (j + 1));
+	*i = tmp;
+	j = 0;
+	while (str[*i] && str[*i] != '|')
+	{
+		cmd[j] = str[*i];
+		(*i)++;
+		j++;
+	}
+	cmd[j] = 0;
+	(*i)++;
+	return (cmd);
+}
+
+void	new_block(t_struct *s, char *str)
+{
+	while (s->bob->next != NULL)
+		s->bob = s->bob->next;
+//	s->bob->token = malloc (sizeof(char *) * (ft_countwords(str) + 1));
+}
+
+int	create_bob(t_struct *s, char *str)
+{
+	int		i;
+	char	*cmd;
+
+	i = 0;
+	cmd = cut_cmd(str , &i);
+	printf("%s\nnb de token = %d\n",cmd, ft_countwords(cmd));
+//	printf("%p", s->bob->next);
+//	new_block(s, cmd);
+	while (str[i])
+	{
+		free(cmd);
+		cmd = cut_cmd(str , &i);
+		//	new_block(s, cmd);
+		printf("%s\nnb de token = %d\n",cmd, ft_countwords(cmd));
+	}
+	return (0);
+}

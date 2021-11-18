@@ -27,8 +27,8 @@ int	parsing(char *str, t_struct *s)
 		return (-1);
 	if (command_syntax(str) == -1)
 		return (-1);
-//	if (create_bob(s, str) == -1)
-//		return (-1);
+	if (create_bob(s, str) == -1)
+		return (-1);
 	return (0);
 }
 
