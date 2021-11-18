@@ -77,13 +77,6 @@ char *cut_cmd(char *str, int *i)
 	return (cmd);
 }
 
-void	new_block(t_struct *s, char *str)
-{
-	while (s->bob->next != NULL)
-		s->bob = s->bob->next;
-//	s->bob->token = malloc (sizeof(char *) * (ft_countwords(str) + 1));
-}
-
 int	create_bob(t_struct *s, char *str)
 {
 	int		i;
@@ -98,8 +91,7 @@ int	create_bob(t_struct *s, char *str)
 	{
 		free(cmd);
 		cmd = cut_cmd(str , &i);
-		//	new_block(s, cmd);
-		printf("%s\nnb de token = %d\n",cmd, ft_countwords(cmd));
+		add_back_bob(&s->bob.next, new_block(cmd));
 	}
 	return (0);
 }

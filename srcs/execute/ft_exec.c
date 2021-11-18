@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-static int	ft_pathfinder(t_struct *s, int n)
+/*static int	ft_pathfinder(t_struct *s, int n)
 {
 	while (s->data.env_path[++n])
 	{	
@@ -47,3 +47,4 @@ int	ft_exec(t_struct *s)
 	printf("END\n");
 	return (0);
 }
+*/
