@@ -44,7 +44,8 @@ int	ft_countwords(const char *s)
 				i++;
 			nb++;
 		}
-		i++;
+		if (s[i] != 0)
+			i++;
 	}
 	return (nb);
 }
