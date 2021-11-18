@@ -15,6 +15,11 @@ int	no_commande(char *str)
 	}
 	return (-1);
 }
+/*
+ * params	: la commande qui viens d'etre taper
+ * return	: -1 si erreur, 0 si tout est ok
+ * def		: check si ligne vide
+ */
 
 int	parsing(char *str, t_struct *s)
 {
@@ -22,10 +27,8 @@ int	parsing(char *str, t_struct *s)
 		return (-1);
 	if (command_syntax(str) == -1)
 		return (-1);
-	printf("nb de token = %d\n", ft_countwords(str));
-//	if (shell_split(str, s) == -1)
+//	if (create_bob(s, str) == -1)
 //		return (-1);
-	pre_split(str);
 	return (0);
 }
 
