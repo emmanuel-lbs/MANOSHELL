@@ -88,11 +88,7 @@ int	command_syntax(char *str)
 		return (-1);
 	while (str[i])
 	{
-		if (operator_support(str[i]))
-		{
-			printf("syntax error near unexpected token `%c'\n", str[i]);
-			return (-1);
-		}
+		printf("%s\n\n",&str[i]);
 		if (ft_is_chevron(str[i]))
 		{
 			if (chevron(&str[i]) == -1)
@@ -103,7 +99,8 @@ int	command_syntax(char *str)
 			if (skip_quote(str, str[i], &i) == -1)
 				return (-1);
 		}
-		i++;
+		if (str[i] != '\'' && str[i] != '\"' )
+			i++;
 	}
 	return (0);
 }

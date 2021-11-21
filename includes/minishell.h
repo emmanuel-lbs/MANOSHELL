@@ -28,7 +28,8 @@ int			ft_is_chevron(char c);
 /*lst_bob*/
 void		add_back_bob(t_bob **bob, t_bob *add);
 t_bob		*new_block(char *str);
-
+/*split*/
+char **split_shell(char *cmd);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 int			ft_exec(t_struct *s);

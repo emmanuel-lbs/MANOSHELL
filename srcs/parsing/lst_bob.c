@@ -25,9 +25,17 @@ void	add_back_bob(t_bob **bob, t_bob *add)
 t_bob	*new_block(char *str)
 {
 	t_bob *bob;
-
-	bob = malloc (sizeof(t_bob *));
-	bob->token = malloc(sizeof(char *) * (ft_countwords(str) + 1));
+	bob = malloc(sizeof(t_bob *));
+	bob->token = split_shell(str);
 	return (bob);
 }
-
+//
+//void	printf_lst(t_bob *bob)
+//{
+//	int i;
+//
+//	while (bob->next != NULL)
+//	{
+//		while (
+//	}
+//}
