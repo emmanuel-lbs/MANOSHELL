@@ -3,6 +3,8 @@
 
 static int	ft_pathfinder(t_struct *s, int n)
 {
+	if (access(*s->bob->token, F_OK) == 0)
+		return (1);
 	while (s->data.env_path[++n])
 	{	
 		s->data.env_path[n] = ft_strjoin(s->data.env_path[n], "/");
