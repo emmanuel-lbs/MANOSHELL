@@ -41,16 +41,16 @@ int	ft_exec(t_struct *s)
 	// s->bob->next = &bob2;
 
 	//TEST 2 PIPES
-	t_bob	bob;
-	t_bob	bob2;
-	t_bob	bob3;
-	s->bob = &bob;
-	s->bob->token = ft_split("ls -l", ' ');
-	bob2.token = ft_split("wc", ' ');
-	bob3.token = ft_split("wc", ' ');
-	bob3.next = NULL;
-	bob2.next = &bob3;
-	s->bob->next = &bob2;
+	// t_bob	bob;
+	// t_bob	bob2;
+	// t_bob	bob3;
+	// s->bob = &bob;
+	// s->bob->token = ft_split("ls -l", ' ');
+	// bob2.token = ft_split("wc", ' ');
+	// bob3.token = ft_split("wc", ' ');
+	// bob3.next = NULL;
+	// bob2.next = &bob3;
+	// s->bob->next = &bob2;
 
 	//TEST 1 PIPES
 	// t_bob	bob;
@@ -62,10 +62,10 @@ int	ft_exec(t_struct *s)
 	// s->bob->next = &bob2;
 
 	//TEST 0 PIPES
-	// t_bob	bob;
-	// s->bob = &bob;
-	// s->bob->token = ft_split("ls -l", ' ');
-	// s->bob->next = NULL;
+	t_bob	bob;
+	s->bob = &bob;
+	s->bob->token = ft_split("ls -l", ' ');
+	s->bob->next = NULL;
 
 	// ################## IL EST LA bob du parsing ####################################
 	fd_in = 0;
