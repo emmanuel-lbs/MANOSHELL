@@ -27,6 +27,9 @@ typedef struct p_struc {
 	t_bob	*bob;
 	t_data	data;
 	t_list	env;
+	t_list	first;
+	t_list	pwd;
+	char	*prompt;
 }				t_struct;
 
 #endif
