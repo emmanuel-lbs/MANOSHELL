@@ -66,7 +66,7 @@ int	ft_exec(t_struct *s)
 	//TEST 0 PIPES
 	t_bob	bob;
 	s->bob = &bob;
-	s->bob->token = ft_split("ls -l", ' ');
+	s->bob->token = ft_split("cd ..", ' ');
 	s->bob->next = NULL;
 
 	// ################## IL EST LA bob du parsing ####################################
@@ -92,6 +92,8 @@ int	ft_exec(t_struct *s)
 			if (s->bob->next != NULL)
 				dup2(s->data.end[1], 1);
 			close(s->data.end[0]);
+			//if (is_builtin(s) == 0)
+//
 			if (ft_pathfinder(s, -1) == -1)
 				exit(EXIT_SUCCESS);
 			execve(s->bob->token[0], s->bob->token, s->data.envp);

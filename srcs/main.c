@@ -10,7 +10,7 @@ int		heredocs(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '<')
+		if (str[i] == '<' && str[i + 1] == '<')
 		{
 			i++;
 			if (str[i] == '<')
@@ -24,6 +24,26 @@ int		heredocs(char *str)
 	return (0);
 }
 
+static void	ft_get_pwd(t_struct *s, char *pwd)
+{
+	int		i;
+	char	**mem;
+
+	i = 0;
+	mem = ft_split((pwd), '/');
+	i = 0;
+	while (mem[i])
+		i++;
+	s->prompt = ft_strjoin("\033[1;36m", ft_strjoin(mem[i - 1], " :\033[0m "));
+	i = 0;
+	while (mem[i])
+	{
+		free(mem[i]);
+		i++;
+	}
+	free(mem);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
@@ -33,16 +53,12 @@ int	main(int ac, char **av, char **envp)
 	i = 0;
 	str = "";
 	ft_check_path(&s, envp, ac, av);
-	while (s.data.env_path[i])
-	{
-		printf("data = %s\n", s.data.env_path[i]);
-		i++;
-	}
 	while (1)
 	{
 		//On stocke le stdin dans str,
 		//on peut changer ça en le mettant dans une struct au besoin.
-		str = readline("MANULL le sang$ ");
+		ft_get_pwd(&s, s.pwd.content);
+		str = readline(s.prompt);
 		if (str == 0)
 			break ;
 		add_history(str);
