@@ -17,7 +17,7 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	}
 	while (s->env.next != NULL)
 	{
-		printf("env = %s\n", s->env.content);
+		printf("env = %p\n", s->env.content);
 		s->env = *s->env.next;
 	}
 	i = 0;

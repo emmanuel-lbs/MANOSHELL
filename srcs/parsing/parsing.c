@@ -18,6 +18,7 @@ int	no_commande(char *str)
 
 int	parsing(char *str, t_struct *s)
 {
+	s->bob->token = malloc(100);
 	if (no_commande(str) == -1)
 		return (-1);
 	if (command_syntax(str) == -1)

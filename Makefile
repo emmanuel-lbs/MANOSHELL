@@ -26,7 +26,7 @@ all :	libf $(NAME)
 
 
 $(NAME):	$(INCLUDE) $(OBJS)
-	$(GCCF) -lreadline $(OBJS) libft.a -o $(NAME)
+	$(GCCF) $(OBJS) libft.a -lreadline -o $(NAME)
 
 %.o: %.c	$(INCLUDE) 
 	${GCCF} -c $< -o $@ 

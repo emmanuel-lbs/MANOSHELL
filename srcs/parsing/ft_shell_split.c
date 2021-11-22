@@ -52,7 +52,6 @@ int	ft_countwords(const char *s)
 char	*pre_split(char *str)
 {
 	int i;
-	char *command;
 
 	i = 0;
 	while (str[i] && !ft_is_chevron(str[i]) && str[i] != '|')
@@ -69,6 +68,7 @@ char	*pre_split(char *str)
 		j++;
 	}
 
+	return (NULL);
 }
 
 //void	(char *str)
