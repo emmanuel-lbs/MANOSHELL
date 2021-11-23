@@ -10,8 +10,7 @@ char	*malloc_cut_cmd(char *str, int i)
 	{
 		if (str[i] == '\'' || str[i] == '\"' )
 			skip_quote(str, str[i], &i);
-		if (str[i])
-			(i)++;
+		(i)++;
 	}
 	j = (i) - j;
 	printf("==%d\n",j);
@@ -51,16 +50,16 @@ char *cut_cmd(char *str, int *i)
 
 	cmd = malloc_cut_cmd(str, *i);
 	j = 0;
-//	while (str[*i] && str[*i] != '|')
-//	{
-//		if (str[*i] == '\'' || str[*i] == '\"')
-//		{
-//			cpy_quote(cmd, str, str[*i], &j);
-//		}
-//		cmd[j] = str[*i];
-//		(*i)++;
-//		j++;
-//	}
+	while (str[*i] && str[*i] != '|')
+	{
+		if (str[*i] == '\'' || str[*i] == '\"')
+		{
+			cpy_quote(cmd, str, str[*i], &j);
+		}
+		cmd[j] = str[*i];
+		(*i)++;
+		j++;
+	}
 	cmd[j] = 0;
 	(*i)++;
 	return (cmd);
@@ -79,30 +78,30 @@ int	create_bob(t_struct *s, char *str)
 
 	i = 0;
 	cmd = cut_cmd(str , &i);
-	//	printf("la commmande -> %snb de token = %d\n", str, ft_countwords(cmd));
-	//	s->bob.token = split_shell(cmd);;
-	//	j = 0;
-	//	while (s->bob.token[j])
-	//	{
-	//		printf("%s\n", s->bob.token[j]);
-	//		j++;
-	//	}
-	//	new_block(cmd);
-	//	while (str[i])
-	//	{
-	//		free(cmd);
-	//		cmd = cut_cmd(str , &i);
-	//		printf("la commmande -> %snb de token = %d\n",cmd, ft_countwords(cmd));
-	//		s->bob.token = split_shell(cmd);;
-	//		j = 0;
-	//		while (s->bob.token[j])
-	//		{
-	//			printf("%s\n", s->bob.token[j]);
-	//			j++;
-	//		}
-	//		//		add_back_bob(&s->bob.next, new_block(cmd));
-	//	}
-	//	return (0);
+//	printf("la commmande -> %snb de token = %d\n", str, ft_countwords(cmd));
+//	s->bob.token = split_shell(cmd);;
+//	j = 0;
+//	while (s->bob.token[j])
+//	{
+//		printf("%s\n", s->bob.token[j]);
+//		j++;
+//	}
+//	new_block(cmd);
+//	while (str[i])
+//	{
+//		free(cmd);
+//		cmd = cut_cmd(str , &i);
+//		printf("la commmande -> %snb de token = %d\n",cmd, ft_countwords(cmd));
+//		s->bob.token = split_shell(cmd);;
+//		j = 0;
+//		while (s->bob.token[j])
+//		{
+//			printf("%s\n", s->bob.token[j]);
+//			j++;
+//		}
+//		//		add_back_bob(&s->bob.next, new_block(cmd));
+//	}
+//	return (0);
 }
 
 /*

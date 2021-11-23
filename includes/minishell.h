@@ -20,6 +20,7 @@ char		*pre_split(char *str);
 /*syntax*/
 int			skip_quote(const char *s, char quote, int *i);
 int			command_syntax(char *str);
+int			no_commande(char *str);
 /*split*/
 int			ft_countwords(const char *s);
 char		**shell_split(char *str, t_struct *s);

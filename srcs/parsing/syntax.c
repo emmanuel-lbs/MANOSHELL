@@ -7,6 +7,11 @@ int	ft_is_chevron(char c)
 	return (0);
 }
 
+/*
+ * params	:	la commande entiere qui vient d'etre taper
+ * return	:	-1 si erreur, 0 si tout est ok
+ * def		:	check les erreur de syntax chevron "<<< << <> >< <| >|"
+ */
 int	chevron(char *str)
 {
 	int	i;
@@ -38,12 +43,12 @@ int	chevron(char *str)
 	}
 	return (0);
 }
+
 /*
  * params	:	la commande entiere qui vient d'etre taper
  * return	:	-1 si erreur, 0 si tout est ok
- * def		:	check les erreur de syntax chevron "<<< << <> >< <| >|"
+ * def		:	vas check la syntax premier et dernier caracteres
  */
-
 int	specific_case_syntax(char *str)
 {
 	int last_caract;
@@ -64,21 +69,12 @@ int	specific_case_syntax(char *str)
 	}
 	return (0);
 }
+
 /*
  * params	:	la commande entiere qui vient d'etre taper
  * return	:	-1 si erreur, 0 si tout est ok
- * def		:	vas check la syntax premier et dernier caracteres
+ * def		:	vas check la syyntax de chaques commande
  */
-
-int	operator_support(char c)
-{
-	if (c == '&')
-		return (1);
-	if (c == ';')
-		return (1);
-	return (0);
-}
-
 int	command_syntax(char *str)
 {
 	int	i;
@@ -106,7 +102,23 @@ int	command_syntax(char *str)
 }
 
 /*
- * params	:	la commande entiere qui vient d'etre taper
- * return	:	-1 si erreur, 0 si tout est ok
- * def		:	vas check la syyntax de chaques commande
+ * params	: la commande qui viens d'etre taper
+ * return	: -1 si erreur, 0 si tout est ok
+ * def		: check si ligne vide
  */
+
+int	no_commande(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str[i] == 0)
+		return (-1);
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (-1);
+}
