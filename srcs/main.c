@@ -27,17 +27,15 @@ int		heredocs(char *str)
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
-	int			i;
 	t_struct	s;
 
-	i = 0;
 	str = "";
-	ft_check_path(&s, envp, ac, av);
-	while (s.data.env_path[i])
-	{
-		printf("data = %s\n", s.data.env_path[i]);
-		i++;
-	}
+//	ft_check_path(&s, envp, ac, av);
+//	while (s.data.env_path[i])
+//	{
+//		printf("data = %s\n", s.data.env_path[i]);
+//		i++;
+//	}
 	while (1)
 	{
 		//On stocke le stdin dans str,

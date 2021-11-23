@@ -14,7 +14,6 @@ char	*malloc_cut_cmd(char *str, int i)
 			(i)++;
 	}
 	j = (i) - j;
-	printf("==%d\n",j);
 	cmd = malloc(sizeof(char) * (j + 1));
 	return (cmd);
 }
@@ -102,7 +101,7 @@ int	create_bob(t_struct *s, char *str)
 	//		}
 	//		//		add_back_bob(&s->bob.next, new_block(cmd));
 	//	}
-	//	return (0);
+		return (0);
 }
 
 /*
@@ -118,9 +117,8 @@ int	parsing(char *str, t_struct *s)
 		return (-1);
 	if (command_syntax(str) == -1)
 		return (-1);
-	//	printf("ok\n\n");
-	if (create_bob(s, str) == -1)
-		return (-1);
+//	if (create_bob(s, str) == -1)
+//		return (-1);
 	return (0);
 }
 

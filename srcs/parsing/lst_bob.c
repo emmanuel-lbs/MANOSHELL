@@ -1,5 +1,4 @@
 
-
 #include "../../includes/minishell.h"
 
 t_bob	*lastbob(t_bob *bob)

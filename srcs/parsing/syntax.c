@@ -1,11 +1,5 @@
 #include "../../includes/minishell.h"
 
-int	ft_is_chevron(char c)
-{
-	if (c == '<' || c == '>')
-		return (1);
-	return (0);
-}
 
 /*
  * params	:	la commande entiere qui vient d'etre taper
@@ -44,6 +38,29 @@ int	chevron(char *str)
 	return (0);
 }
 
+int	check_double_pipe(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '|')
+		{
+			i++;
+			while (str[i] && str[i] == ' ')
+				i++;
+			if (str[i] && str[i] == '|')
+			{
+				printf("syntax error near unexpected token `%c'\n", str[i]);
+				return (-1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
 /*
  * params	:	la commande entiere qui vient d'etre taper
  * return	:	-1 si erreur, 0 si tout est ok
@@ -53,6 +70,8 @@ int	specific_case_syntax(char *str)
 {
 	int last_caract;
 
+	if (check_double_pipe(str) == -1)
+		return (-1);
 	last_caract = ft_strlen(str) - 1;
 	if (str[0] == '|')
 	{
@@ -84,7 +103,6 @@ int	command_syntax(char *str)
 		return (-1);
 	while (str[i])
 	{
-		printf("%s\n\n",&str[i]);
 		if (ft_is_chevron(str[i]))
 		{
 			if (chevron(&str[i]) == -1)
@@ -95,7 +113,7 @@ int	command_syntax(char *str)
 			if (skip_quote(str, str[i], &i) == -1)
 				return (-1);
 		}
-		if (str[i] != '\'' && str[i] != '\"' )
+		if (str[i] && ft_is_quote(str[i]) == 0)
 			i++;
 	}
 	return (0);
