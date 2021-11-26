@@ -15,12 +15,12 @@ typedef struct s_data{
 	char	**env_path;
 }				t_data;
 
-typedef struct p_bob {
+typedef struct s_bob {
 	char			**token;
 	int				fd_in;
 	int				fd_out;
 	int				mode_out;
-	struct p_bob	*next;
+	struct s_bob	*next;
 }				t_bob;
 
 typedef struct p_struc {

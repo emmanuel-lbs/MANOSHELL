@@ -2,7 +2,6 @@
 
 int	is_builtin(t_struct *s)
 {
-	printf("token = %s\n", s->bob->token[0]);
 	if (ft_strcmp(s->bob->token[0], "echo") == 0)
 		ft_echo(s);
 	else if (strcmp(s->bob->token[0], "pwd") == 0)

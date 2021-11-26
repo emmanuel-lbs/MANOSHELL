@@ -68,10 +68,11 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		add_history(str);
 		if (parsing(str, &s) == -1)
+		{
 			printf ("\033[31;01mERROR\033[00m\n");
+			
+		}
 		else
-			printf ("\033[34;01mPERFECT\033[00m\n");
-		if (heredocs(str) == 0)
-			ft_exec(&s, str);
+		{	printf ("\033[34;01mPERFECT\033[00m\n");ft_exec(&s, str);}
 	}
 }
