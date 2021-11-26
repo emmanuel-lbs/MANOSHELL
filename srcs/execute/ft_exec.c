@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-static int	ft_pathfinder(t_struct *s, int n)
+/*static int	ft_pathfinder(t_struct *s, int n)
 {
 	if (access(*s->bob->token, F_OK) == 0)
 		return (1);
@@ -110,3 +110,4 @@ int	ft_exec(t_struct *s)
 	}
 	return (0); //37 lignes Fonction erreur pour gagner 6 lignes
 }
+*/

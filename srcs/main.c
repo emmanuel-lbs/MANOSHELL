@@ -47,10 +47,8 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
-	int			i;
 	t_struct	s;
 
-	i = 0;
 	str = "";
 	ft_check_path(&s, envp, ac, av);
 	while (1)
@@ -66,7 +64,7 @@ int	main(int ac, char **av, char **envp)
 			printf ("\033[31;01mERROR\033[00m\n");
 		else
 			printf ("\033[34;01mPERFECT\033[00m\n");
-		if (heredocs(str) == 0)
-			ft_exec(&s);
+//		if (heredocs(str) == 0)
+//			ft_exec(&s);
 	}
 }
