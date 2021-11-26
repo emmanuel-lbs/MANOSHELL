@@ -29,9 +29,13 @@ int			ft_is_chevron(char c);
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-int			ft_exec(t_struct *s);
-
+/*Builtin function*/
+void		ft_echo(t_struct *s);
+void		ft_cd(t_struct *s);
+void		ft_pwd(void);
+/*Main execution*/
+int			is_builtin(t_struct *s);
+int			ft_exec(t_struct *s, char *str);
 
 
 

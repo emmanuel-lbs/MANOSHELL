@@ -52,6 +52,11 @@ int	main(int ac, char **av, char **envp)
 
 	i = 0;
 	str = "";
+	/*while (envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}*/
 	ft_check_path(&s, envp, ac, av);
 	while (1)
 	{
@@ -67,6 +72,6 @@ int	main(int ac, char **av, char **envp)
 		else
 			printf ("\033[34;01mPERFECT\033[00m\n");
 		if (heredocs(str) == 0)
-			ft_exec(&s);
+			ft_exec(&s, str);
 	}
 }

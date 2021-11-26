@@ -22,7 +22,7 @@ static int	ft_pathfinder(t_struct *s, int n)
 	return (1);
 }
 
-int	ft_exec(t_struct *s)
+int	ft_exec(t_struct *s, char *str)
 {
 	int	fd_in;
 	// ################## On attends bob du parsing ####################################
@@ -66,7 +66,7 @@ int	ft_exec(t_struct *s)
 	//TEST 0 PIPES
 	t_bob	bob;
 	s->bob = &bob;
-	s->bob->token = ft_split("cd ..", ' ');
+	s->bob->token = ft_split(str, ' ');
 	s->bob->next = NULL;
 
 	// ################## IL EST LA bob du parsing ####################################
@@ -74,38 +74,47 @@ int	ft_exec(t_struct *s)
 	// On boucle tant qu'on trouve une commande
 	while (s->bob != NULL)
 	{
-		if (pipe(s->data.end) == -1)
+		if (strcmp(s->bob->token[0], "cd") == 0 && !s->bob->next)
 		{
-			printf("Pipe error\n");
-			return (0);
-		}
-		s->data.id1 = fork();
-		if (s->data.id1 == -1)
-		{
-			printf("Fork error\n");
-			return (-1);
-		}
-		if (s->data.id1 == 0)
-		{	
-			//On change l'input avec l'ancient
-			dup2(fd_in, 0);
-			if (s->bob->next != NULL)
-				dup2(s->data.end[1], 1);
-			close(s->data.end[0]);
-			//if (is_builtin(s) == 0)
-//
-			if (ft_pathfinder(s, -1) == -1)
-				exit(EXIT_SUCCESS);
-			execve(s->bob->token[0], s->bob->token, s->data.envp);
-			exit(EXIT_FAILURE);
+			ft_cd(s);
+			s->bob = s->bob->next;
 		}
 		else
 		{
-			wait(NULL);
-			close(s->data.end[1]);
-			//on sauvegarde l'input pour le donner au prochain pipe
-			fd_in = s->data.end[0];
-			s->bob = s->bob->next;
+			if (pipe(s->data.end) == -1)
+			{
+				printf("Pipe error\n");
+				return (0);
+			}
+			s->data.id1 = fork();
+			if (s->data.id1 == -1)
+			{
+				printf("Fork error\n");
+				return (-1);
+			}
+			if (s->data.id1 == 0)
+			{	
+				//On change l'input avec l'ancient
+				dup2(fd_in, 0);
+				if (s->bob->next != NULL)
+					dup2(s->data.end[1], 1);
+				close(s->data.end[0]);
+				if (is_builtin(s) == 0)
+				{
+					if (ft_pathfinder(s, -1) == -1)
+						exit(EXIT_SUCCESS);
+					execve(s->bob->token[0], s->bob->token, s->data.envp);
+				}
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				wait(NULL);
+				close(s->data.end[1]);
+				//on sauvegarde l'input pour le donner au prochain pipe
+				fd_in = s->data.end[0];
+				s->bob = s->bob->next;
+			}
 		}
 	}
 	return (0); //37 lignes Fonction erreur pour gagner 6 lignes

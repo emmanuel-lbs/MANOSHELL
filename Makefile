@@ -6,6 +6,10 @@ SRCS = srcs/main.c \
 		srcs/parsing/ft_shell_split.c \
 		srcs/parsing/syntax.c \
 		srcs/execute/ft_exec.c \
+		srcs/execute/is_builtin.c \
+		srcs/execute/builtin/ft_echo.c \
+		srcs/execute/builtin/ft_pwd.c \
+		srcs/execute/builtin/ft_cd.c \
 		
 
 OBJS = $(SRCS:.c=.o)
@@ -18,7 +22,7 @@ INCLUDE = includes/minishell.h includes/structure.h
 
 RM = rm -f
 
-GCCF = gcc -Wall -Wextra #-Werror
+GCCF = gcc -Wall -Wextra -fsanitize=address #-Werror 
 
 ##################################  RULES  #####################################
 
