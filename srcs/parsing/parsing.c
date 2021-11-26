@@ -2,36 +2,36 @@
 
 char	*malloc_cut_cmd(char *str, int i)
 {
-	char *cmd;
-	int j;
+		char *cmd;
+		int j;
 
-	j = i;
-	while (str[i] && str[i] != '|')
-	{
-		if (str[i] == '\'' || str[i] == '\"' )
-			skip_quote(str, str[i], &i);
-		if (str[i])
-			(i)++;
-	}
-	j = (i) - j;
-	cmd = malloc(sizeof(char) * (j + 1));
-	return (cmd);
+		j = i;
+		while (str[i] && str[i] != '|')
+		{
+				if (str[i] == '\'' || str[i] == '\"' )
+						skip_quote(str, str[i], &i);
+				if (str[i] && ft_is_quote(str[i]) == 0)
+						(i)++;
+		}
+		j = (i) - j;
+		//fct dis il y as cmb de caractere quote pour soustraire a j;
+		cmd = malloc(sizeof(char) * (j + 1));
+		return (cmd);
 }
 
-int		cpy_quote(char *cpy, char *cmd, char quote, int *j)
+void		cpy_quote(char *cpy, char *str, int *cpy_i, int *str_i)
 {
-	int i;
+		char	quote;
 
-	i = 0;
-	cpy[*j] = quote;
-	(*j)++;
-	while (cmd[i] && cmd[i] != quote)
-	{
-		cpy[*j] = cmd[i];
-		(*j)++;
-		i++;
-	}
-	return (i);
+		quote = str[*str_i];
+		(*str_i)++;
+		while (str[*str_i] && str[*str_i] != quote)
+		{
+				cpy[*cpy_i] = str[*str_i];
+				(*cpy_i)++;
+				(*str_i)++;
+		}
+		(*str_i)++;
 }
 
 /*
@@ -43,26 +43,51 @@ int		cpy_quote(char *cpy, char *cmd, char quote, int *j)
  *			  ex : echo a b >> lol | wc -l mano | oe;
  *			  return ("echo a b >> lol")
  */
-char *cut_cmd(char *str, int *i)
+char *cut_cmd(char *str, int *str_i)
 {
-	char	*cmd;
-	int		j;
+		char	*cmd;
+		int		cmd_j;
+		int		tmp;
 
-	cmd = malloc_cut_cmd(str, *i);
-	j = 0;
-//	while (str[*i] && str[*i] != '|')
-//	{
-//		if (str[*i] == '\'' || str[*i] == '\"')
-//		{
-//			cpy_quote(cmd, str, str[*i], &j);
-//		}
-//		cmd[j] = str[*i];
-//		(*i)++;
-//		j++;
-//	}
-	cmd[j] = 0;
-	(*i)++;
-	return (cmd);
+		tmp = *str_i;
+		cmd = malloc_cut_cmd(str, tmp);
+		int i = 0;
+		while (str[i] && str[i] != '|')
+		{
+				cmd[i] = 'a';
+				i++;
+		}
+		cmd[i] = 0;
+
+		cmd_j = 0;
+		while (str[tmp] && str[tmp] != '|')
+		{
+				if (ft_is_quote(str[tmp] == 1))
+						cpy_quote(cmd, str, &cmd_j, &tmp);
+				if (str[tmp] && ft_is_quote(str[tmp]) == 0)
+				{
+						cmd[cmd_j] = str[tmp];
+						tmp++;
+						cmd_j++;
+				}
+		}
+		cmd[cmd_j] = 0;
+		*str_i = tmp;
+		return (cmd);
+
+		//while (str[*str_i] && str[*str_i] != '|')
+		//{
+		//	if (ft_is_quote(str[str_i]) == 1)
+		//		cpy_quote(cmd, str, &str_i, &cmd_j);
+		//	if (str[str_i] && ft_is_quote(str[str_i]) == 0)
+		//		(str_i)++;
+		//	cmd[cmd_j] = str[*str_i];
+		//	(*str_i)++;
+		//	cmd_j++;
+		//}
+		//cmd[cmd_j] = 0;
+		//(*str_i)++;
+		return (cmd);
 }
 
 /*
@@ -72,35 +97,36 @@ char *cut_cmd(char *str, int *i)
  */
 int	create_bob(t_struct *s, char *str)
 {
-	int		i;
-	char	*cmd;
-	int j;
+		int		i;
+		char	*cmd;
+		int j;
 
-	i = 0;
-	cmd = cut_cmd(str , &i);
-	//	printf("la commmande -> %snb de token = %d\n", str, ft_countwords(cmd));
-	//	s->bob.token = split_shell(cmd);;
-	//	j = 0;
-	//	while (s->bob.token[j])
-	//	{
-	//		printf("%s\n", s->bob.token[j]);
-	//		j++;
-	//	}
-	//	new_block(cmd);
-	//	while (str[i])
-	//	{
-	//		free(cmd);
-	//		cmd = cut_cmd(str , &i);
-	//		printf("la commmande -> %snb de token = %d\n",cmd, ft_countwords(cmd));
-	//		s->bob.token = split_shell(cmd);;
-	//		j = 0;
-	//		while (s->bob.token[j])
-	//		{
-	//			printf("%s\n", s->bob.token[j]);
-	//			j++;
-	//		}
-	//		//		add_back_bob(&s->bob.next, new_block(cmd));
-	//	}
+		i = 0;
+		cmd = cut_cmd(str , &i);
+		printf("%s\n",cmd);
+		//	printf("la commmande -> %snb de token = %d\n", str, ft_countwords(cmd));
+		//	s->bob.token = split_shell(cmd);;
+		//	j = 0;
+		//	while (s->bob.token[j])
+		//	{
+		//		printf("%s\n", s->bob.token[j]);
+		//		j++;
+		//	}
+		//	new_block(cmd);
+		//	while (str[i])
+		//	{
+		//		free(cmd);
+		//		cmd = cut_cmd(str , &i);
+		//		printf("la commmande -> %snb de token = %d\n",cmd, ft_countwords(cmd));
+		//		s->bob.token = split_shell(cmd);;
+		//		j = 0;
+		//		while (s->bob.token[j])
+		//		{
+		//			printf("%s\n", s->bob.token[j]);
+		//			j++;
+		//		}
+		//		//		add_back_bob(&s->bob.next, new_block(cmd));
+		//	}
 		return (0);
 }
 
@@ -113,12 +139,12 @@ int	create_bob(t_struct *s, char *str)
  */
 int	parsing(char *str, t_struct *s)
 {
-	if (no_commande(str) == -1)
-		return (-1);
-	if (command_syntax(str) == -1)
-		return (-1);
-//	if (create_bob(s, str) == -1)
-//		return (-1);
-	return (0);
+		if (no_commande(str) == -1)
+				return (-1);
+		if (command_syntax(str) == -1)
+				return (-1);
+//		if (create_bob(s, str) == -1)
+//				return (-1);
+		return (0);
 }
 
