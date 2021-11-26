@@ -3,6 +3,8 @@
 
 /*static int	ft_pathfinder(t_struct *s, int n)
 {
+	if (access(*s->bob->token, F_OK) == 0)
+		return (1);
 	while (s->data.env_path[++n])
 	{	
 		s->data.env_path[n] = ft_strjoin(s->data.env_path[n], "/");
@@ -41,16 +43,16 @@ int	ft_exec(t_struct *s)
 	// s->bob->next = &bob2;
 
 	//TEST 2 PIPES
-	t_bob	bob;
-	t_bob	bob2;
-	t_bob	bob3;
-	s->bob = &bob;
-	s->bob->token = ft_split("ls -l", ' ');
-	bob2.token = ft_split("wc", ' ');
-	bob3.token = ft_split("wc", ' ');
-	bob3.next = NULL;
-	bob2.next = &bob3;
-	s->bob->next = &bob2;
+	// t_bob	bob;
+	// t_bob	bob2;
+	// t_bob	bob3;
+	// s->bob = &bob;
+	// s->bob->token = ft_split("ls -l", ' ');
+	// bob2.token = ft_split("wc", ' ');
+	// bob3.token = ft_split("wc", ' ');
+	// bob3.next = NULL;
+	// bob2.next = &bob3;
+	// s->bob->next = &bob2;
 
 	//TEST 1 PIPES
 	// t_bob	bob;
@@ -62,10 +64,10 @@ int	ft_exec(t_struct *s)
 	// s->bob->next = &bob2;
 
 	//TEST 0 PIPES
-	// t_bob	bob;
-	// s->bob = &bob;
-	// s->bob->token = ft_split("ls -l", ' ');
-	// s->bob->next = NULL;
+	t_bob	bob;
+	s->bob = &bob;
+	s->bob->token = ft_split("cd ..", ' ');
+	s->bob->next = NULL;
 
 	// ################## IL EST LA bob du parsing ####################################
 	fd_in = 0;
@@ -90,6 +92,8 @@ int	ft_exec(t_struct *s)
 			if (s->bob->next != NULL)
 				dup2(s->data.end[1], 1);
 			close(s->data.end[0]);
+			//if (is_builtin(s) == 0)
+//
 			if (ft_pathfinder(s, -1) == -1)
 				exit(EXIT_SUCCESS);
 			execve(s->bob->token[0], s->bob->token, s->data.envp);
