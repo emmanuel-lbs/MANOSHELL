@@ -1,37 +1,36 @@
-#include "../../minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_unset(t_struct *s)
 {
-	char	**mem;
 	int		i;
+	int		j;
 
 	i = 1;
-	while (s->bob.content[i] != NULL)
+	j = 0;
+	while (s->bob->token[i] != NULL)
 	{
-		if (!ft_isalpha(s->bob.content[i]))
+		if (!ft_isalpha(s->bob->token[i][0]))
 		{
-			erno = 1;
-			printf("export: \'%s\': not a valid identifier", s->bob.content[i]);
+			printf("export: \'%s\': not a valid identifier", s->bob->token[i]);
 		}
-		else 
+		else
 		{
-			while (s->bob.content[i][j] != '=' && s->bob.content[i][j])
+			while (s->bob->token[i][j] != '=' && s->bob->token[i][j])
 			{
-				if (!ft_isalphanum(s->bob.content[i][j]))
+				if (!ft_isalnum(s->bob->token[i][j]))
 				{
-					erno = 1;
-					printf("export: \'%s\': not a valid identifier", s->bob.content[i]);						
+					printf("export: \'%s\': not a valid identifier", s->bob->token[i]);
 				}
 				j++;
 			}
-			if (s->bob.content[i][j] == '=' || !s->bob.content[i][j])
+			if (s->bob->token[i][j] == '=' || !s->bob->token[i][j])
 			{
 				while (s->env.next != NULL)
 				{
 					s->env = *s->env.next;
-					if (ft_strncmp(s->env.content, s->bob.content[i], ft_strlen(s->bob.content[i])))
+					if (ft_strncmp(s->env.content, s->bob->token[i], ft_strlen(s->bob->token[i])))
 					{
-						ft_lstdelone(s->env);
+						ft_lstdelone(&s->env, NULL);
 						break ;
 					}
 				}

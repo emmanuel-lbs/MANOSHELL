@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "../../../includes/minishell.h"
 
 // A TESTER !!!
 // A TESTER !!!
@@ -14,7 +14,7 @@
 //
 //	i = 1;
 //	j = 0;
-//	if (s->bob.content[1] == NULL)
+//	if (s->bob->token[1] == NULL)
 //	{
 //		ft_lst_sort_str(s->env);
 //		while (s->env.next != NULL)
@@ -41,7 +41,7 @@
 //	}
 //	else
 //	{
-//		while (s->bob.content[i])
+//		while (s->bob->token[i])
 //		{
 //			ft_lstadd_front(&s->env.next, ft_lstnew(envp[i]));
 //			i++;
@@ -51,6 +51,15 @@
 //}
 
 //AVEC UN SPLIT
+t_list	*ft_searchdup(t_struct *s, char *str)
+{
+	while (s->env.next != NULL)
+	{
+		s->env = *s->env.next;
+		if (s->env.content == 
+	}
+}
+
 void	ft_export(t_struct *s)
 {
 	char	**mem;
@@ -59,16 +68,16 @@ void	ft_export(t_struct *s)
 
 	i = 1;
 	j = 0;
-	if (s->bob.content[1] == NULL)
+	if (s->bob->token[1] == NULL)
 	{
-		ft_lst_sort_str(s->env);
+		//ft_lstsort_str(s->env);
 		while (s->env.next != NULL)
 		{
 			s->env = *s->env.next;
 			if (ft_strchr(s->env.content, '='))
 			{
 				mem = ft_split(s->env.content, '=');
-				printf("declare -x %s\"", mem[0]);
+				printf("declare -x %s=\"", mem[0]);
 				while (mem && mem[i])
 				{
 					printf("%s", mem[i]);
@@ -78,34 +87,34 @@ void	ft_export(t_struct *s)
 				printf("\"\n");
 			}
 			else
-				printf("declare -x %s",s->env.content);
+				printf("declare -x %s\n",s->env.content);
 		}
+		s->env = *s->first;
 	}
 	else
 	{
-		while (s->bob.content[i])
+		while (s->bob->token[i])
 		{
-			if (!ft_isalpha(s->bob.content[i]))
+			if (!ft_isalpha(s->bob->token[i][0]))
 			{
-				erno = 1;
-				printf("export: \'%s\': not a valid identifier", s->bob.content[i]);
+				printf("export: \'%s\': not a valid identifier\n", s->bob->token[i]);
 			}
-			else 
+			else
 			{
-				while (s->bob.content[i][j] != '=' && s->bob.content[i][j])
+				while (s->bob->token[i][j] != '=' && s->bob->token[i][j])
 				{
-					if (!ft_isalphanum(s->bob.content[i][j]))
+					if (!ft_isalnum(s->bob->token[i][j]))
 					{
-						erno = 1;
-						printf("export: \'%s\': not a valid identifier", s->bob.content[i]);						
+						printf("export: \'%s\': not a valid identifier\n", s->bob->token[i]);
 					}
 					j++;
 				}
-				if (s->bob.content[i][j] == '=' || !s->bob.content[i][j])
-					ft_lstadd_front(&s->env.next, ft_lstnew(envp[i]));
+				if (s->bob->token[i][j] == '=' || !s->bob->token[i][j])
+				{
+					ft_lstadd_back(&s->env.next, ft_lstnew(s->bob->token[i]));
+				}
 			}
 			i++;
 		}
-		
 	}
 }

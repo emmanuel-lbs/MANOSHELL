@@ -1,15 +1,16 @@
-#include "../../minishell.h"
+#include "../../../includes/minishell.h"
 
 void ft_env(t_struct *s)
 {
-	if (s->bob.content[1] = NULL)
+	if (s->bob->token[1] != NULL)
 	{
-		erno = 1;
 		printf("env: Invalid number of arguments\n");
 		exit(1);
 	}
 	while (s->env.next != NULL)
 	{
-	  s->env = *s->env.next;
+		s->env = *s->env.next;
+		if (ft_strchr(s->env.content, '=') != NULL)
+			printf("%s\n", s->env.content);
 	}
 }

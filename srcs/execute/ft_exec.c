@@ -79,6 +79,16 @@ int	ft_exec(t_struct *s, char *str)
 			ft_cd(s);
 			s->bob = s->bob->next;
 		}
+		else if (strcmp(s->bob->token[0], "export") == 0 && !s->bob->next)
+		{
+			ft_export(s);
+			s->bob = s->bob->next;
+		}
+		else if (strcmp(s->bob->token[0], "unset") == 0 && !s->bob->next)
+		{
+			ft_unset(s);
+			s->bob = s->bob->next;
+		}
 		else
 		{
 			if (pipe(s->data.end) == -1)
