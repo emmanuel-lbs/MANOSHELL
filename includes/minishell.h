@@ -17,22 +17,20 @@
 
 /*main fct of parsing*/
 int			parsing(char *str, t_struct *s);
-char		*pre_split(char *str);
 /*syntax*/
+int			no_commande(char *str);
 int			skip_quote(const char *s, char quote, int *i);
 int			command_syntax(char *str);
-int			no_commande(char *str);
 /*split*/
 int			ft_countwords(const char *s);
-char		**shell_split(char *str, t_struct *s);
+char		**split_shell(char *cmd);
 /*utils*/
 int			ft_is_chevron(char c);
-int		ft_is_quote(char c);
+int			ft_is_quote(char c);
 /*lst_bob*/
+int			create_bob(t_struct *s, char **str);
 void		add_back_bob(t_bob **bob, t_bob *add);
-t_bob		*new_block(char *str);
-/*split*/
-char **split_shell(char *cmd);
+void		new_block(t_struct *s, char **str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 int			ft_exec(t_struct *s);

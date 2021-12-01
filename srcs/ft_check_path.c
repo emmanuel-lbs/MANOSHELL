@@ -35,6 +35,7 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	while (envp[i])
 	{
 		ft_lstadd_back(&s->env.next, ft_lstnew(envp[i]));
+		printf("ou\n");
 		i++;
 	}
 	s->first = s->env;

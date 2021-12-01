@@ -7,6 +7,7 @@ SRCS = srcs/main.c \
 		srcs/parsing/syntax.c \
 		srcs/parsing/utils.c \
 		srcs/parsing/lst_bob.c \
+		srcs/parsing/tokenisation.c \
 		srcs/execute/ft_exec.c \
 		
 
@@ -20,7 +21,7 @@ INCLUDE = includes/minishell.h includes/structure.h
 
 RM = rm -f
 
-GCCF = gcc -Wall -Wextra #-Werror
+GCCF = gcc -Wall -Wextra -fsanitize=address #-Werror
 
 ##################################  RULES  #####################################
 

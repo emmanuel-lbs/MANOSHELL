@@ -26,12 +26,14 @@ int	skip_quote(const char *s, char quote, int *i)
 		return (-1);
 	}
 	(*i)++;
-	printf("%s\n",&s[*i]);
 	if (s[*i] && ft_is_quote(s[*i]) == 1)
 		if (skip_quote(s, s[*i], i) == -1)
 			return (-1);
-	while (s[*i] && s[*i] != ' ' && ft_is_quote(s[*i]) == 0)
+	while (s[*i] && s[*i] != ' ' && ft_is_quote(s[*i]) == 0 && ft_is_chevron(s[*i]) == 0)
 		(*i)++;
-	printf("%s\n",&s[*i]);
+	if (s[*i] && ft_is_quote(s[*i]) == 1)
+		if (skip_quote(s, s[*i], i) == -1)
+			return (-1);
 	return (0);
 }
+
