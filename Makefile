@@ -5,6 +5,9 @@ SRCS = srcs/main.c \
 		srcs/parsing/parsing.c \
 		srcs/parsing/ft_shell_split.c \
 		srcs/parsing/syntax.c \
+		srcs/parsing/utils.c \
+		srcs/parsing/lst_bob.c \
+		srcs/parsing/tokenisation.c \
 		srcs/execute/ft_exec.c \
 		
 
@@ -26,7 +29,7 @@ all :	libf $(NAME)
 
 
 $(NAME):	$(INCLUDE) $(OBJS)
-	$(GCCF) -lreadline $(OBJS) libft.a -o $(NAME)
+	$(GCCF) $(OBJS) -lreadline libft.a -o $(NAME)
 
 %.o: %.c	$(INCLUDE) 
 	${GCCF} -c $< -o $@ 

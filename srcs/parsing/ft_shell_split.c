@@ -1,105 +1,30 @@
 
 #include "../../includes/minishell.h"
 
-int	skip_quote(const char *s, char quote, int *i)
-{
-	if (s[*i] && s[*i] == quote)
-	{
-		(*i)++;
-		while (s[*i] && s[*i] != quote)
-			(*i)++;
-		if (s[*i] != quote)
-		{
-			printf("missing one quote\n");
-			return (-1);
-		}
-	}
-	return (0);
-}
-
-int	ft_countwords(const char *s)
-{
-	int	nb;
-	int	i;
-
-	i = 0;
-	nb = 0;
-	while (s[i])
-	{
-		if (s[i] == ' ')
-		{
-			while (s[i] && s[i] == ' ')
-				i++;
-		}
-		else if (s[i] == '\'' || s[i] == '\"' )
-		{
-			skip_quote(s, s[i], &i);
-			while (s[i] && s[i] != ' ')
-				i++;
-			nb++;
-		}
-		else if (ft_isprint(s[i]))
-		{
-			while (s[i] && ft_isprint(s[i]) && s[i] != ' ')
-				i++;
-			nb++;
-		}
-		if (s[i] != 0)
-			i++;
-	}
-	return (nb);
-}
-
-char *cut_cmd(char *str, int *i)
-{
-	char *cmd;
-	int tmp;
-	int j;
-
-	j = 0;
-	tmp = *i;
-	while (str[*i] && str[*i] != '|')
-	{
-		j++;
-		(*i)++;
-	}
-	cmd = malloc(sizeof(char) * (j + 1));
-	*i = tmp;
-	j = 0;
-	while (str[*i] && str[*i] != '|')
-	{
-		cmd[j] = str[*i];
-		(*i)++;
-		j++;
-	}
-	cmd[j] = 0;
-	(*i)++;
-	return (cmd);
-}
-
-void	new_block(t_struct *s, char *str)
-{
-	while (s->bob->next != NULL)
-		s->bob = s->bob->next;
-//	s->bob->token = malloc (sizeof(char *) * (ft_countwords(str) + 1));
-}
-
-int	create_bob(t_struct *s, char *str)
-{
-	int		i;
-	char	*cmd;
-
-	i = 0;
-	cmd = cut_cmd(str , &i);
-	printf("%s\nnb de token = %d\n",cmd, ft_countwords(cmd));
-//	printf("%p", s->bob->next);
-//	new_block(s, cmd);
-	while (str[i])
-	{
-		free(cmd);
-		cmd = cut_cmd(str , &i);
-		//	new_block(s, cmd);
-		printf("%s\nnb de token = %d\n",cmd, ft_countwords(cmd));
-	}
-	return (0);
-}
+//char	**malloc_cmd(char **str, int start)
+//{
+//		char **cmd;
+//		int nb_word;
+//
+//		nb_word = start;
+//		while (str[nb_word] && str[nb_word][0] != '|')
+//				nb_word++;
+//		cmd = malloc(sizeof(char *) * (nb_word - start + 1));
+//		if (cmd == NULL)
+//				return (NULL);
+//		return (cmd);
+//}
+//
+//char	**one_cmd(char **str)
+//{
+//		char	**cmd;
+//		int nb_word;
+//
+//		cmd = malloc_cmd(str);
+//		if (cmd == NULL)
+//				return (NULL);
+//
+//		nb_word = 0;
+//		while (cmd[nb_word] && cmd[nb_word][0] != '|')
+//				nb_word++;
+//}

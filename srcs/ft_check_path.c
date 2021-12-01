@@ -1,6 +1,28 @@
 
 #include "../includes/minishell.h"
 
+static void	ft_get_pwd(t_struct *s, char **envp)
+{
+	int		i;
+	char	**mem;
+
+	i = 0;
+	while (ft_strncmp(envp[i], "PWD=", 4))
+		i++;
+	mem = ft_split((envp[i]), '/');
+	i = 0;
+	while (mem[i])
+		i++;
+	s->prompt = ft_strjoin(mem[i - 1], " :");
+	i = 0;
+	while (mem[i])
+	{
+		free(mem[i]);
+		i++;
+	}
+	free(mem);
+}
+
 //Initialisation de la structure Data et environnement
 int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 {
@@ -13,12 +35,15 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	while (envp[i])
 	{
 		ft_lstadd_back(&s->env.next, ft_lstnew(envp[i]));
+		printf("ou\n");
 		i++;
 	}
+	s->first = s->env;
 	while (s->env.next != NULL)
 	{
-		printf("env = %s\n", s->env.content);
 		s->env = *s->env.next;
+		if (ft_strncmp(s->env.content, "PWD=", 4))
+			s->pwd = s->env;
 	}
 	i = 0;
 	while (ft_strncmp(envp[i], "PATH=", 5))
