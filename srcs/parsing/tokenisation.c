@@ -22,6 +22,12 @@ int	ft_countwords(const char *s)
 						nb++;
 				while (s[i] && s[i] != ' ')
 				{
+						if (s[i] && s[i] == '|' && (s[i - 1] != ' ' || s[i + 1] != ' '))
+						{
+								if (s[i - 1] != ' ' && s[i + 1] != ' ')
+										nb++;
+								nb++;
+						}
 						if (s[i] && ft_is_quote(s[i]) == 1)
 						{
 								skip_quote(s, s[i], &i);
@@ -36,7 +42,9 @@ int	ft_countwords(const char *s)
 										nb++;
 						}
 						else
+						{
 								i++;
+						}
 				}
 		}
 		return (nb);
@@ -168,8 +176,14 @@ char	*one_token(char *cmd, int *i)
 				(*i)++;
 				j++;
 		}
-		if (ft_is_quote(cmd[*i]) == 1)
+		if (cmd[*i] && ft_is_quote(cmd[*i]) == 1)
 				cpy_quote(a_token, cmd, &j, i);
+		if (cmd[*i] && cmd[*i] == '|' && j == 0)
+		{
+				a_token[j] = cmd[*i];
+				(*i)++;
+				j++;
+		}
 		a_token[j] = 0;
 		return (a_token);
 }
@@ -184,6 +198,7 @@ char **split_shell(char *cmd)
 		token = malloc(sizeof(char *) * (ft_countwords(cmd) + 1));
 		if (token == NULL)
 				return (NULL);
+		printf("countword =%d\n",ft_countwords(cmd) + 1);
 		i = 0;
 		word = 0;
 		while (cmd[i])
