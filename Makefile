@@ -5,6 +5,9 @@ SRCS = srcs/main.c \
 		srcs/parsing/parsing.c \
 		srcs/parsing/ft_shell_split.c \
 		srcs/parsing/syntax.c \
+		srcs/parsing/utils.c \
+		srcs/parsing/lst_bob.c \
+		srcs/parsing/tokenisation.c \
 		srcs/execute/ft_exec.c \
 		
 
