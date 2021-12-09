@@ -28,11 +28,7 @@ INCLUDE = includes/minishell.h includes/structure.h
 
 RM = rm -f
 
-<<<<<<< HEAD
-GCCF = gcc -Wall -Wextra -fsanitize=address #-Werror
-=======
 GCCF = gcc -Wall -Wextra -fsanitize=address #-Werror 
->>>>>>> 4fcd040ce54581d2c6b0be16989c98bc8833baee
 
 ##################################  RULES  #####################################
 
