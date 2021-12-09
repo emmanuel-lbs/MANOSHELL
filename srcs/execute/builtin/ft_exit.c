@@ -16,7 +16,7 @@ static int	ft_checkdigit(char *str)
 
 void	ft_exit(t_struct *s)
 {
-	printf("exit\n);
+	printf("exit\n");
 	if (s->bob->token[1] == NULL)
 		exit(sim);
 	else if (s->bob->token[1] && s->bob->token[2] != NULL)

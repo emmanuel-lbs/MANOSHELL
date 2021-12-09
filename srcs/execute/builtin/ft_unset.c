@@ -1,9 +1,5 @@
 #include "../../../includes/minishell.h"
 
-void	ft_del(void *lst)
-{
-	free(lst->content);
-}
 
 void	ft_unset(t_struct *s)
 {
@@ -32,10 +28,10 @@ void	ft_unset(t_struct *s)
 			{
 				while (s->env.next != NULL)
 				{
-					if (ft_strncmp(s->next->env.content, s->bob->token[i], ft_strlen(s->bob->token[i])))
+					if (ft_strncmp(s->env.next->content, s->bob->token[i], ft_strlen(s->bob->token[i])))
 					{
 						s->env.next = s->env.next->next;
-						ft_lstdelone(&s->env.next, ft_del);
+						//ft_lstdelone(&s->env.next, ft_del);
 						break ;
 					}
 					s->env = *s->env.next;
