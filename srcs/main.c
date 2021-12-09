@@ -3,6 +3,8 @@
 #include "../includes/minishell.h"
 #include "../includes/structure.h"
 
+static int	sim = 0;
+
 int		heredocs(char *str)
 {
 	int i;
@@ -29,18 +31,26 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 	int		i;
 	char	**mem;
 
-	i = 0;
 	mem = ft_split((pwd), '/');
 	i = 0;
 	while (mem[i])
 		i++;
-	s->prompt = ft_strjoin("\033[1;36m", ft_strjoin(mem[i - 1], " :\033[0m "));
+	if (i == 1)
+	{
+		mem[0][0] = '/';
+		mem[0][1] = '\0';
+	}
+	if (sim != 0)
+		s->prompt = ft_strjoin("\033[0;31m➜ \033[1;36m", ft_strjoin(mem[i - 1], "\033[0m "));
+	else
+		s->prompt = ft_strjoin("\033[0;32m➜ \033[1;36m", ft_strjoin(mem[i - 1], "\033[0m "));
 	i = 0;
 	while (mem[i])
 	{
 		free(mem[i]);
 		i++;
 	}
+	s->env = *s->first.next;
 	free(mem);
 }
 
@@ -52,12 +62,14 @@ int	main(int ac, char **av, char **envp)
 
 	i = 0;
 	str = "";
-	/*while (envp[i])
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}*/
 	ft_check_path(&s, envp, ac, av);
+	while (s.data.env_path && s.data.env_path[i])
+	{
+		printf("%s\n", s.data.env_path[i]);
+		i++;
+	}
+	s.env = s.first;
+	printf("%s\n", s.first.content);
 	while (1)
 	{
 		//On stocke le stdin dans str,
@@ -70,9 +82,12 @@ int	main(int ac, char **av, char **envp)
 		if (parsing(str, &s) == -1)
 		{
 			printf ("\033[31;01mERROR\033[00m\n");
-			
 		}
 		else
-		{	printf ("\033[34;01mPERFECT\033[00m\n");ft_exec(&s, str);}
+		{	
+			printf ("\033[34;01mPERFECT\033[00m\n");
+			ft_exec(&s, str);
+		}
+		sim = errno;
 	}
 }
