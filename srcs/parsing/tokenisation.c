@@ -84,26 +84,31 @@ int size_of_token(char *cmd, int i)
 		return (i - tmp);
 }
 
-void	cpy_quote(char *cpy, char *cmd, int *i, int *j)
+void	cpy_quote(char *cmd)
 {
-		char quote;
+		char	quote;
+		char	*a_token;
+		int i;
 
-		if (ft_is_quote(cmd[*j]) == 1)
+		i = 0;
+		skip_quote(cmd, cmd[i], &i);
+		a_token = malloc(sizeof(char) * (i + 1));
+		if (a_token == NULL)
+				return (NULL);
+		i = 0;
+		quote = cmd[i];
+		cpy[i] = quote;
+		(*j)++;
+		(*i)++;
+		while (cmd[*j] && cmd[*j] != quote)
 		{
-				quote = cmd[*j];
-				cpy[*i] = quote;
-				(*j)++;
-				(*i)++;
-				while (cmd[*j] && cmd[*j] != quote)
-				{
-						cpy[*i] = cmd[*j];
-						(*j)++;
-						(*i)++;
-				}
-				cpy[*i] = quote;
+				cpy[*i] = cmd[*j];
 				(*j)++;
 				(*i)++;
 		}
+		cpy[*i] = quote;
+		(*j)++;
+		(*i)++;
 		if (cmd[*j] && ft_is_quote(cmd[*j]) == 1)
 				cpy_quote(cpy, cmd, i, j);
 		while (cmd[*j] && cmd[*j] != ' ' && ft_is_chevron(cmd[*j]) == 0 && ft_is_quote(cmd[*j]) == 0)
@@ -116,37 +121,27 @@ void	cpy_quote(char *cpy, char *cmd, int *i, int *j)
 				cpy_quote(cpy, cmd, i, j);
 }
 
-int	cpy_chevron(char *cpy, char *cmd, int *i)
+char	*cpy_chevron(char *cmd)
 {
-		int j;
+		int i;
+		char *a_token;
 
-		j = 0;
-		if (cmd[*i] == '>')
+		i = 1;
+		if (ft_is_chevron(cmd[i]) == 1)
+				i++;
+		a_token = malloc(sizeof(char) * (i + 1));
+		if (a_token == NULL)
+				return (NULL);
+		i = 0;
+		a_token[i] = cmd[i];
+		i++;
+		if (ft_is_chevron(cmd[i]) == 1)
 		{
-				cpy[j] = cmd[*i];
-				(*i)++;
-				j++;
-				if (cmd[*i] == '>')
-				{
-						cpy[j] = cmd[*i];
-						(*i)++;
-						j++;
-				}
+				a_token[i] = cmd[i];
+				i++;
 		}
-		else if (cmd[*i] == '<')
-		{
-				cpy[j] = cmd[*i];
-				(*i)++;
-				j++;
-				if (cmd[*i] == '<')
-				{
-						cpy[j] = cmd[*i];
-						(*i)++;
-						j++;
-				}
-		}
-		cpy[j] = 0;
-		return (j);
+		a_token[i] = 0;
+		return (a_token);
 }
 
 char	*one_token(char *cmd, int *i)
@@ -154,17 +149,23 @@ char	*one_token(char *cmd, int *i)
 		char	*a_token;
 		int		j;
 
-		a_token = malloc(sizeof(char) * (size_of_token(cmd, *i) + 1));
-		if (a_token == NULL)
-				return (NULL);
-		j = 0;
 		if (ft_is_chevron(cmd[*i]) == 1)
-		{
-				j = cpy_chevron(a_token, cmd, i);
-				return (a_token);
-		}
+				a_token = cpy_chevron(&cmd[*i]);
 		else if (ft_is_quote(cmd[*i]) == 1)
-				cpy_quote(a_token, cmd, &j, i);
+				a_token = cpy_quote(&cmd[*i]);
+		else if (cmd[*i] == '$')
+				a_token = token_dollars(&cmd[*i]);
+		else if (cmd[&i] == '|')
+		{
+				a_token = malloc(sizeof(char) * 2);
+				if (a_token = NULL)
+						return (NULL);
+				a_token[0] = '|';
+				a_token[1] = 0;
+		}
+		else
+				normal_token();
+
 		while (cmd[*i] && cmd[*i] != '|' && cmd[*i] != ' ' && ft_is_quote(cmd[*i]) == 0)
 		{
 				if (cmd[*i] && ft_is_chevron(cmd[*i]) == 1)
@@ -205,13 +206,16 @@ char **split_shell(char *cmd)
 		{
 				while (cmd[i] && cmd[i] == ' ')
 						i++;
-				token[word] = one_token(cmd, &i);
-				if (token[word] == NULL)
+				if (cmd[i])
 				{
-						//free
-						return (NULL);
+						token[word] = one_token(cmd, &i);
+						if (token[word] == NULL)
+						{
+								//free
+								return (NULL);
+						}
+						word++;
 				}
-				word++;
 		}
 		token[word] = 0;
 		return (token);

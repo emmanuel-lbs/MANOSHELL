@@ -24,13 +24,22 @@
 //	free(mem);
 //}
 //
+//
+ void	ft_get_pwd(t_struct *s, char **envp);
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
 	t_struct	s;
 
 	str = "";
-//	ft_check_path(&s, envp, ac, av);
+	ft_check_path(&s, envp, ac, av);
+	s.env = s.first;
+//	while (s.env.next != NULL)
+//	{
+//			s.env = *s.env.next;
+//			printf("==%s\n", s.env.content);
+//	}
 	while (1)
 	{
 		//On stocke le stdin dans str,

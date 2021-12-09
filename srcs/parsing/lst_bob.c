@@ -20,22 +20,23 @@ void	add_back_bob(t_bob **bob, t_bob *add)
 	}
 }
 
-t_bob	*ft_bobnew(char **str)
+t_bob	*new_bob(void)
 {
 	t_bob *list;
 
-	if (!(list = malloc(sizeof(*list))))
-		return (0);
-	list->token = str;
+	list = malloc(sizeof(*list));
+	if (!list)
+			return (0);
 	list->next = NULL;
+	list->fd_in = 0;
+	list->fd_out = 0;
+	list->mode_out = 0;
 	return (list);
 }
 void	new_block(t_struct *s, char **token)
 {
 		int nb_word = 0;
 
-		s->bob = malloc(sizeof(s->bob));
-		s->bob->next = NULL;
 		nb_word = 0;
 		while (token[nb_word] && token[nb_word][0] != '|')
 				nb_word++;
@@ -57,60 +58,116 @@ void	new_block(t_struct *s, char **token)
  * def		: cree la liste chainer comportant les cmd de char ** les fd;
  */
 
-int	fct(char **str, int start, int end, t_struct *s)
+char	*one_token_for_bob(char *str)
 {
 		int i;
+		int j;
+		char *a_token;
+
+		i = 0;
+		j = 0;
+		a_token = malloc(sizeof(char) * (ft_strlen(str) + 1));
+		if (!a_token)
+				return (NULL);
+		while (str[i])
+		{
+				a_token[j] = str[i];
+				i++;
+				j++;
+		}
+		a_token = 0;
+
+
+		/*
+		 * retirer les quotes, intepreter les $
+		 */
+
+
+		return (a_token);
+
+}
+
+void	gere_chevron(char **str, int actual_word, t_bob *bob)
+{
+		if (str[actual_word][0] == '>')
+		{
+				if (bob->fd_out != 0)
+						close(bob->fd_out);
+				if (!str[actual_word][1])
+						bob->mode_out = 1;
+				else
+						bob->mode_out = 2;
+				actual_word++;
+		}
+		else if (str[actual_word][0] == '<')
+		{
+				if (bob->fd_in != 0)
+						close(bob->fd_in);
+//				if (!str[actual_word][1])
+//						bob->mode_in = 1;
+//				else
+						//ft_heredocs ????
+		}
+}
+
+int	fct(char **str, int start, int end, t_bob *bob)
+{
 		int word;
 
-		s->bob = lastbob(s->bob);
-		s->bob->token = malloc(sizeof(char *) * (end - start + 1));
-		if (!s->bob->token)
+		bob = lastbob(bob);
+		bob->token = malloc(sizeof(char *) * (end - start + 1));
+		if (!bob->token)
 				return (-1);
 
 		word = 0;
-		while (start <= end)
+		while (start < end)
 		{
-				i = 0;
-				while (str[word][i])
+				if (ft_is_chevron(str[start][0]))
 				{
-						s->bob->token[start][i] = str[start][i];
-						i++;
+						gere_chevron(str, start, bob);
+						start++;
+				}
+				else
+				{
+						bob->token[word] = one_token_for_bob(str[start]);
+						word++;
 				}
 				start++;
-				word++;
 		}
+		bob->token[word] = 0;
+		printf("oe\n");
 		return (0);
 }
 
-int	create_bob(t_struct *s, char **str)
+t_bob	*create_bob(char **str)
 {
-		int j;
-
-		j = 0;
-		new_block(s, str);
-		while (s->bob->token[j])
-		{
-				printf("==%s\n",s->bob->token[j]);
-				j++;
-		}
-
-		int i;
+		t_bob *bob;
 		int start;
 		int end;
 
-		i = 0;
 		start = 0;
 		end = 0;
-		while (str[i])
+		bob = malloc(sizeof(*bob));
+		bob->next = NULL;
+
+		int j;
+		while (str[end])
 		{
-				while (str[i] && str[i][0] != '|')
-						i++;
-				end = i;
-				if (fct(str, start, end, s) == -1)
-						return (-1);
-				end += 2;
+				while (str[end] && str[end][0] != '|')
+						end++;
+				fct(str, start, end, bob);
+				if (str[end])
+						bob->next = new_bob();
+				if (str[end] && str[end][0] == '|')
+						end += 1;
 				start = end;
+				j = 0;
+				while (bob->token[j])
+				{
+						printf("%s\n",bob->token[j]);
+						j++;
+				}
 				//		add_back_bob(&s->bob.next, new_block(cmd));
 		}
-		return (0);
+		return (bob);
 }

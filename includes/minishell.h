@@ -28,7 +28,7 @@ char		**split_shell(char *cmd);
 int			ft_is_chevron(char c);
 int			ft_is_quote(char c);
 /*lst_bob*/
-int			create_bob(t_struct *s, char **str);
+t_bob		*create_bob(char **str);
 void		add_back_bob(t_bob **bob, t_bob *add);
 void		new_block(t_struct *s, char **str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

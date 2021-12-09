@@ -1,7 +1,7 @@
 
 #include "../includes/minishell.h"
 
-static void	ft_get_pwd(t_struct *s, char **envp)
+ void	ft_get_pwd(t_struct *s, char **envp)
 {
 	int		i;
 	char	**mem;
@@ -29,6 +29,7 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	int	i;
 
 	i = 0;
+	s->env.next = NULL;
 	s->data.av = av;
 	s->data.ac = ac;
 	s->data.envp = envp;
@@ -41,13 +42,10 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	s->first = s->env;
 	while (s->env.next != NULL)
 	{
-//<<<<<<< HEAD
 		printf("env = %p\n", s->env.content);
-//=======
-//>>>>>>> 6991882bb636ece0bd0d285d9e3afe3fe68f2eb7
-//		s->env = *s->env.next;
-//		if (ft_strncmp(s->env.content, "PWD=", 4))
-//			s->pwd = s->env;
+		s->env = *s->env.next;
+		if (ft_strncmp(s->env.content, "PWD=", 4))
+			s->pwd = s->env;
 	}
 	i = 0;
 	while (ft_strncmp(envp[i], "PATH=", 5))
