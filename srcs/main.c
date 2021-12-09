@@ -63,6 +63,13 @@ int	main(int ac, char **av, char **envp)
 	i = 0;
 	str = "";
 	ft_check_path(&s, envp, ac, av);
+	while (s.data.env_path && s.data.env_path[i])
+	{
+		printf("%s\n", s.data.env_path[i]);
+		i++;
+	}
+	s.env = s.first;
+	printf("%s\n", s.first.content);
 	while (1)
 	{
 		//On stocke le stdin dans str,
@@ -75,10 +82,12 @@ int	main(int ac, char **av, char **envp)
 		if (parsing(str, &s) == -1)
 		{
 			printf ("\033[31;01mERROR\033[00m\n");
-			
 		}
 		else
-		{	printf ("\033[34;01mPERFECT\033[00m\n");ft_exec(&s, str);}
+		{	
+			printf ("\033[34;01mPERFECT\033[00m\n");
+			ft_exec(&s, str);
+		}
 		sim = errno;
 	}
 }

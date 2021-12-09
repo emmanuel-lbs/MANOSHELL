@@ -51,15 +51,6 @@
 //}
 
 //AVEC UN SPLIT
-t_list	*ft_searchdup(t_struct *s, char *str)
-{
-	while (s->env.next != NULL)
-	{
-		s->env = *s->env.next;
-		if (s->env.content == 
-	}
-}
-
 void	ft_export(t_struct *s)
 {
 	char	**mem;
@@ -73,7 +64,6 @@ void	ft_export(t_struct *s)
 		//ft_lstsort_str(s->env);
 		while (s->env.next != NULL)
 		{
-			s->env = *s->env.next;
 			if (ft_strchr(s->env.content, '='))
 			{
 				mem = ft_split(s->env.content, '=');
@@ -88,8 +78,9 @@ void	ft_export(t_struct *s)
 			}
 			else
 				printf("declare -x %s\n",s->env.content);
+			s->env = *s->env.next;
 		}
-		s->env = *s->first;
+		s->env = s->first;
 	}
 	else
 	{

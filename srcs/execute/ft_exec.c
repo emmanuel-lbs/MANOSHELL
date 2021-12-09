@@ -3,22 +3,30 @@
 
 static int	ft_pathfinder(t_struct *s, int n)
 {
-	if (access(*s->bob->token, F_OK) == 0)
-		return (1);
-	while (s->data.env_path[++n])
-	{	
-		s->data.env_path[n] = ft_strjoin(s->data.env_path[n], "/");
-		s->data.env_path[n] = ft_strjoin(s->data.env_path[n], s->bob->token[0]);
-	}
-	n = 0;
-	while (access(s->data.env_path[n], F_OK) != 0 && s->data.env_path[n])
-		n++;
-	if (!s->data.env_path[n])
+	if (!s->data.env_path)
 	{
 		printf("Command not found: %s\n", s->bob->token[0]);
 		return (-1);
 	}
-	s->bob->token[0] = s->data.env_path[n];
+	else
+	{
+		if (access(*s->bob->token, F_OK) == 0)
+			return (1);
+		while (s->data.env_path[++n])
+		{	
+			s->data.env_path[n] = ft_strjoin(s->data.env_path[n], "/");
+			s->data.env_path[n] = ft_strjoin(s->data.env_path[n], s->bob->token[0]);
+		}
+		n = 0;
+		while (access(s->data.env_path[n], F_OK) != 0 && s->data.env_path[n])
+			n++;
+		if (!s->data.env_path[n])
+		{
+			printf("Command not found: %s\n", s->bob->token[0]);
+			return (-1);
+		}
+		s->bob->token[0] = s->data.env_path[n];
+	}
 	return (1);
 }
 
