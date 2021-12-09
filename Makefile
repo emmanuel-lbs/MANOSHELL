@@ -9,6 +9,13 @@ SRCS = srcs/main.c \
 		srcs/parsing/lst_bob.c \
 		srcs/parsing/tokenisation.c \
 		srcs/execute/ft_exec.c \
+		srcs/execute/is_builtin.c \
+		srcs/execute/builtin/ft_echo.c \
+		srcs/execute/builtin/ft_pwd.c \
+		srcs/execute/builtin/ft_cd.c \
+		srcs/execute/builtin/ft_export.c \
+		srcs/execute/builtin/ft_unset.c \
+		srcs/execute/builtin/ft_env.c \
 		
 
 OBJS = $(SRCS:.c=.o)
@@ -21,7 +28,11 @@ INCLUDE = includes/minishell.h includes/structure.h
 
 RM = rm -f
 
+<<<<<<< HEAD
 GCCF = gcc -Wall -Wextra -fsanitize=address #-Werror
+=======
+GCCF = gcc -Wall -Wextra -fsanitize=address #-Werror 
+>>>>>>> 4fcd040ce54581d2c6b0be16989c98bc8833baee
 
 ##################################  RULES  #####################################
 

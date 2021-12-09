@@ -6,7 +6,7 @@
 #    By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 15:33:24 by elabasqu          #+#    #+#              #
-#    Updated: 2021/11/12 13:57:57 by rozhou           ###   ########.fr        #
+#    Updated: 2021/11/30 14:15:43 by rozhou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,9 @@ SRCS = ft_memset.c \
 	   ft_lstadd_back.c \
 	   ft_lstclear.c \
 	   ft_lstnew.c \
+	   ft_lstadd_front.c \
+	   ft_lstdelone.c \
+	   ft_strcmp.c \
 
 NAME		= libft.a
 LIB			= libft.h
