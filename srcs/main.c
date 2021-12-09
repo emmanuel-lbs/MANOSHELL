@@ -74,6 +74,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	s.env = s.first;
 	printf("%s\n", s.first.content);
+	printf("testte\n");
 	while (1)
 	{
 		//On stocke le stdin dans str,
