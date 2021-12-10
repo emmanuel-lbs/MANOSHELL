@@ -63,12 +63,12 @@ int	main(int ac, char **av, char **envp)
 	i = 0;
 	str = "";
 	ft_check_path(&s, envp, ac, av);
+	s.env = s.first;
 	while (s.data.env_path && s.data.env_path[i])
 	{
 		printf("%s\n", s.data.env_path[i]);
 		i++;
 	}
-	s.env = s.first;
 	printf("%s\n", s.first.content);
 	while (1)
 	{
