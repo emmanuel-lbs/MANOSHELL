@@ -4,12 +4,13 @@ SRCS = srcs/main.c \
 		srcs/ft_check_path.c \
 		srcs/parsing/parsing.c \
 		srcs/parsing/ft_shell_split.c \
+		srcs/parsing/tokenisation.c \
 		srcs/parsing/syntax.c \
 		srcs/parsing/utils.c \
 		srcs/parsing/lst_bob.c \
-		srcs/parsing/tokenisation.c \
 		srcs/execute/ft_exec.c \
 		srcs/execute/is_builtin.c \
+		srcs/parsing/dollars.c \
 		srcs/execute/builtin/ft_echo.c \
 		srcs/execute/builtin/ft_pwd.c \
 		srcs/execute/builtin/ft_cd.c \
@@ -36,7 +37,7 @@ all :	libf $(NAME)
 
 
 $(NAME):	$(INCLUDE) $(OBJS)
-	$(GCCF) $(OBJS) libft.a -lreadline -o $(NAME)
+	$(GCCF) $(OBJS) -lreadline libft.a -o $(NAME)
 
 %.o: %.c	$(INCLUDE) 
 	${GCCF} -c $< -o $@ 
