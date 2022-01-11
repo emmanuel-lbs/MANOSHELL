@@ -14,8 +14,8 @@ int	parsing(char *str, t_struct *s)
 		int i = -1;
 		while (tokeniser[++i] != 0)
 				printf("==%s==\n",tokeniser[i]);
-//
-//		s->bob = create_bob(tokeniser);
+
+		s->bob = create_bob(tokeniser);
 		return (0);
 }
 

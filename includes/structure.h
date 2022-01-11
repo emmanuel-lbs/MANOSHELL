@@ -20,6 +20,7 @@ typedef struct s_bob {
 	int				fd_in;
 	int				fd_out;
 	int				mode_out;
+	int				mode_in;
 	struct s_bob	*next;
 }				t_bob;
 
