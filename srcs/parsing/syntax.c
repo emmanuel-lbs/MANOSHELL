@@ -8,58 +8,58 @@
  */
 int	chevron(char *str)
 {
-	int	i;
+		int	i;
 
-	i = 0;
-	while (str[i] && ft_is_chevron(str[i]))
-		i++;
-	if (i > 2)
-	{
-		if (str[i] == 0)
-			i--;
-		if (str[0] == '<' && str[1] == '<' && str[2] == '<')
-			printf("this operator is not support `<<<' \n");
-		else
-			printf("syntax error near unexpected token `%c'\n", str[i]);
-		return (-1);
-	}
-	if (i == 2 && str[0] != str[1])
-	{
-		printf("syntax error near unexpected token `%c'\n", str[1]);
-		return (-1);
-	}
-	while (str[i] && ft_is_ispaces(str[i]))
-		i++;
-	if (str[i] && (ft_is_chevron(str[i]) || str[i] == '|'))
-	{
-		printf("syntax error near unexpected token `%c'\n", str[i]);
-		return (-1);
-	}
-	return (0);
+		i = 0;
+		while (str[i] && ft_is_chevron(str[i]))
+				i++;
+		if (i > 2)
+		{
+				if (str[i] == 0)
+						i--;
+				if (str[0] == '<' && str[1] == '<' && str[2] == '<')
+						printf("this operator is not support `<<<' \n");
+				else
+						printf("syntax error near unexpected token `%c'\n", str[i]);
+				return (-1);
+		}
+		if (i == 2 && str[0] != str[1])
+		{
+				printf("syntax error near unexpected token `%c'\n", str[1]);
+				return (-1);
+		}
+		while (str[i] && ft_is_ispaces(str[i]))
+				i++;
+		if (str[i] && (ft_is_chevron(str[i]) || str[i] == '|'))
+		{
+				printf("syntax error near unexpected token `%c'\n", str[i]);
+				return (-1);
+		}
+		return (0);
 }
 
 int	check_double_pipe(char *str)
 {
-	int i;
+		int i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] && str[i] == '|')
+		i = 0;
+		while (str[i])
 		{
-			i++;
-			while (str[i] && str[i] == ' ')
-				i++;
-			if (str[i] && str[i] == '|')
-			{
-				printf("syntax error near unexpected token `%c'\n", str[i]);
-				return (-1);
-			}
+				if (str[i] && str[i] == '|')
+				{
+						i++;
+						while (str[i] && str[i] == ' ')
+								i++;
+						if (str[i] && str[i] == '|')
+						{
+								printf("syntax error near unexpected token `%c'\n", str[i]);
+								return (-1);
+						}
+				}
+				if (str[i])
+						i++;
 		}
-		if (str[i])
-				i++;
-	}
-	return (0);
+		return (0);
 }
 
 /*
@@ -102,7 +102,6 @@ int	command_syntax(char *str)
 		i = 0;
 		if (specific_case_syntax(str) == -1)
 				return (-1);
-		printf("ok\n\n");
 		while (str[i])
 		{
 				if (ft_is_chevron(str[i]))

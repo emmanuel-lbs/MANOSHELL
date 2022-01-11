@@ -18,22 +18,25 @@
 
 /*main fct of parsing*/
 int			parsing(char *str, t_struct *s);
-char		*pre_split(char *str);
 /*syntax*/
-int			skip_quote(const char *s, char quote, int *i);
-int			command_syntax(char *str);
 int			no_commande(char *str);
+int			skip_quote(char *s, char quote, int *i);
+int			command_syntax(char *str);
 /*split*/
-int			ft_countwords(const char *s);
-char		**shell_split(char *str, t_struct *s);
+int			ft_countwords(char *s);
+char		**split_shell(char *cmd, t_struct *s);
 /*utils*/
+char		*change_dollars(char *dollars, char *var);
+int			search_dollars(char *dollars, t_struct *s);
+char		*one_token_dollars(char *cmd, int *i);
 int			ft_is_chevron(char c);
-int			t_is_quote(char c);
+int			ft_is_quote(char c);
+void	add_char(char *cpy, char *str, int *i, int *j);
+int		resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
 /*lst_bob*/
+t_bob		*create_bob(char **str);
 void		add_back_bob(t_bob **bob, t_bob *add);
-t_bob		*new_block(char *str);
-/*split*/
-char		**split_shell(char *cmd);
+void		new_block(t_struct *s, char **str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*Builtin function*/
 void		ft_echo(t_struct *s);
