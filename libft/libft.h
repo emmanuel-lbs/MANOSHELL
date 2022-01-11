@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:05:28 by elabasqu          #+#    #+#             */
-/*   Updated: 2021/11/23 14:41:23 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/01/11 08:13:56 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void		ft_lstclear(t_list **lst, void (*del)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del) \
 		(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
-void		printf_lst(t_list *lst);
 char		**ft_free_split(char **str);
 int			ft_power(int base, int power);
 void		print_error(char *error);
