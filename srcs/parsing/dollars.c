@@ -55,7 +55,15 @@ char *change_dollars(char *dollars, char *var)
 		if (var[i])
 				i++;
 		while (var[i])
+		{
+				if (var[i] == ' ')
+				{
+						add_char(a_token, var, &j, &i);
+						while (var[i] == ' ')
+								i++;
+				}
 				add_char(a_token, var, &j, &i);
+		}
 		a_token[j] = 0;
 		free(dollars);
 		return (a_token);
@@ -92,14 +100,14 @@ char *one_token_dollars(char *cmd, int *i)
 		if (ft_isdigit(cmd[*i]) == 1)
 				return (dollars_num(&cmd[*i])); // c'est faux ca nan si $8795478654 alors juste $8 skip je crois
 		ret = *i;
-		while (ft_isalnum(cmd[*i]) == 1)
+		while (ft_isalnum(cmd[*i]) == 1) //&& stop a caract speciaux notament quotes
 				(*i)++;
 		token = malloc(sizeof(char) * (*i - ret + 1));
 		if (token == NULL)
 				return (NULL);
 		*i = ret;
 		ret = 0;
-		while (cmd[*i] != 0 && ft_isalnum(cmd[*i]) == 1)
+		while (cmd[*i] != 0 && ft_isalnum(cmd[*i]) == 1) //&& stop a caract speciaux notament quotes
 		{
 				add_char(token, cmd, &ret, i);
 		}
@@ -107,15 +115,31 @@ char *one_token_dollars(char *cmd, int *i)
 		return (token);
 }
 
+int	diff_in_var_env(char *var)
+{
+		int i;
+		int firstlen;
+		int	secondlen;
+
+		i = 0;
+		while (var[i] && var[i] != '=')
+				i++;
+		firstlen = i;
+		while (var[i])
+				i++;
+		secondlen = i - firstlen - 1;
+		return (secondlen - firstlen);
+}
+
 int		resize_len_for_dollar(char *cmd, int start, int end, t_struct *s)
 {
-		int		i;
+		int		diff;
 		char	quote;
 		char	*dollars;
 
 		quote = cmd[start];
 		start++;
-		i = 0;
+		diff = 0;
 		while (cmd[start] != quote && start < end)
 		{
 				if (cmd[start] == '$' && quote != '\'')
@@ -125,11 +149,11 @@ int		resize_len_for_dollar(char *cmd, int start, int end, t_struct *s)
 						//						if (dollars == NULL)
 						//							next
 						search_dollars(dollars, s);
-						printf("le dollars -%s- == au token -%s-\n",dollars, s->env.content);
+						diff += diff_in_var_env(s->env.content);
 				}
 				start++;
 		}
 		while (cmd[start] && start <= end && cmd[start] != ' ' && ft_is_quote(cmd[start]) != 1)
 				start++;
-		return (i);
+		return (diff);
 }
