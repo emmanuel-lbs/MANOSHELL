@@ -3,7 +3,6 @@
 SRCS = srcs/main.c \
 		srcs/ft_check_path.c \
 		srcs/parsing/parsing.c \
-		srcs/parsing/ft_shell_split.c \
 		srcs/parsing/tokenisation.c \
 		srcs/parsing/syntax.c \
 		srcs/parsing/utils.c \
