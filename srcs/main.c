@@ -5,27 +5,6 @@
 
 static int	sim = 0;
 
-int		heredocs(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '<' && str[i + 1] == '<')
-		{
-			i++;
-			if (str[i] == '<')
-			{
-//				fct_heredoc(str);
-				return (1);
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
 static void	ft_get_pwd(t_struct *s, char *pwd)
 {
 	int		i;
@@ -57,19 +36,17 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
-	int			i;
 	t_struct	s;
 
-	i = 0;
 	str = "";
 	ft_check_path(&s, envp, ac, av);
+
 	s.env = s.first;
-	while (s.data.env_path && s.data.env_path[i])
+	while (s.env.next)
 	{
-		printf("%s\n", s.data.env_path[i]);
-		i++;
+			printf(" %s\n", s.env.content);
+			s.env = *s.env.next;
 	}
-	printf("%s\n", s.first.content);
 	while (1)
 	{
 		//On stocke le stdin dans str,
@@ -80,11 +57,9 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		add_history(str);
 		if (parsing(str, &s) == -1)
-		{
 			printf ("\033[31;01mERROR\033[00m\n");
-		}
 		else
-		{	
+		{
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			ft_exec(&s, str);
 		}

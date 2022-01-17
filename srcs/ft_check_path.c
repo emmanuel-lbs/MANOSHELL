@@ -30,31 +30,31 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 		ft_create_env(s);
 	else
 		s->data.envp = envp;
-	i = 0;
+	s->env = *ft_lstnew(s->data.envp[0]);
+	i = 1;
 	while (s->data.envp[i])
 	{
-		ft_lstadd_back(&s->env.next, ft_lstnew(s->data.envp[i]));
-		i++;
+			ft_lstadd_back(&s->env.next, ft_lstnew(s->data.envp[i]));
+			i++;
 	}
-	printf("%s\n", s->data.envp[0]);
 	s->first = s->env;
 	while (s->env.next != NULL)
 	{
-		s->env = *s->env.next;
-		if (ft_strncmp(s->env.content, "PWD=", 4) == 0)
-			s->pwd = s->env;
-		else if (ft_strncmp(s->env.content, "OLDPWD", 6) == 0)
-			s->old_pwd = s->env;
-		else if (ft_strncmp(s->env.content, "HOME=", 5) == 0)
-			s->home = s->env;
+			s->env = *s->env.next;
+			if (ft_strncmp(s->env.content, "PWD=", 4) == 0)
+					s->pwd = s->env;
+			else if (ft_strncmp(s->env.content, "OLDPWD", 6) == 0)
+					s->old_pwd = s->env;
+			else if (ft_strncmp(s->env.content, "HOME=", 5) == 0)
+					s->home = s->env;
 	}
 	i = 0;
 	while (s->data.envp[i] && ft_strncmp(s->data.envp[i], "PATH=", 5))
-		i++;
+			i++;
 	if (s->data.envp[i])
 	{
-		s->data.env_path = ft_split((s->data.envp[i]), ':');
-		s->data.env_path[0] = (s->data.env_path[0] + 5);
+			s->data.env_path = ft_split((s->data.envp[i]), ':');
+			s->data.env_path[0] = (s->data.env_path[0] + 5);
 	}
 	return (1);
 }
