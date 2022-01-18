@@ -25,10 +25,17 @@ int			command_syntax(char *str);
 /*split*/
 int			ft_countwords(char *s);
 char		**split_shell(char *cmd, t_struct *s);
+/*quotes*/
+void	dollar_in_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
+void	cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
+int		verif_quote(char *cmd, int i);
+char	*one_token_quote(char *cmd, int *i, t_struct *s);
 /*utils*/
 char		*change_dollars(char *dollars, char *var);
+char		*dollar_not_interpret(char *cmd, int *i);
 int			search_dollars(char *dollars, t_struct *s);
-char		*one_token_dollars(char *cmd, int *i);
+char		*one_token_dollars(char *cmd, int *i, t_struct *s);
+char	*fusion_double_token(char *str, char *cmd, int *i, t_struct *s);
 int			ft_is_chevron(char c);
 int			ft_is_quote(char c);
 void	add_char(char *cpy, char *str, int *i, int *j);
