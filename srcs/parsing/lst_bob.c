@@ -175,5 +175,5 @@ t_bob	*create_bob(char **str)
 		//		add_back_bob(&s->bob.next, new_block(cmd));
 	}
 	printf_lst(first_bob);
-	return (bob);
+	return (first_bob);
 }

@@ -204,7 +204,7 @@ char	**split_shell(char *cmd, t_struct *s)
 			printf("%s\n",token[word]);
 			if (token[word] == NULL)
 			{
-				//free
+				ft_free_double_char(token);
 				return (NULL);
 			}
 			word++;

@@ -86,8 +86,6 @@ char *dollar_not_interpret(char *cmd, int *i)
 	char	*token;
 
 	(*i)++;
-	if (ft_isdigit(cmd[*i]) == 1)
-		return (dollars_num(&cmd[*i]));
 	ret = *i;
 	while (ft_isalnum(cmd[*i]) == 1)
 		(*i)++;
@@ -112,7 +110,6 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 	a_token = dollar_not_interpret(cmd, i);
 	if (a_token == NULL)
 		return (NULL);
-	// je dois check si le $ est pas dans quote alors tout ce qui est dedans deviens un token fct differentes
 	if (search_dollars(a_token, s) == -1)
 		return (NULL);
 	a_token = change_dollars(a_token, s->env.content);
@@ -120,6 +117,7 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 		return (NULL);
 	if (cmd[*i] != 0 && cmd[*i] != ' ' && verif_quote(cmd, *i) == 0 )
 		a_token = fusion_double_token(a_token, cmd, i, s);
+	modif_first_token(cmd, *i, a_token, s);
 	return (a_token);
 }
 /*
