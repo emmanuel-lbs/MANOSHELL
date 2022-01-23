@@ -5,6 +5,7 @@ SRCS = srcs/main.c \
 		srcs/parsing/parsing.c \
 		srcs/parsing/tokenisation.c \
 		srcs/parsing/syntax.c \
+		srcs/parsing/var_first_token.c \
 		srcs/parsing/utils.c \
 		srcs/parsing/quotes.c \
 		srcs/parsing/lst_bob.c \

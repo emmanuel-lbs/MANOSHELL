@@ -26,6 +26,7 @@ typedef struct s_bob {
 
 typedef struct p_struc {
 	t_bob	*bob;
+	t_bob	*first_bob;
 	t_data	data;
 	t_list	env;
 	t_list	first;

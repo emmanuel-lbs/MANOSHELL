@@ -21,6 +21,7 @@ int	search_dollars(char *dollars, t_struct *s)
 				return (1);
 		s->env = *s->env.next;
 	}
+	s->env = s->first;
 	return (-1);
 }
 
@@ -117,7 +118,6 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 		return (NULL);
 	if (cmd[*i] != 0 && cmd[*i] != ' ' && verif_quote(cmd, *i) == 0 )
 		a_token = fusion_double_token(a_token, cmd, i, s);
-	modif_first_token(cmd, *i, a_token, s);
 	return (a_token);
 }
 /*
