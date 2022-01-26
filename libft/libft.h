@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:05:28 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/11 08:13:56 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/01/17 09:14:12 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char		*ft_gnl_join(char const *prefixe, char const *suffixe);
 char		*ft_gnl_cpy(char *dest, const char *src, size_t size);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 size_t		ft_strlen(const char *s);
+size_t		ft_super_strlen(char **s);
 void		*ft_memset(void *s, int c, size_t n);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);

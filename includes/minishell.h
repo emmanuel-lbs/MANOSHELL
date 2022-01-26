@@ -40,6 +40,8 @@ int			ft_is_chevron(char c);
 int			ft_is_quote(char c);
 void	add_char(char *cpy, char *str, int *i, int *j);
 int		resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
+int		should_i_modif_token(char *cmd, int i, char *a_token, t_struct *s);
+void	modif_token(char *a_token, char **lst_tkn, int *nb_word);
 /*lst_bob*/
 t_bob		*create_bob(char **str);
 void		add_back_bob(t_bob **bob, t_bob *add);
