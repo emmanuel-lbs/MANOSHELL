@@ -26,9 +26,7 @@ int	skip_quote(char *s, char quote, int *i)
 {
 	(*i)++;
 	while (s[*i] && s[*i] != quote)
-	{
 			(*i)++;
-	}
 	if (s[*i] != quote)
 	{
 		printf("missing one quote\n");

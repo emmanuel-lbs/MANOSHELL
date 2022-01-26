@@ -6,6 +6,7 @@ SRCS = srcs/main.c \
 		srcs/parsing/tokenisation.c \
 		srcs/parsing/syntax.c \
 		srcs/parsing/utils.c \
+		srcs/parsing/quotes.c \
 		srcs/parsing/lst_bob.c \
 		srcs/execute/ft_exec.c \
 		srcs/execute/is_builtin.c \

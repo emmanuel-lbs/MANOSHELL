@@ -44,8 +44,8 @@ int	main(int ac, char **av, char **envp)
 	s.env = s.first;
 	while (s.env.next)
 	{
-			printf(" %s\n", s.env.content);
-			s.env = *s.env.next;
+		printf(" %s\n", s.env.content);
+		s.env = *s.env.next;
 	}
 	while (1)
 	{
