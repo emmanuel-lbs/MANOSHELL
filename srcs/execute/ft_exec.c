@@ -135,5 +135,6 @@ int	ft_exec(t_struct *s, char *str)
 			}
 		}
 	}
+	s->env = *s->first.next;
 	return (0); //37 lignes Fonction erreur pour gagner 6 lignes
 }

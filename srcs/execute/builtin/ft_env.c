@@ -9,8 +9,8 @@ void ft_env(t_struct *s)
 	}
 	while (s->env.next != NULL)
 	{
+		s->env = *s->env.next;
 		if (ft_strchr(s->env.content, '=') != NULL)
 			printf("%s\n", s->env.content);
-		s->env = *s->env.next;
 	}
 }
