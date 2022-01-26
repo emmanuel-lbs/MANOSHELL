@@ -1,7 +1,5 @@
 #include "../../../includes/minishell.h"
 
-
-
 int	ft_strccmp(const char *s1, const char *s2, char c)
 {
 	size_t			i;
@@ -23,12 +21,12 @@ int	ft_strccmp(const char *s1, const char *s2, char c)
 
 void	ft_checkdup(t_struct *s, char *str)
 {
-	while (s->env.next != NULL)
+	/*while (s->env.next != NULL)
 	{
 		s->env = *s->env.next;
 		if (ft_strccmp(s->env.content, str, '=') == 0)
 			ft_unset(s->env);
-	}
+	}*/
 }
 
 void	ft_lstprint(t_list *lst)
@@ -57,6 +55,28 @@ void	ft_lstprint(t_list *lst)
 	}
 }
 
+
+void	ft_print_sort(t_list *lst)
+{
+	while (lst->next != NULL)
+	{
+		lst = lst->next;
+		printf("declare -x %s\n", lst->content);
+	}
+}
+
+void	ft_lstcontent_swp(t_list *lst1, t_list *lst2, t_list *sortlist)
+{
+	char	*str;
+
+	str = ft_strdup(lst2->content);
+	//printf("1: lst1 = %s\nlst2 = %s\n\n", lst1->content, lst2->content);
+	lst2->content = ft_strdup(lst1->content);
+	lst1->content = ft_strdup(str);
+	lst2->content = NULL;
+	//printf("2: lst1 = %s\nlst2 = %s\n\n", lst1->content, lst2->content);
+}
+
 void	ft_lstsort_str(t_struct *s)
 {
 	t_list	mem;
@@ -65,7 +85,6 @@ void	ft_lstsort_str(t_struct *s)
 	char	*str;
 
 	ft_lstadd_back(&mem.next, ft_lstnew(NULL));
-	first = *mem.next;
 	while (s->env.next != NULL)
 	{
 		s->env = *s->env.next;
@@ -74,6 +93,13 @@ void	ft_lstsort_str(t_struct *s)
 	mem = *mem.next;
 	first = mem;
 	sortlist = mem;
+	/*printf("---------------------- UNSORTED ---------------------\n");
+	while (first.next != NULL)
+	{
+		first = *first.next;
+		printf("declare -x %s\n", first.content);
+	}
+	printf("---------------------- --------- ---------------------\n");*/
 	while (first.next != NULL)
 	{
 		first = *first.next;
@@ -83,13 +109,20 @@ void	ft_lstsort_str(t_struct *s)
 			mem = *mem.next;
 			if (ft_strcmp(first.content, mem.content) > 0)
 			{
-				str = first.content;
-				first->content = mem->content;
-				mem->content = &str;
+
+					str = ft_strdup(mem.content);
+					mem.content = ft_strdup(first.content);
+					first.content = ft_strdup(str);
+					mem.content = NULL;
+				//printf("1: first = %s\nmem = %s\n\n", first.content, mem.content);
+				// ft_lstcontent_swp(&first, &mem, &sortlist);
+				//printf("2: first = %s\nmem = %s\n\n", first.content, mem.content);
 			}
 		}
-	ft_lstprint(&sortlist);
+	//	printf("3: first = %s\nmem = %s\n\n", first.content, mem.content);
 	}
+	ft_print_sort(&sortlist);
+	//ft_lstprint(&sortlist);
 	//ft_lstclear(sortlist);
 }
 
@@ -97,7 +130,6 @@ void	ft_lstsort_str(t_struct *s)
 //AVEC UN SPLIT
 void	ft_export(t_struct *s)
 {
-	char	**mem;
 	int		i;
 	int		j;
 
@@ -105,7 +137,9 @@ void	ft_export(t_struct *s)
 	j = 0;
 	if (s->bob->token[1] == NULL)
 	{
+		printf("lol1\n");
 		ft_lstsort_str(s);
+		printf("lol2\n");
 		/*while (s->env.next != NULL)
 		{
 			if (ft_strchr(s->env.content, '='))
