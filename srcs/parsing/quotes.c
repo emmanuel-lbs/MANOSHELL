@@ -21,7 +21,7 @@ void	cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
 
 	quote = cmd[*j];
 //	add_char(cpy, cmd, i, j);
-			(*j)++;
+	(*j)++;
 	while (cmd[*j] && cmd[*j] != quote)
 	{
 		if (cmd[*j] == '$' && quote == '\"')
@@ -48,28 +48,26 @@ int	verif_quote(char *cmd, int i)
 {
 	int		j;
 	char	quote;
-	int		signification;
 
 	j = 0;
 	if (ft_is_quote(cmd[i]) != 1)
-		return (0);
-
+		return (-1);
 	while (cmd[j] && j < i)
 	{
-		while (j < i && cmd[j] && ft_is_quote(cmd[j]) != 1)
+		while (cmd[j] && ft_is_quote(cmd[j]) == 0)
 			j++;
-		signification = 0;
-		quote = cmd[j];
+		if (j == i)
+			return (0);
+		quote =  cmd[j];
 		j++;
-		while (j < i && cmd[j] && cmd[j] != quote)
+		while (cmd[j] && cmd[j] != quote)
 			j++;
-		if (j <= i && cmd[j] == quote)
-		{
-			signification = 1;
+		if (j < i)
 			j++;
-		}
 	}
-	return (signification);
+	if (j == i)
+		return (1);
+	return (-1);
 }
 
 int	number_of_quote(char *cmd, int start, int end)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollars.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/01/26 14:16:37 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 
@@ -21,6 +33,7 @@ int	search_dollars(char *dollars, t_struct *s)
 				return (1);
 		s->env = *s->env.next;
 	}
+	s->env = s->first;
 	return (-1);
 }
 
@@ -86,9 +99,12 @@ char *dollar_not_interpret(char *cmd, int *i)
 	char	*token;
 
 	(*i)++;
-	if (ft_isdigit(cmd[*i]) == 1)
-		return (dollars_num(&cmd[*i]));
 	ret = *i;
+	if (ft_isdigit(cmd[*i]) == 1)
+	{
+		(*i)++;
+		return (ft_strdup(""));
+	}
 	while (ft_isalnum(cmd[*i]) == 1)
 		(*i)++;
 	token = malloc(sizeof(char) * (*i - ret + 1));
@@ -112,13 +128,14 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 	a_token = dollar_not_interpret(cmd, i);
 	if (a_token == NULL)
 		return (NULL);
-	// je dois check si le $ est pas dans quote alors tout ce qui est dedans deviens un token fct differentes
+	if (a_token[0] == 0)
+		return (a_token);
 	if (search_dollars(a_token, s) == -1)
 		return (NULL);
 	a_token = change_dollars(a_token, s->env.content);
 	if (a_token == NULL)
 		return (NULL);
-	if (cmd[*i] != 0 && cmd[*i] != ' ' && verif_quote(cmd, *i) == 0 )
+	if (cmd[*i] != 0 && cmd[*i] != ' ' && (verif_quote(cmd, *i) == 0 || cmd[*i] == '$'))
 		a_token = fusion_double_token(a_token, cmd, i, s);
 	return (a_token);
 }
@@ -143,26 +160,43 @@ int	diff_in_var_env(char *var)
 	return (secondlen - firstlen);
 }
 
+int	search_diff(char *cmd, int *start, t_struct *s)
+{
+	char	*dollars;
+
+	dollars = dollar_not_interpret(cmd, start);
+	if (dollars == NULL)
+		return (-1);
+	if (dollars[0] != 0)
+	{
+		search_dollars(dollars, s);
+		return (diff_in_var_env(s->env.content));
+	}
+	free (dollars);
+	return (0);
+}
+
 int	resize_len_for_dollar(char *cmd, int start, int end, t_struct *s)
 {
 	int		diff;
 	char	quote;
 	char	*dollars;
 
-	quote = cmd[start];
-	start++;
 	diff = 0;
 	while (/*cmd[start] != quote &&*/ start < end)
 	{
 		if (ft_is_quote(cmd[start]) == 1)
-			quote = cmd[start];
-		if (cmd[start] == '$' && quote != '\'')
 		{
-			dollars = dollar_not_interpret(cmd, &start);
-			if (dollars == NULL)
-				return (-1);
-			search_dollars(dollars, s);
-			diff += diff_in_var_env(s->env.content);
+			quote = cmd[start];
+			start++;
+			while (cmd[start] && cmd[start] != quote)
+			{
+				if (cmd[start] == '$' && quote != '\'')
+					diff += search_diff(cmd, &start, s);
+				else
+					start++;
+			}
+			start++;
 		}
 		else
 			start++;

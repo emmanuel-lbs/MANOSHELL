@@ -43,6 +43,39 @@ void	how_many_token(char *s, int *i, int *nb)
 		(*i)++;
 }
 
+int	ajustement(char *s, t_struct *struc)
+{
+	int i;
+	int nb;
+	char	*a_token;
+
+	i = 0;
+	nb = 0;
+	while (s[i])
+	{
+		if (s[i] == '$')
+		{
+			a_token = one_token_dollars(s, &i, struc);
+			if (a_token != NULL && a_token[0] != 0)
+			{
+				if (should_i_modif_token(s, i, a_token, struc) == 1)
+					nb += 2;
+				free(a_token);
+
+			}
+			else if (a_token != NULL && a_token[0] == 0)
+			{
+				if (ft_isdigit(s[i]) == 1)
+					nb += 1;
+			}
+		}
+		else
+			i++;
+
+	}
+	return (nb);
+}
+
 int	ft_countwords(char *s)
 {
 	int	nb;
@@ -154,6 +187,7 @@ char	*normal_token(char *cmd, int *i, t_struct *s)
 	j = 0;
 	while (cmd[*i] && cmd[*i] != ' ' && ft_is_chevron(cmd[*i]) == 0 && ft_is_quote(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
 		add_char(a_token, cmd, &j, i);
+	usleep(100);
 	if (cmd[*i] != '$' && ft_is_quote(cmd[*i]) == 1)
 		cpy_quote(a_token, cmd, &j, i, s);
 	a_token[j] = 0;
@@ -172,7 +206,11 @@ char	*one_token(char *cmd, int *i, t_struct *s)
 	else if (ft_is_quote(cmd[*i]) == 1)
 		a_token = one_token_quote(cmd, i, s);
 	else if (cmd[*i] == '$')
+	{
 		a_token = one_token_dollars(cmd, i, s);
+		if (a_token == NULL)
+			return (NULL);
+	}
 	else if (cmd[*i] == '|')
 	{
 		(*i)++;
@@ -189,7 +227,7 @@ char	**split_shell(char *cmd, t_struct *s)
 	int		i;
 	int		word;
 
-	token = malloc(sizeof(char *) * (ft_countwords(cmd) + 1));
+	token = malloc(sizeof(char *) * (ft_countwords(cmd) + ajustement(cmd, s) + 1));
 	if (token == NULL)
 		return (NULL);
 	i = 0;
@@ -201,12 +239,13 @@ char	**split_shell(char *cmd, t_struct *s)
 		if (cmd[i])
 		{
 			token[word] = one_token(cmd, &i, s);
-			printf("%s\n",token[word]);
 			if (token[word] == NULL)
 			{
-				//free
+				ft_free_double_char(token);
 				return (NULL);
 			}
+			if (should_i_modif_token(cmd, i, token[word], s) != 0)
+				modif_token(token[word], token, &word);
 			word++;
 		}
 	}
