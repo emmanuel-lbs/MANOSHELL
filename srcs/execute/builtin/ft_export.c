@@ -55,34 +55,19 @@ void	ft_lstprint(t_list *lst)
 	}
 }
 
-
-void	ft_print_sort(t_list *lst)
-{
-	while (lst->next != NULL)
-	{
-		lst = lst->next;
-		printf("declare -x %s\n", lst->content);
-	}
-}
-
-void	ft_lstcontent_swp(t_list *lst1, t_list *lst2, t_list *sortlist)
+void	ft_lstcontent_swp(t_list *lst1, t_list *lst2)
 {
 	char	*str;
 
-	str = ft_strdup(lst2->content);
-	//printf("1: lst1 = %s\nlst2 = %s\n\n", lst1->content, lst2->content);
-	lst2->content = ft_strdup(lst1->content);
-	lst1->content = ft_strdup(str);
-	lst2->content = NULL;
-	//printf("2: lst1 = %s\nlst2 = %s\n\n", lst1->content, lst2->content);
+	str = lst2->content;
+	lst2->content = lst1->content;
+	lst1->content = str;
 }
 
-void	ft_lstsort_str(t_struct *s)
+t_list	*ft_lstcopy(t_struct *s)
 {
 	t_list	mem;
-	t_list	first;
-	t_list	sortlist;
-	char	*str;
+	t_list	*first;
 
 	ft_lstadd_back(&mem.next, ft_lstnew(NULL));
 	while (s->env.next != NULL)
@@ -91,39 +76,39 @@ void	ft_lstsort_str(t_struct *s)
 		ft_lstadd_back(&mem.next, ft_lstnew(s->env.content));
 	}
 	mem = *mem.next;
-	first = mem;
-	sortlist = mem;
-	/*printf("---------------------- UNSORTED ---------------------\n");
-	while (first.next != NULL)
-	{
-		first = *first.next;
-		printf("declare -x %s\n", first.content);
-	}
-	printf("---------------------- --------- ---------------------\n");*/
-	while (first.next != NULL)
-	{
-		first = *first.next;
-		mem = first;
-		while (mem.next != NULL)
-		{
-			mem = *mem.next;
-			if (ft_strcmp(first.content, mem.content) > 0)
-			{
+	first = &mem;
+	return (first);
+}
 
-					str = ft_strdup(mem.content);
-					mem.content = ft_strdup(first.content);
-					first.content = ft_strdup(str);
-					mem.content = NULL;
-				//printf("1: first = %s\nmem = %s\n\n", first.content, mem.content);
-				// ft_lstcontent_swp(&first, &mem, &sortlist);
-				//printf("2: first = %s\nmem = %s\n\n", first.content, mem.content);
+void	ft_lstsort_str(t_struct *s)
+{
+	t_list	*mem;
+	t_list	*first;
+	t_list	*sortlist;
+
+	mem = ft_lstcopy(s);
+	first = mem;
+	sortlist = first;
+	while (first->next != NULL)
+	{
+		first = first->next;
+		mem = first;
+		while (mem->next != NULL)
+		{
+			mem = mem->next;
+			if (ft_strcmp(first->content, mem->content) > 0)
+			{
+				ft_lstcontent_swp(first, mem);
 			}
 		}
-	//	printf("3: first = %s\nmem = %s\n\n", first.content, mem.content);
 	}
-	ft_print_sort(&sortlist);
+	while (sortlist->next != NULL)
+	{
+		sortlist = sortlist->next;
+		printf("declare -x %s\n", sortlist->content);
+	}
 	//ft_lstprint(&sortlist);
-	//ft_lstclear(sortlist);
+	//ft_lstclear(&sortlist, &free);
 }
 
 
