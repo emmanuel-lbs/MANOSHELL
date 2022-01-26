@@ -95,29 +95,46 @@ int	specific_case_syntax(char *str)
  * return	:	-1 si erreur, 0 si tout est ok
  * def		:	vas check la syyntax de chaques commande
  */
+
+int	drole_de_chevron(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (ft_isascii(cmd[i]) == 0)
+		{
+			printf("ascci etendu not supported sorry\n");
+			return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
 int	command_syntax(char *str)
 {
-		int	i;
+	int	i;
 
-		i = 0;
-		if (specific_case_syntax(str) == -1)
-				return (-1);
-		while (str[i])
+	i = 0;
+	if (specific_case_syntax(str) == -1 || drole_de_chevron(str) == -1)
+		return (-1);
+	while (str[i])
+	{
+		if (ft_is_chevron(str[i]))
 		{
-				if (ft_is_chevron(str[i]))
-				{
-						if (chevron(&str[i]) == -1)
-								return (-1);
-				}
-				if (ft_is_quote(str[i]) == 1)
-				{
-						if (skip_quote(str, str[i], &i) == -1)
-								return (-1);
-				}
-				if (str[i] && ft_is_quote(str[i]) == 0)
-						i++;
+			if (chevron(&str[i]) == -1)
+				return (-1);
 		}
-		return (0);
+		if (ft_is_quote(str[i]) == 1)
+		{
+			if (skip_quote(str, str[i], &i) == -1)
+				return (-1);
+		}
+		if (str[i] && ft_is_quote(str[i]) == 0)
+			i++;
+	}
+	return (0);
 }
 
 /*
@@ -128,16 +145,16 @@ int	command_syntax(char *str)
 
 int	no_commande(char *str)
 {
-		int i;
+	int i;
 
-		i = 0;
-		if (str[i] == 0)
-				return (-1);
-		while (str[i])
-		{
-				if (str[i] != ' ')
-						return (0);
-				i++;
-		}
+	i = 0;
+	if (str[i] == 0)
 		return (-1);
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (-1);
 }

@@ -30,7 +30,7 @@ INCLUDE = includes/minishell.h includes/structure.h
 
 RM = rm -f
 
-GCCF = gcc -Wall -Wextra -fsanitize=address #-Werror 
+GCCF = gcc -Wall -Wextra -g3 -fsanitize=address #-Werror 
 
 ##################################  RULES  #####################################
 

@@ -56,11 +56,17 @@ int	ajustement(char *s, t_struct *struc)
 		if (s[i] == '$')
 		{
 			a_token = one_token_dollars(s, &i, struc);
-			if (a_token != NULL)
+			if (a_token != NULL && a_token[0] != 0)
 			{
 				if (should_i_modif_token(s, i, a_token, struc) == 1)
 					nb += 2;
 				free(a_token);
+
+			}
+			else if (a_token != NULL && a_token[0] == 0)
+			{
+				if (ft_isdigit(s[i]) == 1)
+					nb += 1;
 			}
 		}
 		else
@@ -181,6 +187,7 @@ char	*normal_token(char *cmd, int *i, t_struct *s)
 	j = 0;
 	while (cmd[*i] && cmd[*i] != ' ' && ft_is_chevron(cmd[*i]) == 0 && ft_is_quote(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
 		add_char(a_token, cmd, &j, i);
+	usleep(100);
 	if (cmd[*i] != '$' && ft_is_quote(cmd[*i]) == 1)
 		cpy_quote(a_token, cmd, &j, i, s);
 	a_token[j] = 0;
