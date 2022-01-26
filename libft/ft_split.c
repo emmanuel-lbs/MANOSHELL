@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 18:36:25 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/17 09:09:10 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 14:15:44 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*jpp_norme(const char *start, const char *s)
 	return (tab);
 }
 
-static int	ft_countwords(const char *s, char c)
+static int	ft_countword(const char *s, char c)
 {
 	int	nb;
 
@@ -55,7 +55,7 @@ char	**ft_split(char const *s, char c)
 	char		**tab;
 
 	i = 0;
-	tab = ft_calloc(sizeof(char *), (ft_countwords(s, c) + 1));
+	tab = ft_calloc(sizeof(char *), (ft_countword(s, c) + 1));
 	if (!(tab))
 		return (NULL);
 	while (*s)
