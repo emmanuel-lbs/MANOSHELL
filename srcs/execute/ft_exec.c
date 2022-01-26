@@ -71,15 +71,6 @@ int	ft_exec(t_struct *s, char *str)
 	// bob2.next = NULL;
 	// s->bob->next = &bob2;
 
-	//TEST 0 PIPES
-	t_bob	bob;
-	s->bob = &bob;
-	s->bob->token = ft_split(str, ' ');
-	s->bob->next = NULL;
-
-	// ################## IL EST LA bob du parsing ####################################
-	fd_in = 0;
-	// On boucle tant qu'on trouve une commande
 	while (s->bob != NULL)
 	{
 		if (strcmp(s->bob->token[0], "cd") == 0 && !s->bob->next)
