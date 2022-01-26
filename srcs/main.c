@@ -3,7 +3,7 @@
 #include "../includes/minishell.h"
 #include "../includes/structure.h"
 
-static int	sim = 0;
+err = 0;
 
 static void	ft_get_pwd(t_struct *s, char *pwd)
 {
@@ -19,7 +19,7 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 		mem[0][0] = '/';
 		mem[0][1] = '\0';
 	}
-	if (sim != 0)
+	if (err != 0)
 		s->prompt = ft_strjoin("\033[0;31m➜ \033[1;36m", ft_strjoin(mem[i - 1], "\033[0m "));
 	else
 		s->prompt = ft_strjoin("\033[0;32m➜ \033[1;36m", ft_strjoin(mem[i - 1], "\033[0m "));
@@ -40,7 +40,6 @@ int	main(int ac, char **av, char **envp)
 
 	str = "";
 	ft_check_path(&s, envp, ac, av);
-
 	s.env = s.first;
 	while (s.env.next)
 	{
@@ -63,6 +62,6 @@ int	main(int ac, char **av, char **envp)
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			ft_exec(&s, str);
 		}
-		sim = errno;
+		err = errno;
 	}
 }

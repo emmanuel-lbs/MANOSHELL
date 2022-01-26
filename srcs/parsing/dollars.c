@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/26 14:16:37 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/01/26 16:14:51 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 int	len_env(char *env)
 {
@@ -33,6 +32,9 @@ int	search_dollars(char *dollars, t_struct *s)
 				return (1);
 		s->env = *s->env.next;
 	}
+	if (s->env.content)
+		if (ft_strncmp(dollars, s->env.content, len_env((char *)s->env.content)) == 0)
+			return (1);
 	s->env = s->first;
 	return (-1);
 }

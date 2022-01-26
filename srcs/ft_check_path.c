@@ -34,20 +34,32 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	i = 1;
 	while (s->data.envp[i])
 	{
-			ft_lstadd_back(&s->env.next, ft_lstnew(s->data.envp[i]));
-			i++;
+		ft_lstadd_back(&s->env.next, ft_lstnew(s->data.envp[i]));
+		i++;
 	}
 	s->first = s->env;
 	while (s->env.next != NULL)
 	{
-			s->env = *s->env.next;
-			if (ft_strncmp(s->env.content, "PWD=", 4) == 0)
-					s->pwd = s->env;
-			else if (ft_strncmp(s->env.content, "OLDPWD", 6) == 0)
-					s->old_pwd = s->env;
-			else if (ft_strncmp(s->env.content, "HOME=", 5) == 0)
-					s->home = s->env;
+		if (ft_strncmp(s->env.content, "PWD=", 4) == 0)
+		{
+			printf("findpwd\n");
+				s->pwd = s->env;
+		}
+		else if (ft_strncmp(s->env.content, "OLDPWD", 6) == 0)
+				s->old_pwd = s->env;
+		else if (ft_strncmp(s->env.content, "HOME=", 5) == 0)
+				s->home = s->env;
+		s->env = *s->env.next;
 	}
+	if (ft_strncmp(s->env.content, "PWD=", 4) == 0)
+	{
+		printf("findpwd\n");
+			s->pwd = s->env;
+	}
+	else if (ft_strncmp(s->env.content, "OLDPWD", 6) == 0)
+			s->old_pwd = s->env;
+	else if (ft_strncmp(s->env.content, "HOME=", 5) == 0)
+			s->home = s->env;
 	i = 0;
 	while (s->data.envp[i] && ft_strncmp(s->data.envp[i], "PATH=", 5))
 			i++;
