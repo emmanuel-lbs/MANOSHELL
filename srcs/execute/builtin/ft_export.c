@@ -67,18 +67,33 @@ void	ft_lstcontent_swp(t_list *lst1, t_list *lst2)
 
 t_list	*ft_lstcopy(t_struct *s)
 {
-	t_list	mem;
+	t_list	*mem;
 
-	ft_lstadd_back(&mem.next, ft_lstnew(NULL));
-	s->env = s->first;
+	mem = ft_lstnew(NULL);
 	while (s->env.next != NULL)
 	{
-		ft_lstadd_back(&mem.next, ft_lstnew(s->env.content));
+		ft_lstadd_back(&mem->next, ft_lstnew(s->env.content));
 		s->env = *s->env.next;
 	}
-	ft_lstadd_back(&mem.next, ft_lstnew(s->env.content));
-	mem = *mem.next;
-	return (&mem);
+	ft_lstadd_back(&mem->next, ft_lstnew(s->env.content));
+	mem = mem->next;
+	return (mem);
+}
+
+void	ft_lstc(t_list **lst)
+{
+	t_list	*current;
+	t_list	*next;
+
+	current = *lst;
+	current = current->next;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	*lst = NULL;
 }
 
 void	ft_lstsort_str(t_struct *s)
@@ -103,8 +118,9 @@ void	ft_lstsort_str(t_struct *s)
 			}
 		}
 	}
-	ft_lstprint(sortlist);
-	//ft_lstclear(&sortlist, &free);
+	first = sortlist;
+	ft_lstprint(first);
+	ft_lstc(&sortlist);
 }
 
 void	ft_export(t_struct *s)

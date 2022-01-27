@@ -61,6 +61,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			ft_exec(&s, str);
+			s.env = s.first;
 		}
 		err = errno;
 	}
