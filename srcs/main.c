@@ -46,6 +46,7 @@ int	main(int ac, char **av, char **envp)
 		printf(" %s\n", s.env.content);
 		s.env = *s.env.next;
 	}
+	printf(" %s\n", s.env.content);
 	while (1)
 	{
 		//On stocke le stdin dans str,
