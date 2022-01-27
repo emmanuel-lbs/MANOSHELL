@@ -21,10 +21,10 @@ int	ft_strccmp(const char *s1, const char *s2, char c)
 
 void	ft_checkdup(t_struct *s, char *str)
 {
-	/*while (s->env.next != NULL)
+	/*while (s->env->next != NULL)
 	{
-		s->env = *s->env.next;
-		if (ft_strccmp(s->env.content, str, '=') == 0)
+		s->env = *s->env->next;
+		if (ft_strccmp(s->env->content, str, '=') == 0)
 			ft_unset(s->env);
 	}*/
 }
@@ -35,6 +35,7 @@ void	ft_lstprint(t_list *lst)
 	char	**mem;
 
 	mem = NULL;
+	i = 1;
 	while (lst->next != NULL)
 	{
 		lst = lst->next;
@@ -66,18 +67,33 @@ void	ft_lstcontent_swp(t_list *lst1, t_list *lst2)
 
 t_list	*ft_lstcopy(t_struct *s)
 {
-	t_list	mem;
-	t_list	*first;
+	t_list	*mem;
 
-	ft_lstadd_back(&mem.next, ft_lstnew(NULL));
-	while (s->env.next != NULL)
+	mem = ft_lstnew(NULL);
+	while (s->env->next != NULL)
 	{
-		s->env = *s->env.next;
-		ft_lstadd_back(&mem.next, ft_lstnew(s->env.content));
+		ft_lstadd_back(&mem->next, ft_lstnew(s->env->content));
+		s->env = s->env->next;
 	}
-	mem = *mem.next;
-	first = &mem;
-	return (first);
+	ft_lstadd_back(&mem->next, ft_lstnew(s->env->content));
+	mem = mem->next;
+	return (mem);
+}
+
+void	ft_lstc(t_list **lst)
+{
+	t_list	*current;
+	t_list	*next;
+
+	current = *lst;
+	current = current->next;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	*lst = NULL;
 }
 
 void	ft_lstsort_str(t_struct *s)
@@ -102,17 +118,11 @@ void	ft_lstsort_str(t_struct *s)
 			}
 		}
 	}
-	while (sortlist->next != NULL)
-	{
-		sortlist = sortlist->next;
-		printf("declare -x %s\n", sortlist->content);
-	}
-	//ft_lstprint(&sortlist);
-	//ft_lstclear(&sortlist, &free);
+	first = sortlist;
+	ft_lstprint(first);
+	ft_lstc(&sortlist);
 }
 
-
-//AVEC UN SPLIT
 void	ft_export(t_struct *s)
 {
 	int		i;
@@ -121,30 +131,7 @@ void	ft_export(t_struct *s)
 	i = 1;
 	j = 0;
 	if (s->bob->token[1] == NULL)
-	{
-		printf("lol1\n");
 		ft_lstsort_str(s);
-		printf("lol2\n");
-		/*while (s->env.next != NULL)
-		{
-			if (ft_strchr(s->env.content, '='))
-			{
-				mem = ft_split(s->env.content, '=');
-				printf("declare -x %s=\"", mem[0]);
-				while (mem && mem[i])
-				{
-					printf("%s", mem[i]);
-					i++;
-				}
-				i = 1;
-				printf("\"\n");
-			}
-			else
-				printf("declare -x %s\n",s->env.content);
-			s->env = *s->env.next;
-		}
-		s->env = s->first;*/
-	}
 	else
 	{
 		while (s->bob->token[i])
@@ -166,7 +153,7 @@ void	ft_export(t_struct *s)
 				if (s->bob->token[i][j] == '=' || !s->bob->token[i][j])
 				{
 					ft_checkdup(s, s->bob->token[i]);
-					ft_lstadd_back(&s->env.next, ft_lstnew(s->bob->token[i]));
+					ft_lstadd_back(&s->env->next, ft_lstnew(s->bob->token[i]));
 				}
 			}
 			i++;

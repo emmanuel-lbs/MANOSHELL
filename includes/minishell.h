@@ -48,6 +48,7 @@ void		add_back_bob(t_bob **bob, t_bob *add);
 void		new_block(t_struct *s, char **str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*Builtin function*/
+int	        ft_strccmp(const char *s1, const char *s2, char c);
 void		ft_echo(t_struct *s);
 void		ft_cd(t_struct *s);
 void		ft_pwd(void);

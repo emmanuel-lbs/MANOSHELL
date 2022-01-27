@@ -29,7 +29,7 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 		free(mem[i]);
 		i++;
 	}
-	s->env = *s->first.next;
+	s->env = s->first->next;
 	free(mem);
 }
 
@@ -41,16 +41,17 @@ int	main(int ac, char **av, char **envp)
 	str = "";
 	ft_check_path(&s, envp, ac, av);
 	s.env = s.first;
-	while (s.env.next)
+	while (s.env->next)
 	{
-		printf(" %s\n", s.env.content);
-		s.env = *s.env.next;
+		printf(" %s\n", s.env->content);
+		s.env = s.env->next;
 	}
+	printf(" %s\n", s.env->content);
 	while (1)
 	{
 		//On stocke le stdin dans str,
 		//on peut changer ça en le mettant dans une struct au besoin.
-		ft_get_pwd(&s, s.pwd.content);
+		ft_get_pwd(&s, s.pwd->content);
 		str = readline(s.prompt);
 		if (str == 0)
 			break ;
@@ -61,6 +62,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			ft_exec(&s, str);
+			s.env = s.first;
 		}
 		err = errno;
 	}

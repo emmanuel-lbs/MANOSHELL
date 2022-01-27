@@ -28,11 +28,11 @@ typedef struct p_struc {
 	t_bob	*bob;
 	t_bob	*first_bob;
 	t_data	data;
-	t_list	env;
-	t_list	first;
-	t_list	pwd;
-	t_list	old_pwd;
-	t_list	home;
+	t_list	*env;
+	t_list	*first;
+	t_list	*pwd;
+	t_list	*old_pwd;
+	t_list	*home;
 	char	*prompt;
 }				t_struct;
 

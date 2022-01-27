@@ -7,10 +7,13 @@ void ft_env(t_struct *s)
 		printf("env: Invalid number of arguments\n");
 		exit(1);
 	}
-	while (s->env.next != NULL)
+	s->env = s->first;
+	while (s->env->next != NULL)
 	{
-		s->env = *s->env.next;
-		if (ft_strchr(s->env.content, '=') != NULL)
-			printf("%s\n", s->env.content);
+		if (ft_strchr(s->env->content, '=') != NULL)
+			printf("%s\n", s->env->content);
+		s->env = s->env->next;
 	}
-}
+	if (ft_strchr(s->env->content, '=') != NULL)
+		printf("%s\n", s->env->content);
+}	
