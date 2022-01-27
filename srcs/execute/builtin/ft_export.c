@@ -21,10 +21,10 @@ int	ft_strccmp(const char *s1, const char *s2, char c)
 
 void	ft_checkdup(t_struct *s, char *str)
 {
-	/*while (s->env.next != NULL)
+	/*while (s->env->next != NULL)
 	{
-		s->env = *s->env.next;
-		if (ft_strccmp(s->env.content, str, '=') == 0)
+		s->env = *s->env->next;
+		if (ft_strccmp(s->env->content, str, '=') == 0)
 			ft_unset(s->env);
 	}*/
 }
@@ -70,12 +70,12 @@ t_list	*ft_lstcopy(t_struct *s)
 	t_list	*mem;
 
 	mem = ft_lstnew(NULL);
-	while (s->env.next != NULL)
+	while (s->env->next != NULL)
 	{
-		ft_lstadd_back(&mem->next, ft_lstnew(s->env.content));
-		s->env = *s->env.next;
+		ft_lstadd_back(&mem->next, ft_lstnew(s->env->content));
+		s->env = s->env->next;
 	}
-	ft_lstadd_back(&mem->next, ft_lstnew(s->env.content));
+	ft_lstadd_back(&mem->next, ft_lstnew(s->env->content));
 	mem = mem->next;
 	return (mem);
 }
@@ -153,7 +153,7 @@ void	ft_export(t_struct *s)
 				if (s->bob->token[i][j] == '=' || !s->bob->token[i][j])
 				{
 					ft_checkdup(s, s->bob->token[i]);
-					ft_lstadd_back(&s->env.next, ft_lstnew(s->bob->token[i]));
+					ft_lstadd_back(&s->env->next, ft_lstnew(s->bob->token[i]));
 				}
 			}
 			i++;

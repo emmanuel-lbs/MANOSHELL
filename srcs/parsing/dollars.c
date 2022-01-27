@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/26 16:14:51 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:17:08 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ int	len_env(char *env)
 int	search_dollars(char *dollars, t_struct *s)
 {
 	s->env = s->first;
-	while (s->env.next != NULL)
+	while (s->env->next != NULL)
 	{
-		if (s->env.content)
-			if (ft_strncmp(dollars, s->env.content, len_env((char *)s->env.content)) == 0)
+		if (s->env->content)
+			if (ft_strncmp(dollars, s->env->content, len_env((char *)s->env->content)) == 0)
 				return (1);
-		s->env = *s->env.next;
+		s->env = s->env->next;
 	}
-	if (s->env.content)
-		if (ft_strncmp(dollars, s->env.content, len_env((char *)s->env.content)) == 0)
+	if (s->env->content)
+		if (ft_strncmp(dollars, s->env->content, len_env((char *)s->env->content)) == 0)
 			return (1);
 	s->env = s->first;
 	return (-1);
@@ -134,7 +134,7 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 		return (a_token);
 	if (search_dollars(a_token, s) == -1)
 		return (NULL);
-	a_token = change_dollars(a_token, s->env.content);
+	a_token = change_dollars(a_token, s->env->content);
 	if (a_token == NULL)
 		return (NULL);
 	if (cmd[*i] != 0 && cmd[*i] != ' ' && (verif_quote(cmd, *i) == 0 || cmd[*i] == '$'))
@@ -172,7 +172,7 @@ int	search_diff(char *cmd, int *start, t_struct *s)
 	if (dollars[0] != 0)
 	{
 		search_dollars(dollars, s);
-		return (diff_in_var_env(s->env.content));
+		return (diff_in_var_env(s->env->content));
 	}
 	free (dollars);
 	return (0);
