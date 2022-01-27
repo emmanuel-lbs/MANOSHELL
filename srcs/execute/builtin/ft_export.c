@@ -9,7 +9,6 @@ int	ft_strccmp(const char *s1, const char *s2, char c)
 	i = 0;
 	ss1 = (unsigned char *)s1;
 	ss2 = (unsigned char *)s2;
-	printf("%c\n", c);
 	while ((ss1[i] != '\0' || ss2[i] != '\0') && (ss1[i] != c || ss2[i] != c))
 	{
 		if (ss1[i] - ss2[i] != 0)
@@ -21,12 +20,16 @@ int	ft_strccmp(const char *s1, const char *s2, char c)
 
 void	ft_checkdup(t_struct *s, char *str)
 {
-	/*while (s->env->next != NULL)
+	s->env = s->first;
+	while (s->env->next != NULL)
 	{
-		s->env = *s->env->next;
+		s->env = s->env->next;
 		if (ft_strccmp(s->env->content, str, '=') == 0)
-			ft_unset(s->env);
-	}*/
+			ft_unset(s);
+	}
+	printf("content = %s\n", s->env->content);
+	if (ft_strccmp(s->env->content, str, '=') == 0)
+		ft_unset(s);
 }
 
 void	ft_lstprint(t_list *lst)
@@ -69,6 +72,7 @@ t_list	*ft_lstcopy(t_struct *s)
 {
 	t_list	*mem;
 
+	s->env =s->first;
 	mem = ft_lstnew(NULL);
 	while (s->env->next != NULL)
 	{
@@ -107,7 +111,6 @@ void	ft_lstsort_str(t_struct *s)
 	sortlist = first;
 	while (first->next != NULL)
 	{
-		first = first->next;
 		mem = first;
 		while (mem->next != NULL)
 		{
@@ -116,6 +119,15 @@ void	ft_lstsort_str(t_struct *s)
 			{
 				ft_lstcontent_swp(first, mem);
 			}
+		}
+		first = first->next;
+	}
+	while (mem->next != NULL)
+	{
+		mem = mem->next;
+		if (ft_strcmp(first->content, mem->content) > 0)
+		{
+			ft_lstcontent_swp(first, mem);
 		}
 	}
 	first = sortlist;
@@ -128,6 +140,7 @@ void	ft_export(t_struct *s)
 	int		i;
 	int		j;
 
+	s->env =s->first;
 	i = 1;
 	j = 0;
 	if (s->bob->token[1] == NULL)
