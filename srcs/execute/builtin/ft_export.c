@@ -35,6 +35,7 @@ void	ft_lstprint(t_list *lst)
 	char	**mem;
 
 	mem = NULL;
+	i = 1;
 	while (lst->next != NULL)
 	{
 		lst = lst->next;
@@ -67,17 +68,17 @@ void	ft_lstcontent_swp(t_list *lst1, t_list *lst2)
 t_list	*ft_lstcopy(t_struct *s)
 {
 	t_list	mem;
-	t_list	*first;
 
 	ft_lstadd_back(&mem.next, ft_lstnew(NULL));
+	s->env = s->first;
 	while (s->env.next != NULL)
 	{
-		s->env = *s->env.next;
 		ft_lstadd_back(&mem.next, ft_lstnew(s->env.content));
+		s->env = *s->env.next;
 	}
+	ft_lstadd_back(&mem.next, ft_lstnew(s->env.content));
 	mem = *mem.next;
-	first = &mem;
-	return (first);
+	return (&mem);
 }
 
 void	ft_lstsort_str(t_struct *s)
@@ -102,17 +103,10 @@ void	ft_lstsort_str(t_struct *s)
 			}
 		}
 	}
-	while (sortlist->next != NULL)
-	{
-		sortlist = sortlist->next;
-		printf("declare -x %s\n", sortlist->content);
-	}
-	//ft_lstprint(&sortlist);
+	ft_lstprint(sortlist);
 	//ft_lstclear(&sortlist, &free);
 }
 
-
-//AVEC UN SPLIT
 void	ft_export(t_struct *s)
 {
 	int		i;
@@ -121,30 +115,7 @@ void	ft_export(t_struct *s)
 	i = 1;
 	j = 0;
 	if (s->bob->token[1] == NULL)
-	{
-		printf("lol1\n");
 		ft_lstsort_str(s);
-		printf("lol2\n");
-		/*while (s->env.next != NULL)
-		{
-			if (ft_strchr(s->env.content, '='))
-			{
-				mem = ft_split(s->env.content, '=');
-				printf("declare -x %s=\"", mem[0]);
-				while (mem && mem[i])
-				{
-					printf("%s", mem[i]);
-					i++;
-				}
-				i = 1;
-				printf("\"\n");
-			}
-			else
-				printf("declare -x %s\n",s->env.content);
-			s->env = *s->env.next;
-		}
-		s->env = s->first;*/
-	}
 	else
 	{
 		while (s->bob->token[i])
