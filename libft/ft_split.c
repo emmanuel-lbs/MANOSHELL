@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 18:36:25 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/26 14:15:44 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/01/28 13:10:03 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,46 @@ char	**ft_split(char const *s, char c)
 		if (s != start)
 		{
 			tab[i] = jpp_norme(start, s);
+			if (!tab[i])
+				return (ft_free_split(tab));
+			if (start != s)
+				i++;
+		}
+	}
+	return (tab);
+}
+
+char	**ft_splitone(char const *s, char c, int one)
+{
+	int			i;
+	const char	*start;
+	char		**tab;
+
+	i = 0;
+	tab = ft_calloc(sizeof(char *), (2 + 1));
+	if (!(tab))
+		return (NULL);
+	while (*s)
+	{
+		if (one == 1)
+		{
+			s++;
+			start = s;
+			while (*s)
+				s++;
+		}
+		else
+		{
+			while (*s && *s == c)
+				s++;
+			start = s;
+			while (*s && *s != c)
+				s++;
+		}
+		if (s != start)
+		{
+			tab[i] = jpp_norme(start, s);
+			one = 1;
 			if (!tab[i])
 				return (ft_free_split(tab));
 			if (start != s)

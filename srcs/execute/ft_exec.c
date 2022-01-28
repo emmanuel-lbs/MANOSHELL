@@ -88,6 +88,17 @@ int	ft_exec(t_struct *s, char *str)
 			ft_unset(s);
 			s->bob = s->bob->next;
 		}
+		else if (strcmp(s->bob->token[0], "lst") == 0 && !s->bob->next)
+		{
+			s->env = s->first;
+			while (s->env->next != NULL)
+			{
+				printf(" %s\n", s->env->content);
+				s->env = s->env->next;
+			}
+			usleep(500000);
+			printf(" %s\n", s->env->content);
+		}
 		else
 		{
 			if (pipe(s->data.end) == -1)
@@ -118,7 +129,7 @@ int	ft_exec(t_struct *s, char *str)
 			}
 			else
 			{
-				wait(NULL);
+				waitpid(s->data.id1, 0, 0);
 				close(s->data.end[1]);
 				//on sauvegarde l'input pour le donner au prochain pipe
 				fd_in = s->data.end[0];

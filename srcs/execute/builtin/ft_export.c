@@ -9,7 +9,7 @@ int	ft_strccmp(const char *s1, const char *s2, char c)
 	i = 0;
 	ss1 = (unsigned char *)s1;
 	ss2 = (unsigned char *)s2;
-	while ((ss1[i] != '\0' || ss2[i] != '\0') && (ss1[i] != c || ss2[i] != c))
+	while ((ss1[i] != '\0' || ss2[i] != '\0') && ss1[i] != c && ss2[i] != c)
 	{
 		if (ss1[i] - ss2[i] != 0)
 			return (ss1[i] - ss2[i]);
@@ -18,18 +18,41 @@ int	ft_strccmp(const char *s1, const char *s2, char c)
 	return (0);
 }
 
-void	ft_checkdup(t_struct *s, char *str)
+int	ft_strgetchar(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	ft_checkdup(t_struct *s, char *str)
 {
 	s->env = s->first;
 	while (s->env->next != NULL)
 	{
-		s->env = s->env->next;
 		if (ft_strccmp(s->env->content, str, '=') == 0)
-			ft_unset(s);
+		{
+			if (ft_strgetchar(str, '=') == 1)
+				s->env->content = str;
+			return (0);
+		}	
+		s->env = s->env->next;
 	}
 	printf("content = %s\n", s->env->content);
 	if (ft_strccmp(s->env->content, str, '=') == 0)
-		ft_unset(s);
+	{
+		if (ft_strgetchar(str, '=') == 1)
+			s->env->content = str;
+		return (0);
+	}
+	return (1);
 }
 
 void	ft_lstprint(t_list *lst)
@@ -44,7 +67,7 @@ void	ft_lstprint(t_list *lst)
 		lst = lst->next;
 		if (ft_strchr(lst->content, '='))
 		{
-			mem = ft_split(lst->content, '=');
+			mem = ft_splitone(lst->content, '=', 0);
 			printf("declare -x %s=\"", mem[0]);
 			while (mem && mem[i])
 			{
@@ -149,7 +172,7 @@ void	ft_export(t_struct *s)
 	{
 		while (s->bob->token[i])
 		{
-			if (!ft_isalpha(s->bob->token[i][0]))
+			if (!ft_isalpha_(s->bob->token[i][0]))
 			{
 				printf("export: \'%s\': not a valid identifier\n", s->bob->token[i]);
 			}
@@ -157,7 +180,7 @@ void	ft_export(t_struct *s)
 			{
 				while (s->bob->token[i][j] != '=' && s->bob->token[i][j])
 				{
-					if (!ft_isalnum(s->bob->token[i][j]))
+					if (!ft_isalnum_(s->bob->token[i][j]))
 					{
 						printf("export: \'%s\': not a valid identifier\n", s->bob->token[i]);
 					}
@@ -165,8 +188,12 @@ void	ft_export(t_struct *s)
 				}
 				if (s->bob->token[i][j] == '=' || !s->bob->token[i][j])
 				{
-					ft_checkdup(s, s->bob->token[i]);
-					ft_lstadd_back(&s->env->next, ft_lstnew(s->bob->token[i]));
+					printf("checkdup\n");
+					if (ft_checkdup(s, s->bob->token[i]) == 1)
+					{
+						printf("dup not found\n");
+						ft_lstadd_back(&s->env->next, ft_lstnew(s->bob->token[i]));
+					}
 				}
 			}
 			i++;

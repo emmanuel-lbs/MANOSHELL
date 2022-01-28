@@ -47,11 +47,12 @@ int	main(int ac, char **av, char **envp)
 		s.env = s.env->next;
 	}
 	printf(" %s\n", s.env->content);
+	printf("cmp = %d\n", ft_strccmp("TERM=", "TERM", '='));
 	while (1)
 	{
 		//On stocke le stdin dans str,
 		//on peut changer ça en le mettant dans une struct au besoin.
-		ft_get_pwd(&s, s.pwd->content);
+		ft_get_pwd(&s, s.pwd.content);
 		str = readline(s.prompt);
 		if (str == 0)
 			break ;
