@@ -2,20 +2,23 @@
 
 char	*one_token(char *cmd, int *i, t_struct *s);
 
-void	dollar_in_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
+int		dollar_in_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
 {
 	char	*dollars;
 	int		k;
 
 	k = 0;
 	dollars = one_token(cmd, j, s);
+	if (dollars == NULL)
+		return (-1); // change par erno
 	while (dollars[k])
 		add_char(cpy, dollars, i, &k);
 	cpy[*i] = 0;
 	free(dollars);
+	return (0); //ernor
 }
 
-void	cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
+int		cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
 {
 	char	quote;
 
@@ -25,12 +28,15 @@ void	cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
 	while (cmd[*j] && cmd[*j] != quote)
 	{
 		if (cmd[*j] == '$' && quote == '\"')
-			dollar_in_quote(cpy, cmd, i, j, s);
+		{
+			if (dollar_in_quote(cpy, cmd, i, j, s) == -1)
+				return (-1); // ernoor
+		}
 		else
 			add_char(cpy, cmd, i, j);
 	}
-			(*j)++;
-//	add_char(cpy, cmd, i, j);
+	(*j)++;
+	//	add_char(cpy, cmd, i, j);
 	if (cmd[*j] && ft_is_quote(cmd[*j]) == 1)
 		cpy_quote(cpy, cmd, i, j, s);
 	if (cmd[*j] && cmd[*j] == '$')
@@ -42,6 +48,7 @@ void	cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
 	if (cmd[*j] && ft_is_quote(cmd[*j]) == 1)
 		cpy_quote(cpy, cmd, i, j, s);
 	cpy[*i] = 0;
+	return (0); // ernor
 }
 
 int	verif_quote(char *cmd, int i)
@@ -109,7 +116,8 @@ char	*one_token_quote(char *cmd, int *i, t_struct *s)
 		return (NULL);
 	*i = start;
 	start = 0;
-	cpy_quote(a_token, cmd, &start, i, s);
+	if (cpy_quote(a_token, cmd, &start, i, s) == -1)
+		return (NULL);
 	return (a_token);
 }
 
