@@ -10,16 +10,6 @@ t_bob	*lastbob(t_bob *bob)
 		return (bob);
 }
 
-//void	add_back_bob(t_bob **bob, t_bob *add)
-//{
-//
-//		if (*bob == NULL)
-//		{
-//				*bob = add;
-//				return ;
-//		}
-//}
-
 t_bob	*new_bob(void)
 {
 		t_bob *list;
@@ -33,15 +23,6 @@ t_bob	*new_bob(void)
 		list->mode_out = 0;
 		return (list);
 }
-
-//void	new_block(t_struct *s, char **token)
-//{
-//		int nb_word = 0;
-//
-//		nb_word = 0;
-//		while (token[nb_word] && token[nb_word][0] != '|')
-//				nb_word++;
-//}
 
 void	printf_lst(t_bob *bob)
 {
@@ -109,8 +90,8 @@ int	gere_chevron(char **str, int *actual_word, t_bob *bob)
 			(*actual_word)++;
 			bob->fd_in = open(str[*actual_word], O_RDONLY);
 		}
-//		if (bob->fd_in == -1 || bob->fd_out == -1)
-//			return (-1);
+		if (bob->fd_in == -1 || bob->fd_out == -1)
+			return (-1);
 		return (0);
 }
 
@@ -143,10 +124,10 @@ int	fct(char **str, int start, int end, t_bob *bob)
 	word = 0;
 	while (start < end)
 	{
-//		if (ft_is_chevron(str[start][0]) && str[start][1] != '<' && file_ret != -1)
-//			file_ret = gere_chevron(str, &start, bob);
-//		else if (ft_is_chevron(str[start][0]) && str[start][1] != '<')
-//			start += 2;
+		if (ft_is_chevron(str[start][0]) && str[start][1] != '<' && file_ret != -1)
+			file_ret = gere_chevron(str, &start, bob);
+		else if (ft_is_chevron(str[start][0]) && str[start][1] != '<')
+			start += 2;
 		else
 		{
 			bob->token[word] = one_token_for_bob(str[start]);
@@ -155,6 +136,8 @@ int	fct(char **str, int start, int end, t_bob *bob)
 		start++;
 	}
 	bob->token[word] = 0;
+	if (bob->fd_in == -1)
+		bob->fd_out = -1;
 	return (0);
 	//changer return par la variable global
 }
@@ -185,14 +168,6 @@ t_bob	*create_bob(char **str)
 			bob = bob->next;
 		}
 		start = end;
-
-		//				j = 0;
-		//				while (bob->token[j])
-		//				{
-		//						printf("%s\n",bob->token[j]);
-		//						j++;
-		//				}
-		//		add_back_bob(&s->bob.next, new_block(cmd));
 	}
 	printf_lst(first_bob);
 	return (first_bob);
