@@ -11,6 +11,31 @@ void	ft_delone(t_list **lst)
 	free(mem);
 }
 
+/*void	ft_delfirst(t_list **lst)
+{
+	t_list	*tmp;
+	t_list	*mem;
+
+	tmp = *lst;
+	mem = tmp;
+	tmp = tmp->next;
+	free(mem);
+}*/
+
+int	ft_strclen(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 void	ft_unset(t_struct *s)
 {
 	int		i;
@@ -18,6 +43,7 @@ void	ft_unset(t_struct *s)
 	t_list	*mem;
 	t_list	*tmp;
 
+	s->env = s->first;
 	i = 1;
 	j = 0;
 	while (s->bob->token[i] != NULL)
@@ -40,14 +66,18 @@ void	ft_unset(t_struct *s)
 			{
 				while (s->env->next != NULL)
 				{
-					if (ft_strchr(s->bob->token[i], '=') != 0)
+					/*if (ft_strncmp(s->env->content, s->bob->token[i], ft_strclen(s->env->next->content, '=')) == 0)
 					{
-						if (ft_strccmp(s->env->next->content, s->bob->token[i], '=') == 0)
-						{
-							printf("next = %s\n", s->env->next->content);
-							ft_delone(&s->env);
-							break ;
-						}
+						printf("next = %s\n", s->env->content);
+						s->first = s->first->next;
+						ft_delone(&s->env);
+						break ;
+					}*/
+					if (ft_strncmp(s->env->next->content, s->bob->token[i], ft_strclen(s->env->next->content, '=')) == 0)
+					{
+						printf("next = %s\n", s->env->next->content);
+						ft_delone(&s->env);
+						break ;
 					}
 					else
 					{
