@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/28 19:15:09 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/01/29 14:00:55 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,22 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 void	destroy_bob(t_struct *s)
 {
 	s->bob = s->first_bob;
-	while (s->bob->next != NULL)
+	while (s->bob != NULL)
 	{
 		ft_free_double_char(s->bob->token);
-		close(s->bob->fd_out);
-		close(s->bob->fd_in);
+		if (s->bob->fd_out)
+			close(s->bob->fd_out);
+		if (s->bob->fd_in)
+			close(s->bob->fd_in);
 		s->bob = s->bob->next;
 	}
-//	ft_free_double_char(s->bob->token);
-//	close(s->bob->fd_out);
-//	close(s->bob->fd_in);
-	//	free(s->bob);
-	//	free(s->first_bob);
+//	s->env = s->first;
+//	while (s->env !- NULL)
+//	{
+//
+//	}
+	free(s->bob);
+	free(s->first_bob);
 }
 
 int	is_heredocs(t_struct *s)
@@ -106,7 +110,6 @@ int	main(int ac, char **av, char **envp)
 			printf("ROZHOUUUU\n");
 			break ;
 		}
-		add_history(str);
 		if (parsing(str, &s) == -1)
 			printf ("\033[31;01mERROR\033[00m\n");
 		else
@@ -114,10 +117,11 @@ int	main(int ac, char **av, char **envp)
 			if (is_heredocs(&s) == 1)
 				printf("HEREDOCS\n");
 			printf ("\033[34;01mPERFECT\033[00m\n");
-			ft_exec(&s, str);
+			//	ft_exec(&s, str);
 			s.env = s.first;
 		}
 		err = errno;
-//		destroy_bob(&s);
+		free(str);
+		destroy_bob(&s);
 	}
 }
