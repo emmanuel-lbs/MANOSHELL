@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/01/28 19:15:09 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 
 #include "../includes/minishell.h"
@@ -33,6 +45,42 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 	free(mem);
 }
 
+void	destroy_bob(t_struct *s)
+{
+	s->bob = s->first_bob;
+	while (s->bob->next != NULL)
+	{
+		ft_free_double_char(s->bob->token);
+		close(s->bob->fd_out);
+		close(s->bob->fd_in);
+		s->bob = s->bob->next;
+	}
+//	ft_free_double_char(s->bob->token);
+//	close(s->bob->fd_out);
+//	close(s->bob->fd_in);
+	//	free(s->bob);
+	//	free(s->first_bob);
+}
+
+int	is_heredocs(t_struct *s)
+{
+	int i;
+
+	s->bob = s->first_bob;
+	while (s->bob != NULL)
+	{
+		i = 0;
+		while (s->bob->token[i])
+		{
+			if (s->bob->token[i][0] == '<' && s->bob->token[i][1] == '<')
+				return (1);
+			i++;
+		}
+		s->bob = s->bob->next;
+	}
+	return (0);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
@@ -54,16 +102,22 @@ int	main(int ac, char **av, char **envp)
 		ft_get_pwd(&s, s.pwd->content);
 		str = readline(s.prompt);
 		if (str == 0)
+		{
+			printf("ROZHOUUUU\n");
 			break ;
+		}
 		add_history(str);
 		if (parsing(str, &s) == -1)
 			printf ("\033[31;01mERROR\033[00m\n");
 		else
 		{
+			if (is_heredocs(&s) == 1)
+				printf("HEREDOCS\n");
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			ft_exec(&s, str);
 			s.env = s.first;
 		}
 		err = errno;
+//		destroy_bob(&s);
 	}
 }
