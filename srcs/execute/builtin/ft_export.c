@@ -49,7 +49,14 @@ int	ft_checkdup(t_struct *s, char *str)
 		if (ft_strccmp(s->env->content, str, '=') == 0)
 		{
 			if (ft_strgetchar(str, '=') == 1)
+			{
+				if (ft_strncmp(str, "PATH=", 5) == 0)
+				{
+					s->data.env_path = ft_split((str), ':');
+					s->data.env_path[0] = (s->data.env_path[0] + 5);
+				}
 				s->env->content = str;
+			}
 			return (0);
 		}	
 		s->env = s->env->next;
@@ -58,8 +65,20 @@ int	ft_checkdup(t_struct *s, char *str)
 	if (ft_strccmp(s->env->content, str, '=') == 0)
 	{
 		if (ft_strgetchar(str, '=') == 1)
+		{
+			if (ft_strncmp(str, "PATH=", 5) == 0)
+			{
+				s->data.env_path = ft_split((str), ':');
+				s->data.env_path[0] = (s->data.env_path[0] + 5);
+			}
 			s->env->content = str;
+		}
 		return (0);
+	}
+	if (ft_strncmp(str, "PATH=", 5) == 0)
+	{
+		s->data.env_path = ft_split((str), ':');
+		s->data.env_path[0] = (s->data.env_path[0] + 5);
 	}
 	return (1);
 }
