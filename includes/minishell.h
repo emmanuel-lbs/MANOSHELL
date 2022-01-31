@@ -26,8 +26,8 @@ int			command_syntax(char *str);
 int			ft_countwords(char *s);
 char		**split_shell(char *cmd, t_struct *s);
 /*quotes*/
-void	dollar_in_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
-void	cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
+int		dollar_in_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
+int		cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
 int		verif_quote(char *cmd, int i);
 char	*one_token_quote(char *cmd, int *i, t_struct *s);
 /*utils*/

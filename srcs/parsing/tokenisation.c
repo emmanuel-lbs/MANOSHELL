@@ -3,7 +3,6 @@
 char	*one_token(char *cmd, int *i, t_struct *s);
 char	*one_token_quote(char *cmd, int *i, t_struct *s);
 int	verif_quote(char *cmd, int i);
-void	cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
 
 //int	ft_countwords(char *s)
 //{
