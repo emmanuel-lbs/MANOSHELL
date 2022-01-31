@@ -35,7 +35,7 @@ void	printf_lst(t_bob *bob)
 			printf(" -%s- ",bob->token[i]);
 			i++;
 		}
-		printf("out=%d in=%d", bob->fd_out, bob->fd_in);
+		printf("out = %d in = %d", bob->fd_out, bob->fd_in);
 		printf("\n");
 		bob = bob->next;
 	}

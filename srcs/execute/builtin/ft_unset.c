@@ -11,6 +11,7 @@ void	ft_delone(t_list **lst)
 	free(mem);
 }
 
+
 /*void	ft_delfirst(t_list **lst)
 {
 	t_list	*tmp;
@@ -21,6 +22,21 @@ void	ft_delone(t_list **lst)
 	tmp = tmp->next;
 	free(mem);
 }*/
+
+int	ft_isalpha_(int c)
+{
+	if ((65 <= c && c <= 90) || (97 <= c && c <= 122) || c == '_')
+		return (1);
+	return (0);
+}
+
+int	ft_isalnum_(int c)
+{
+	if (ft_isalpha_(c) || ft_isdigit(c))
+		return (1);
+	return (0);
+}
+
 
 int	ft_strclen(char *str, char c)
 {
@@ -48,21 +64,21 @@ void	ft_unset(t_struct *s)
 	j = 0;
 	while (s->bob->token[i] != NULL)
 	{
-		if (!ft_isalpha(s->bob->token[i][0]))
+		if (!ft_isalpha_(s->bob->token[i][0]))
 		{
-			printf("export: \'%s\': not a valid identifier\n", s->bob->token[i]);
+			printf("unset: \'%s\': not a valid identifier\n", s->bob->token[i]);
 		}
 		else
 		{
-			while (s->bob->token[i][j] != '=' && s->bob->token[i][j])
+			while (s->bob->token[i][j])
 			{
-				if (!ft_isalnum(s->bob->token[i][j]))
+				if (!ft_isalnum_(s->bob->token[i][j]))
 				{
-					printf("export: \'%s\': not a valid identifier\n", s->bob->token[i]);
+					printf("unset: \'%s\': not a valid identifier\n", s->bob->token[i]);
 				}
 				j++;
 			}
-			if (s->bob->token[i][j] == '=' || !s->bob->token[i][j])
+			if (!s->bob->token[i][j])
 			{
 				while (s->env->next != NULL)
 				{

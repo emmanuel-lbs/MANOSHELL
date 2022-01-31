@@ -47,6 +47,9 @@ t_bob		*create_bob(char **str);
 void		add_back_bob(t_bob **bob, t_bob *add);
 void		new_block(t_struct *s, char **str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*Utils*/
+int	        ft_isalnum_(int c);
+int	        ft_isalpha_(int c);
 /*Builtin function*/
 int	        ft_strccmp(const char *s1, const char *s2, char c);
 void		ft_echo(t_struct *s);
