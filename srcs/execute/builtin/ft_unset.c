@@ -11,8 +11,7 @@ void	ft_delone(t_list **lst)
 	free(mem);
 }
 
-
-/*void	ft_delfirst(t_list **lst)
+void	ft_delfirst(t_list **lst)
 {
 	t_list	*tmp;
 	t_list	*mem;
@@ -21,7 +20,7 @@ void	ft_delone(t_list **lst)
 	mem = tmp;
 	tmp = tmp->next;
 	free(mem);
-}*/
+}
 
 int	ft_isalpha_(int c)
 {
@@ -36,7 +35,6 @@ int	ft_isalnum_(int c)
 		return (1);
 	return (0);
 }
-
 
 int	ft_strclen(char *str, char c)
 {
@@ -82,16 +80,32 @@ void	ft_unset(t_struct *s)
 			{
 				while (s->env->next != NULL)
 				{
-					/*if (ft_strncmp(s->env->content, s->bob->token[i], ft_strclen(s->env->next->content, '=')) == 0)
+					if (ft_strncmp(s->env->content, s->bob->token[i], ft_strclen(s->env->content, '=')) == 0)
 					{
-						printf("next = %s\n", s->env->content);
+						printf("1: next = %s\n", s->env->content);
+						if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
+						{
+							s->old_pwd.content = NULL;
+						}
+						else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
+						{
+							s->data.env_path = NULL;
+						}
 						s->first = s->first->next;
-						ft_delone(&s->env);
+						ft_delfirst(&s->env);
 						break ;
-					}*/
+					}
 					if (ft_strncmp(s->env->next->content, s->bob->token[i], ft_strclen(s->env->next->content, '=')) == 0)
 					{
-						printf("next = %s\n", s->env->next->content);
+						if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
+						{
+							s->old_pwd.content = NULL;
+						}
+						else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
+						{
+							s->data.env_path = NULL;
+						}
+						printf("2: next = %s\n", s->env->next->content);
 						ft_delone(&s->env);
 						break ;
 					}
@@ -99,7 +113,15 @@ void	ft_unset(t_struct *s)
 					{
 						if (ft_strcmp(s->env->next->content, s->bob->token[i]) == 0)
 						{
-							printf("next = %s\n", s->env->next->content);
+							if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
+							{
+								s->old_pwd.content = NULL;
+							}
+							else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
+							{
+								s->data.env_path = NULL;
+							}
+							printf("3: next = %s\n", s->env->next->content);
 							ft_delone(&s->env);
 							break ;
 						}

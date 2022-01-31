@@ -2,27 +2,51 @@
 
 int	ft_strccmp(const char *s1, const char *s2, char c)
 {
-	size_t			i;
-	size_t			min;
+	int			i;
+	int			min;
 	unsigned char	*ss1;
 	unsigned char	*ss2;
 
 	i = 0;
-	min = 0;
+	min = -1;
 	ss1 = (unsigned char *)s1;
 	ss2 = (unsigned char *)s2;
-	while (ss1[i] != '\0' || ss2[i] != '\0')
+	while (ss1[i] != '\0')
 	{
-		if (ss1[i] == c || ss2[i] == c)
+		if (ss1[i] == c)
+		{
 			min = i;
+			break ;
+		}
 		i++;
 	}
 	i = 0;
+	while (ss2[i] != '\0')
+	{
+		if (ss2[i] == c)
+		{
+			if (i > min)
+				min = i;
+			break ;
+		}
+		i++;
+	}
+	i = 0;
+	printf("min = %d\n", min);
 	while ((ss1[i] != '\0' || ss2[i] != '\0') && i < min)
 	{
 		if (ss1[i] - ss2[i] != 0)
 			return (ss1[i] - ss2[i]);
 		i++;
+	}
+	if (min == -1)
+	{
+		while ((ss1[i] != '\0' || ss2[i] != '\0'))
+		{
+			if (ss1[i] - ss2[i] != 0)
+				return (ss1[i] - ss2[i]);
+			i++;
+		}
 	}
 	return (0);
 }
@@ -49,17 +73,36 @@ int	ft_checkdup(t_struct *s, char *str)
 		if (ft_strccmp(s->env->content, str, '=') == 0)
 		{
 			if (ft_strgetchar(str, '=') == 1)
+			{
+				if (ft_strncmp(str, "PATH=", 5) == 0)
+				{
+					s->data.env_path = ft_split((str), ':');
+					s->data.env_path[0] = (s->data.env_path[0] + 5);
+				}
 				s->env->content = str;
+			}
 			return (0);
 		}	
 		s->env = s->env->next;
 	}
-	printf("content = %s\n", s->env->content);
 	if (ft_strccmp(s->env->content, str, '=') == 0)
 	{
+		printf("str = %s\nenv content = %s\n", str, s->env->content);
 		if (ft_strgetchar(str, '=') == 1)
+		{
+			if (ft_strncmp(str, "PATH=", 5) == 0)
+			{
+				s->data.env_path = ft_split((str), ':');
+				s->data.env_path[0] = (s->data.env_path[0] + 5);
+			}
 			s->env->content = str;
+		}
 		return (0);
+	}
+	if (ft_strncmp(str, "PATH=", 5) == 0)
+	{
+		s->data.env_path = ft_split((str), ':');
+		s->data.env_path[0] = (s->data.env_path[0] + 5);
 	}
 	return (1);
 }
@@ -213,6 +256,7 @@ void	ft_export(t_struct *s)
 				if (s->bob->token[i][j] == '=' || !s->bob->token[i][j])
 				{
 					printf("checkdup\n");
+					printf("token = %s\n", s->bob->token[i]);
 					if (ft_checkdup(s, s->bob->token[i]) == 1)
 					{
 						printf("dup not found\n");

@@ -23,7 +23,9 @@ void	ft_cd(t_struct *s)
 	}
 	else if (ft_strcmp(s->bob->token[1], "-") == 0)
 	{
-		if (chdir(s->old_pwd.content + 7))
+		if (s->old_pwd.content == NULL)
+			printf("OLDPWD not set\n");
+		else if (chdir(s->old_pwd.content + 7))
 			printf("%s : No such file or directory\n", s->old_pwd.content + 7);
 		else
 		{
