@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/28 14:21:08 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/01/31 12:37:11 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,27 +74,6 @@ char	*change_dollars(char *dollars, char *var)
 	return (a_token);
 }
 
-char	*dollars_num(char *cmd)
-{
-	int		i;
-	char	*token;
-
-	i = 0;
-	while (ft_isdigit(cmd[i]) == 1)
-		i++;
-	token = malloc(sizeof(char) * (i + 1));
-	if (token == NULL)
-		return (NULL);
-	i = 0;
-	while (ft_isdigit(cmd[i]) == 1)
-	{
-		token[i] = cmd[i];
-		i++;
-	}
-	token[i] = 0;
-	return (token);
-}
-
 char *dollar_not_interpret(char *cmd, int *i)
 {
 	int		ret;
@@ -107,14 +86,14 @@ char *dollar_not_interpret(char *cmd, int *i)
 		(*i)++;
 		return (ft_strdup(""));
 	}
-	while (ft_isalnum(cmd[*i]) == 1)
+	while (ft_isalnum(cmd[*i]) == 1 || cmd[*i] == '_')
 		(*i)++;
 	token = malloc(sizeof(char) * (*i - ret + 1));
 	if (token == NULL)
 		return (NULL);
 	*i = ret;
 	ret = 0;
-	while (cmd[*i] != 0 && ft_isalnum(cmd[*i]) == 1)
+	while (cmd[*i] != 0 && (ft_isalnum(cmd[*i]) == 1 || cmd[*i] == '_'))
 	{
 		add_char(token, cmd, &ret, i);
 	}
