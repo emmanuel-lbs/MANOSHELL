@@ -19,7 +19,7 @@ t_bob	*new_bob(void)
 				return (0);
 		list->next = NULL;
 		list->fd_in = 0;
-		list->fd_out = 0;
+		list->fd_out = 1;
 		list->mode_out = 0;
 		return (list);
 }
@@ -68,7 +68,7 @@ int	gere_chevron(char **str, int *actual_word, t_bob *bob)
 {
 		if (str[*actual_word][0] == '>')
 		{
-				if (bob->fd_out != 0)
+				if (bob->fd_out != 1)
 						close(bob->fd_out);
 				if (!str[*actual_word][1])
 				{
