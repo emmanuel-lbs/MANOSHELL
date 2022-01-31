@@ -53,6 +53,11 @@ int	ft_exec(t_struct *s, char *str)
 			ft_unset(s);
 			s->bob = s->bob->next;
 		}
+		/*else if (strcmp(s->bob->token[0], "exit") == 0 && !s->bob->next)
+		{
+			ft_exit(s);
+			s->bob = s->bob->next;
+		}*/
 		else if (strcmp(s->bob->token[0], "lst") == 0 && !s->bob->next)
 		{
 			s->env = s->first;

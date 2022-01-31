@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/31 11:13:55 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/01/31 14:00:44 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int	main(int ac, char **av, char **envp)
 			printf("ROZHOUUUU\n");
 			break ;
 		}
+		add_history(str);
 		if (parsing(str, &s) == -1)
 			printf ("\033[31;01mERROR\033[00m\n");
 		else
