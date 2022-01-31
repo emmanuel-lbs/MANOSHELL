@@ -73,7 +73,6 @@ void	ft_lstprint(t_list *lst)
 	i = 1;
 	while (lst->next != NULL)
 	{
-		lst = lst->next;
 		if (ft_strchr(lst->content, '='))
 		{
 			mem = ft_splitone(lst->content, '=', 0);
@@ -88,7 +87,22 @@ void	ft_lstprint(t_list *lst)
 		}
 		else
 			printf("declare -x %s\n", lst->content);
+		lst = lst->next;
 	}
+	if (ft_strchr(lst->content, '='))
+	{
+		mem = ft_splitone(lst->content, '=', 0);
+		printf("declare -x %s=\"", mem[0]);
+		while (mem && mem[i])
+		{
+			printf("%s", mem[i]);
+			i++;
+		}
+		i = 1;
+		printf("\"\n");
+	}
+	else
+		printf("declare -x %s\n", lst->content);
 }
 
 void	ft_lstcontent_swp(t_list *lst1, t_list *lst2)
@@ -164,6 +178,7 @@ void	ft_lstsort_str(t_struct *s)
 	}
 	first = sortlist;
 	ft_lstprint(first);
+	first = sortlist;
 	ft_lstc(&sortlist);
 }
 
