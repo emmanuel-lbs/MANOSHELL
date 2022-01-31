@@ -97,8 +97,8 @@ int	ft_exec(t_struct *s, char *str)
 				printf(" %s\n", s->env->content);
 				s->env = s->env->next;
 			}
-			usleep(500000);
 			printf(" %s\n", s->env->content);
+			usleep(500000);
 		}
 		else
 		{
