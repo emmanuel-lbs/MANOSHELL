@@ -42,11 +42,13 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	{
 		if (ft_strncmp(s->env->content, "PWD=", 4) == 0)
 		{
-			printf("findpwd\n");
 			s->pwd = *s->env;
 		}
 		else if (ft_strncmp(s->env->content, "OLDPWD", 6) == 0)
+		{
 				s->old_pwd = *s->env;
+				s->old_pwd.content = NULL;
+		}
 		else if (ft_strncmp(s->env->content, "HOME=", 5) == 0)
 				s->home = *s->env;
 		s->env = s->env->next;

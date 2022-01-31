@@ -33,43 +33,7 @@ static int	ft_pathfinder(t_struct *s, int n)
 int	ft_exec(t_struct *s, char *str)
 {
 	int	fd_in;
-	// ################## On attends bob du parsing ####################################
 
-	//TEST 3 PIPES
-	// t_bob	bob;
-	// t_bob	bob2;
-	// t_bob	bob3;
-	// t_bob	bob4;
-	// s->bob = &bob;
-	// s->bob->token = ft_split("ls -l", ' ');
-	// bob2.token = ft_split("wc", ' ');
-	// bob3.token = ft_split("wc", ' ');
-	// bob4.token = ft_split("cat -e", ' ');
-	// bob4.next = NULL;
-	// bob3.next = &bob4;
-	// bob2.next = &bob3;
-	// s->bob->next = &bob2;
-
-	//TEST 2 PIPES
-	// t_bob	bob;
-	// t_bob	bob2;
-	// t_bob	bob3;
-	// s->bob = &bob;
-	// s->bob->token = ft_split("ls -l", ' ');
-	// bob2.token = ft_split("wc", ' ');
-	// bob3.token = ft_split("wc", ' ');
-	// bob3.next = NULL;
-	// bob2.next = &bob3;
-	// s->bob->next = &bob2;
-
-	//TEST 1 PIPES
-	// t_bob	bob;
-	// t_bob	bob2;
-	// s->bob = &bob;
-	// s->bob->token = ft_split("ls -l", ' ');
-	// bob2.token = ft_split("wc", ' ');
-	// bob2.next = NULL;
-	// s->bob->next = &bob2;
 	while (s->bob != NULL)
 	{
 		if (!s->bob->token[0])
