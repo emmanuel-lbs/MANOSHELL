@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/29 14:00:55 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/01/31 11:13:55 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,15 @@ int	is_heredocs(t_struct *s)
 		while (s->bob->token[i])
 		{
 			if (s->bob->token[i][0] == '<' && s->bob->token[i][1] == '<')
+			{
+				s->bob = s->first_bob;
 				return (1);
+			}
 			i++;
 		}
 		s->bob = s->bob->next;
 	}
+	s->bob = s->first_bob;
 	return (0);
 }
 
@@ -118,11 +122,11 @@ int	main(int ac, char **av, char **envp)
 			if (is_heredocs(&s) == 1)
 				printf("HEREDOCS\n");
 			printf ("\033[34;01mPERFECT\033[00m\n");
-			//	ft_exec(&s, str);
+			ft_exec(&s, str);
 			s.env = s.first;
 		}
 		err = errno;
 		free(str);
-		destroy_bob(&s);
+		//destroy_bob(&s);
 	}
 }

@@ -70,10 +70,11 @@ int	ft_exec(t_struct *s, char *str)
 	// bob2.token = ft_split("wc", ' ');
 	// bob2.next = NULL;
 	// s->bob->next = &bob2;
-
 	while (s->bob != NULL)
 	{
-		if (strcmp(s->bob->token[0], "cd") == 0 && !s->bob->next)
+		if (!s->bob->token[0])
+			s->bob = s->bob->next;
+		else if (strcmp(s->bob->token[0], "cd") == 0 && !s->bob->next)
 		{
 			ft_cd(s);
 			s->bob = s->bob->next;
