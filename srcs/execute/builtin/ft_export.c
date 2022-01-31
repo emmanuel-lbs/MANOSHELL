@@ -3,13 +3,22 @@
 int	ft_strccmp(const char *s1, const char *s2, char c)
 {
 	size_t			i;
+	size_t			min;
 	unsigned char	*ss1;
 	unsigned char	*ss2;
 
 	i = 0;
+	min = 0;
 	ss1 = (unsigned char *)s1;
 	ss2 = (unsigned char *)s2;
-	while ((ss1[i] != '\0' || ss2[i] != '\0') && ss1[i] != c && ss2[i] != c)
+	while (ss1[i] != '\0' || ss2[i] != '\0')
+	{
+		if (ss1[i] == c || ss2[i] == c)
+			min = i;
+		i++;
+	}
+	i = 0;
+	while ((ss1[i] != '\0' || ss2[i] != '\0') && i < min)
 	{
 		if (ss1[i] - ss2[i] != 0)
 			return (ss1[i] - ss2[i]);
