@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/31 12:37:11 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/01/31 17:08:15 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,42 @@
 
 int	len_env(char *env)
 {
-		int i;
+	int i;
 
-		i = 0;
-		while (env[i] && env[i] != '=')
-				i++;
-		return (i);
+	i = 0;
+	while (env[i] && env[i] != '=')
+		i++;
+	return (i);
+}
+
+int	where_dollar(char *cmd, int i)
+{
+	int		j;
+	char	quote;
+	int		pair;
+
+	j = 0;
+	pair = 0;
+	while (cmd[j] && j < i)
+	{
+		while (j < i && cmd[j] && ft_is_quote(cmd[j]) == 0)
+			j++;
+		if (cmd[j] && j < i && ft_is_quote(cmd[j]) == 1)
+		{
+			pair++;
+			quote =  cmd[j];
+			j++;
+			while (j < i && cmd[j] && cmd[j] != quote)
+				j++;
+			if (j < i && cmd[j] == quote)
+			{
+				j++;
+				pair++;
+			}
+		}
+	}
+	pair = pair % 2;
+	return (pair);
 }
 
 int	search_dollars(char *dollars, t_struct *s)
@@ -39,6 +69,46 @@ int	search_dollars(char *dollars, t_struct *s)
 	return (-1);
 }
 
+int	last_caractr(char *var)
+{
+	int i;
+
+	i = ft_strlen(var);
+	while (ft_is_quote(var[i]) != 1)
+		i--;
+	i--;
+	if (var[i] != ' ')
+		return (ft_strlen(var));
+	while (var[i] == ' ')
+		i--;
+	return (i);
+}
+
+int	strlen_var_env_no_space(char *var)
+{
+	int	i;
+	int	ret;
+
+	i = 0;
+	ret = 0;
+	while (var[i] && var[i] != '=')
+		i++;
+	i++;
+	while (var[i])
+	{
+		while (var[i] && var[i] != ' ')
+		{
+			i++;
+			ret++;
+		}
+		if (var[i] && var[i] == ' ' && i < last_caractr(var))
+			ret++;
+		while (var[i] && var[i] == ' ')
+			i++;
+	}
+	return (ret);
+}
+
 int	strlen_var_env(char *var)
 {
 	int	i;
@@ -52,6 +122,32 @@ int	strlen_var_env(char *var)
 	while (var[ret])
 		ret++;
 	return (ret - i + 1);
+}
+
+char	*change_dollars_no_space(char *dollars, char *var)
+{
+	int		i;
+	int		j;
+	char	*a_token;
+
+	i = 0;
+	j = 0;
+	a_token = malloc(sizeof(char) * (strlen_var_env_no_space(var) + 1));
+	while (var[i] && var[i] != '=')
+		i++;
+	i++;
+	while (var[i])
+	{
+		while (var[i] && var[i] != ' ')
+			add_char(a_token, var, &j, &i);
+		if (var[i] && var[i] == ' ' && i < last_caractr(var))
+			add_char(a_token, var, &j, &i);
+		while (var[i] && var[i] == ' ')
+			i++;
+	}
+	a_token[j] = 0;
+	free(dollars);
+	return (a_token);
 }
 
 char	*change_dollars(char *dollars, char *var)
@@ -113,7 +209,10 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 		return (a_token);
 	if (search_dollars(a_token, s) == -1)
 		return (NULL);
-	a_token = change_dollars(a_token, s->env->content);
+	if (where_dollar(cmd, *i) == 1)
+		a_token = change_dollars(a_token, s->env->content);
+	else
+		a_token = change_dollars_no_space(a_token, s->env->content);
 	if (a_token == NULL)
 		return (NULL);
 	if (cmd[*i] != 0 && cmd[*i] != ' ' && (verif_quote(cmd, *i) == 0 || cmd[*i] == '$'))
@@ -164,6 +263,7 @@ int	resize_len_for_dollar(char *cmd, int start, int end, t_struct *s)
 	char	*dollars;
 
 	diff = 0;
+	printf("%s\n",&cmd[end]);
 	while (/*cmd[start] != quote &&*/ start < end)
 	{
 		if (ft_is_quote(cmd[start]) == 1)
@@ -179,10 +279,10 @@ int	resize_len_for_dollar(char *cmd, int start, int end, t_struct *s)
 			}
 			start++;
 		}
+		if (cmd[start] == '$' && quote != '\'')
+			diff += search_diff(cmd, &start, s);
 		else
 			start++;
 	}
-	while (cmd[start] && start <= end && cmd[start] != ' ')
-		start++;
 	return (diff);
 }

@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/31 14:00:44 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/01/31 14:07:47 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 #include "../includes/minishell.h"
 #include "../includes/structure.h"
-
-err = 0;
 
 static void	ft_get_pwd(t_struct *s, char *pwd)
 {
@@ -31,7 +29,7 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 		mem[0][0] = '/';
 		mem[0][1] = '\0';
 	}
-	if (err != 0)
+	if (g_errna != 0)
 		s->prompt = ft_strjoin("\033[0;31m➜ \033[1;36m", ft_strjoin(mem[i - 1], "\033[0m "));
 	else
 		s->prompt = ft_strjoin("\033[0;32m➜ \033[1;36m", ft_strjoin(mem[i - 1], "\033[0m "));
@@ -104,6 +102,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	printf(" %s\n", s.env->content);
 	printf("cmp = %d\n", ft_strccmp("TERM=", "TERM", '='));
+		g_errna = errno;
 	while (1)
 	{
 		//On stocke le stdin dans str,
@@ -111,10 +110,7 @@ int	main(int ac, char **av, char **envp)
 		ft_get_pwd(&s, s.pwd.content);
 		str = readline(s.prompt);
 		if (str == 0)
-		{
-			printf("ROZHOUUUU\n");
 			break ;
-		}
 		add_history(str);
 		if (parsing(str, &s) == -1)
 			printf ("\033[31;01mERROR\033[00m\n");
@@ -126,8 +122,8 @@ int	main(int ac, char **av, char **envp)
 			ft_exec(&s, str);
 			s.env = s.first;
 		}
-		err = errno;
-		free(str);
+		g_errna = errno;
+	//	free(str);
 		//destroy_bob(&s);
 	}
 }
