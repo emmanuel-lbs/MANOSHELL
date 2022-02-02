@@ -1,5 +1,5 @@
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 //Initialisation de la structure Data et environnement
 //PWD=/Users/rozhou/42_Cursus/MANOSHELL

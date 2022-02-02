@@ -1,7 +1,8 @@
 ##############################  SOURCE & OBJETS  ###############################
 
-SRCS = srcs/main.c \
-		srcs/ft_check_path.c \
+SRCS = srcs/other/main.c \
+		srcs/other/ft_check_path.c \
+		srcs/other/heredocs.c \
 		srcs/parsing/parsing.c \
 		srcs/parsing/tokenisation.c \
 		srcs/parsing/syntax.c \

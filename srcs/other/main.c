@@ -6,14 +6,13 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/31 14:07:47 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/01/31 17:46:35 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
-#include "../includes/minishell.h"
-#include "../includes/structure.h"
+#include "../../includes/minishell.h"
 
 static void	ft_get_pwd(t_struct *s, char *pwd)
 {
@@ -64,29 +63,6 @@ void	destroy_bob(t_struct *s)
 	free(s->first_bob);
 }
 
-int	is_heredocs(t_struct *s)
-{
-	int i;
-
-	s->bob = s->first_bob;
-	while (s->bob != NULL)
-	{
-		i = 0;
-		while (s->bob->token[i])
-		{
-			if (s->bob->token[i][0] == '<' && s->bob->token[i][1] == '<')
-			{
-				s->bob = s->first_bob;
-				return (1);
-			}
-			i++;
-		}
-		s->bob = s->bob->next;
-	}
-	s->bob = s->first_bob;
-	return (0);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
@@ -123,7 +99,7 @@ int	main(int ac, char **av, char **envp)
 			s.env = s.first;
 		}
 		g_errna = errno;
-	//	free(str);
+		//	free(str);
 		//destroy_bob(&s);
 	}
 }
