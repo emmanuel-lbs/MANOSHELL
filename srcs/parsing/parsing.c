@@ -1,5 +1,24 @@
 #include "../../includes/minishell.h"
 
+int	number_pipe(char *str)
+{
+	int	i;
+	int	pip;
+
+	pip = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (ft_is_quote(str[i]) == 1)
+			skip_quote(str, str[i], &i);
+		if (str[i] == '|')
+			pip++;
+		i++;
+	}
+	printf("%d\n",pip);
+	return (pip);
+}
+
 int	parsing(char *str, t_struct *s)
 {
 	char **tokeniser;
@@ -13,6 +32,7 @@ int	parsing(char *str, t_struct *s)
 		return (-1);
 	s->bob = create_bob(tokeniser);
 	s->first_bob = s->bob;
+	s->no_pipe = number_pipe(str);
 	ft_free_double_char(tokeniser);
 	return (0);
 }
