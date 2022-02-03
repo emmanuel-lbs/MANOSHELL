@@ -34,17 +34,13 @@ static int	ft_pathfinder(t_struct *s, int n)
 
 void	ft_redirect(t_bob *bob)
 {
-	printf("fd in = %d\n", bob->fd_in);
 	if (bob->fd_in != 0)
 	{
-		printf("fdin != ");
 		dup2(bob->fd_in, 0);
 		close(bob->fd_in);
 	}
-	printf("fd out = %d\n", bob->fd_out);
 	if (bob->fd_out != 1)
 	{
-		printf("fdout != 1");
 		dup2(bob->fd_out, 1);
 		close(bob->fd_out);
 	}
@@ -111,7 +107,7 @@ int	ft_exec(t_struct *s, char *str)
 					dup2(s->data.end[1], 1);
 					close(s->data.end[1]);
 				}
-				//ft_redirect(s->bob);
+				ft_redirect(s->bob);
 				if (is_builtin(s) == 0)
 				{
 					if (ft_pathfinder(s, -1) == -1)
