@@ -35,6 +35,7 @@ static int	ft_pathfinder(t_struct *s, int n)
 			n++;
 		if (!s->data.env_path[n])
 		{
+			printf("check\n");
 			if (S_ISDIR(buf.st_mode))
 			{
 				printf("Command not found: %s\n", s->bob->token[0]);
@@ -45,7 +46,7 @@ static int	ft_pathfinder(t_struct *s, int n)
 				printf("Command not found: %s\n", s->bob->token[0]);
 				return (-1);
 			}
-			else if (access(s->bob->token, F_OK))
+			else if (access(s->bob->token[0], F_OK) == 0)
 				return (1);
 			else
 			{
