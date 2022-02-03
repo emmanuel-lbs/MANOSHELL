@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/31 17:46:35 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/02 10:40:35 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	main(int ac, char **av, char **envp)
 			if (is_heredocs(&s) == 1)
 				printf("HEREDOCS\n");
 			printf ("\033[34;01mPERFECT\033[00m\n");
+			s.data.id1 = malloc(sizeof(int) *(s.no_pipe + 1));
 			ft_exec(&s, str);
 			s.env = s.first;
 		}
