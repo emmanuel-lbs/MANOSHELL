@@ -64,6 +64,10 @@ int			is_builtin(t_struct *s);
 int			ft_exec(t_struct *s, char *str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 int			is_heredocs(t_struct *s);
+void		heredocs(t_struct *s, char	*end_word);
+void		beging_hered(t_struct *s);
+t_bob		*heredocs_bob(t_bob *bob);
+char		*heredocs_end_word(t_bob *bob);
 int			ft_check_path(t_struct *s, char **envp, int ac, char **av);
 
 #endif

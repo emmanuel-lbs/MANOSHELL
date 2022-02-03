@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/31 17:46:35 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 16:07:22 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,37 +66,42 @@ void	destroy_bob(t_struct *s)
 int	main(int ac, char **av, char **envp)
 {
 	char		*str;
-	t_struct	s;
+	t_struct	*s;
 
+	s = malloc(sizeof(s));
 	str = "";
-	ft_check_path(&s, envp, ac, av);
-	s.env = s.first;
-	while (s.env->next)
+	ft_check_path(s, envp, ac, av);
+	s->env = s->first;
+	while (s->env->next)
 	{
-		printf(" %s\n", s.env->content);
-		s.env = s.env->next;
+		printf(" %s\n", s->env->content);
+		s->env = s->env->next;
 	}
-	printf(" %s\n", s.env->content);
+	printf(" %s\n", s->env->content);
 	printf("cmp = %d\n", ft_strccmp("TERM=", "TERM", '='));
 		g_errna = errno;
 	while (1)
 	{
 		//On stocke le stdin dans str,
 		//on peut changer ça en le mettant dans une struct au besoin.
-		ft_get_pwd(&s, s.pwd.content);
-		str = readline(s.prompt);
+		ft_get_pwd(s, s->pwd.content);
+		str = readline(s->prompt);
 		if (str == 0)
 			break ;
 		add_history(str);
-		if (parsing(str, &s) == -1)
+		if (parsing(str, s) == -1)
 			printf ("\033[31;01mERROR\033[00m\n");
 		else
 		{
-			if (is_heredocs(&s) == 1)
-				printf("HEREDOCS\n");
+			if (is_heredocs(s) == 1)
+			{
+				beging_hered(s);
+				printf("le heredocs :\n");
+				printf("%sfin heredocs",s->heredocs);
+			}
 			printf ("\033[34;01mPERFECT\033[00m\n");
-			ft_exec(&s, str);
-			s.env = s.first;
+			ft_exec(s, str);
+			s->env = s->first;
 		}
 		g_errna = errno;
 		//	free(str);
