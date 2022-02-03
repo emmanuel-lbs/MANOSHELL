@@ -12,12 +12,7 @@ static int	ft_pathfinder(t_struct *s, int n)
 			printf("%s: is a directory\n", s->bob->token[0]);
 			return (-1);
 		}
-		else if (buf.st_mode == 33188)
-		{
-			printf("%s: Permission denied\n", s->bob->token[0]);
-			return (-1);
-		}
-		else if (access(s->bob->token, F_OK))
+		else if (access(s->bob->token[0], X_OK))
 			return (1);
 		else
 			printf("Command not found: %s\n", s->bob->token[0]);
@@ -41,12 +36,7 @@ static int	ft_pathfinder(t_struct *s, int n)
 				printf("Command not found: %s\n", s->bob->token[0]);
 				return (-1);
 			}
-			else if (buf.st_mode == 33188)
-			{
-				printf("Command not found: %s\n", s->bob->token[0]);
-				return (-1);
-			}
-			else if (access(s->bob->token[0], F_OK) == 0)
+			else if (access(s->bob->token[0], X_OK) == 0)
 				return (1);
 			else
 			{
@@ -58,7 +48,6 @@ static int	ft_pathfinder(t_struct *s, int n)
 	s->bob->token[0] = s->data.env_path[n];
 	return (1);
 }
-
 void	ft_redirect(t_bob *bob)
 {
 	if (bob->fd_in != 0)
