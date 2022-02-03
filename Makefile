@@ -19,6 +19,7 @@ SRCS = srcs/other/main.c \
 		srcs/execute/builtin/ft_export.c \
 		srcs/execute/builtin/ft_unset.c \
 		srcs/execute/builtin/ft_env.c \
+		srcs/execute/builtin/ft_exit.c \
 		
 
 OBJS = $(SRCS:.c=.o)

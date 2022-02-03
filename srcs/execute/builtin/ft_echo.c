@@ -12,11 +12,11 @@ static int	echo_flag(char *str)
 	i = 1;
 	while (str[i])
 	{	
-		if (str[i] != 'n')
-			return (-1);
+		if (str[i] == 'n')
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 static void	ft_write_echo(t_struct *s)

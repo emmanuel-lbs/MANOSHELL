@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/02 10:40:35 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/03 11:08:47 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	printf(" %s\n", s.env->content);
 	printf("cmp = %d\n", ft_strccmp("TERM=", "TERM", '='));
-		g_errna = errno;
+	//g_errna = errno;
 	while (1)
 	{
 		//On stocke le stdin dans str,

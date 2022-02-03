@@ -14,8 +14,8 @@ int	is_builtin(t_struct *s)
 		ft_unset(s);
 	else if (strcmp(s->bob->token[0], "env") == 0)
 		ft_env(s);
-	/*else if (strcmp(s->bob->token[0], "exit") == 0)
-		ft_cd(s);*/
+	else if (strcmp(s->bob->token[0], "exit") == 0)
+		ft_pipexit(s);
 	else
 		return (0);
 	return (1);
