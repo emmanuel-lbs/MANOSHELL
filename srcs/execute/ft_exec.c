@@ -1,19 +1,30 @@
-
 #include "../../includes/minishell.h"
 
 static int	ft_pathfinder(t_struct *s, int n)
 {
+	struct stat	buf;
+
+	stat(s->bob->token[0], &buf);
 	if (s->data.env_path == NULL)
 	{
-		if (access(*s->bob->token, F_OK) == 0)
+		if (S_ISDIR(buf.st_mode))
+		{
+			printf("%s: is a directory\n", s->bob->token[0]);
+			return (-1);
+		}
+		else if (buf.st_mode == 33188)
+		{
+			printf("%s: Permission denied\n", s->bob->token[0]);
+			return (-1);
+		}
+		else if (access(s->bob->token, F_OK))
 			return (1);
-		printf("Command not found: %s\n", s->bob->token[0]);
+		else
+			printf("Command not found: %s\n", s->bob->token[0]);
 		return (-1);
 	}
 	else
 	{
-		if (access(*s->bob->token, F_OK) == 0)
-			return (1);
 		while (s->data.env_path[++n])
 		{	
 			s->data.env_path[n] = ft_strjoin(s->data.env_path[n], "/");
@@ -24,8 +35,23 @@ static int	ft_pathfinder(t_struct *s, int n)
 			n++;
 		if (!s->data.env_path[n])
 		{
-			printf("Command not found: %s\n", s->bob->token[0]);
-			return (-1);
+			if (S_ISDIR(buf.st_mode))
+			{
+				printf("Command not found: %s\n", s->bob->token[0]);
+				return (-1);
+			}
+			else if (buf.st_mode == 33188)
+			{
+				printf("Command not found: %s\n", s->bob->token[0]);
+				return (-1);
+			}
+			else if (access(s->bob->token, F_OK))
+				return (1);
+			else
+			{
+				printf("Command not found: %s\n", s->bob->token[0]);
+				return (-1);
+			}
 		}
 	}
 	s->bob->token[0] = s->data.env_path[n];
@@ -73,11 +99,11 @@ int	ft_exec(t_struct *s, char *str)
 			ft_unset(s);
 			s->bob = s->bob->next;
 		}
-		/*else if (strcmp(s->bob->token[0], "exit") == 0 && !s->bob->next)
+		else if (strcmp(s->bob->token[0], "exit") == 0 && !s->bob->next)
 		{
 			ft_exit(s);
 			s->bob = s->bob->next;
-		}*/
+		}
 		else
 		{
 			if (pipe(s->data.end) == -1)
@@ -112,10 +138,7 @@ int	ft_exec(t_struct *s, char *str)
 				{
 					if (ft_pathfinder(s, -1) == -1)
 						exit(EXIT_SUCCESS);
-					if (execve(s->bob->token[0], s->bob->token, s->data.envp) == -1)
-					{
-
-					}
+					execve(s->bob->token[0], s->bob->token, s->data.envp);
 				}
 				exit(EXIT_FAILURE);
 			}
