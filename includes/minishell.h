@@ -59,6 +59,8 @@ void		ft_pwd(void);
 void		ft_export(t_struct *s);
 void		ft_unset(t_struct *s);
 void		ft_env(t_struct *s);
+void	    ft_exit(t_struct *s);
+void	    ft_pipexit(t_struct *s);
 /*Main execution*/
 int			is_builtin(t_struct *s);
 int			ft_exec(t_struct *s, char *str);

@@ -91,6 +91,10 @@ void	ft_unset(t_struct *s)
 						{
 							s->data.env_path = NULL;
 						}
+						else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
+						{
+							s->home.content = NULL;
+						}
 						s->first = s->first->next;
 						ft_delfirst(&s->env);
 						break ;
@@ -105,6 +109,10 @@ void	ft_unset(t_struct *s)
 						{
 							s->data.env_path = NULL;
 						}
+						else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
+						{
+							s->home.content = NULL;
+						}						
 						printf("2: next = %s\n", s->env->next->content);
 						ft_delone(&s->env);
 						break ;
@@ -121,6 +129,10 @@ void	ft_unset(t_struct *s)
 							{
 								s->data.env_path = NULL;
 							}
+							else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
+							{
+								s->home.content = NULL;
+							}							
 							printf("3: next = %s\n", s->env->next->content);
 							ft_delone(&s->env);
 							break ;

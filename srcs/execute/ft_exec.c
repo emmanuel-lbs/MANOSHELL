@@ -3,8 +3,10 @@
 
 static int	ft_pathfinder(t_struct *s, int n)
 {
-	if (!s->data.env_path)
+	if (s->data.env_path == NULL)
 	{
+		if (access(*s->bob->token, F_OK) == 0)
+			return (1);
 		printf("Command not found: %s\n", s->bob->token[0]);
 		return (-1);
 	}
@@ -25,9 +27,23 @@ static int	ft_pathfinder(t_struct *s, int n)
 			printf("Command not found: %s\n", s->bob->token[0]);
 			return (-1);
 		}
-		s->bob->token[0] = s->data.env_path[n];
 	}
+	s->bob->token[0] = s->data.env_path[n];
 	return (1);
+}
+
+void	ft_redirect(t_bob *bob)
+{
+	if (bob->fd_in != 0)
+	{
+		dup2(bob->fd_in, 0);
+		close(bob->fd_in);
+	}
+	if (bob->fd_out != 1)
+	{
+		dup2(bob->fd_out, 1);
+		close(bob->fd_out);
+	}
 }
 
 int	ft_exec(t_struct *s, char *str)
@@ -62,17 +78,6 @@ int	ft_exec(t_struct *s, char *str)
 			ft_exit(s);
 			s->bob = s->bob->next;
 		}*/
-		else if (strcmp(s->bob->token[0], "lst") == 0 && !s->bob->next)
-		{
-			s->env = s->first;
-			while (s->env->next != NULL)
-			{
-				printf(" %s\n", s->env->content);
-				s->env = s->env->next;
-			}
-			printf(" %s\n", s->env->content);
-			usleep(500000);
-		}
 		else
 		{
 			if (pipe(s->data.end) == -1)
@@ -92,18 +97,25 @@ int	ft_exec(t_struct *s, char *str)
 				if (to_close)
 					close(to_close);
 				//On change l'input avec l'ancient
-				dup2(fd_in, 0);
-				close(fd_in);
+				if (fd_in)
+				{
+					dup2(fd_in, 0);
+					close(fd_in);
+				}
 				if (s->bob->next != NULL)
 				{
 					dup2(s->data.end[1], 1);
 					close(s->data.end[1]);
 				}
+				ft_redirect(s->bob);
 				if (is_builtin(s) == 0)
 				{
 					if (ft_pathfinder(s, -1) == -1)
 						exit(EXIT_SUCCESS);
-					execve(s->bob->token[0], s->bob->token, s->data.envp);
+					if (execve(s->bob->token[0], s->bob->token, s->data.envp) == -1)
+					{
+
+					}
 				}
 				exit(EXIT_FAILURE);
 			}
@@ -118,7 +130,6 @@ int	ft_exec(t_struct *s, char *str)
 	i = 0;
 	while(i < s->no_pipe + 1)
 	{
-		printf("id = %d\n", s->data.id1[i]);
 		waitpid(s->data.id1[i], 0, 0);
 		i++;
 	}
