@@ -1,17 +1,25 @@
-
 #include "../../includes/minishell.h"
 
 static int	ft_pathfinder(t_struct *s, int n)
 {
-	if (!s->data.env_path)
+	struct stat	buf;
+
+	stat(s->bob->token[0], &buf);
+	if (s->data.env_path == NULL)
 	{
-		printf("Command not found: %s\n", s->bob->token[0]);
+		if (S_ISDIR(buf.st_mode))
+		{
+			printf("%s: is a directory\n", s->bob->token[0]);
+			return (-1);
+		}
+		else if (access(s->bob->token[0], X_OK))
+			return (1);
+		else
+			printf("Command not found: %s\n", s->bob->token[0]);
 		return (-1);
 	}
 	else
 	{
-		if (access(*s->bob->token, F_OK) == 0)
-			return (1);
 		while (s->data.env_path[++n])
 		{	
 			s->data.env_path[n] = ft_strjoin(s->data.env_path[n], "/");
@@ -22,18 +30,46 @@ static int	ft_pathfinder(t_struct *s, int n)
 			n++;
 		if (!s->data.env_path[n])
 		{
-			printf("Command not found: %s\n", s->bob->token[0]);
-			return (-1);
+			printf("check\n");
+			if (S_ISDIR(buf.st_mode))
+			{
+				printf("Command not found: %s\n", s->bob->token[0]);
+				return (-1);
+			}
+			else if (access(s->bob->token[0], X_OK) == 0)
+				return (1);
+			else
+			{
+				printf("Command not found: %s\n", s->bob->token[0]);
+				return (-1);
+			}
 		}
-		s->bob->token[0] = s->data.env_path[n];
 	}
+	s->bob->token[0] = s->data.env_path[n];
 	return (1);
+}
+void	ft_redirect(t_bob *bob)
+{
+	if (bob->fd_in != 0)
+	{
+		dup2(bob->fd_in, 0);
+		close(bob->fd_in);
+	}
+	if (bob->fd_out != 1)
+	{
+		dup2(bob->fd_out, 1);
+		close(bob->fd_out);
+	}
 }
 
 int	ft_exec(t_struct *s, char *str)
 {
 	int	fd_in;
+	int	to_close;
+	int	i;
 
+	i = 0;
+	fd_in = -1;
 	while (s->bob != NULL)
 	{
 		if (!s->bob->token[0])
@@ -53,21 +89,10 @@ int	ft_exec(t_struct *s, char *str)
 			ft_unset(s);
 			s->bob = s->bob->next;
 		}
-		/*else if (strcmp(s->bob->token[0], "exit") == 0 && !s->bob->next)
+		else if (strcmp(s->bob->token[0], "exit") == 0 && !s->bob->next)
 		{
 			ft_exit(s);
 			s->bob = s->bob->next;
-		}*/
-		else if (strcmp(s->bob->token[0], "lst") == 0 && !s->bob->next)
-		{
-			s->env = s->first;
-			while (s->env->next != NULL)
-			{
-				printf(" %s\n", s->env->content);
-				s->env = s->env->next;
-			}
-			printf(" %s\n", s->env->content);
-			usleep(500000);
 		}
 		else
 		{
@@ -76,19 +101,29 @@ int	ft_exec(t_struct *s, char *str)
 				printf("Pipe error\n");
 				return (0);
 			}
-			s->data.id1 = fork();
-			if (s->data.id1 == -1)
+			to_close = s->data.end[0];
+			s->data.id1[i] = fork();
+			if (s->data.id1[i] == -1)
 			{
 				printf("Fork error\n");
 				return (-1);
 			}
-			if (s->data.id1 == 0)
+			if (s->data.id1[i] == 0)
 			{	
+				if (to_close)
+					close(to_close);
 				//On change l'input avec l'ancient
-				dup2(fd_in, 0);
+				if (fd_in)
+				{
+					dup2(fd_in, 0);
+					close(fd_in);
+				}
 				if (s->bob->next != NULL)
+				{
 					dup2(s->data.end[1], 1);
-				close(s->data.end[0]);
+					close(s->data.end[1]);
+				}
+				ft_redirect(s->bob);
 				if (is_builtin(s) == 0)
 				{
 					if (ft_pathfinder(s, -1) == -1)
@@ -97,15 +132,19 @@ int	ft_exec(t_struct *s, char *str)
 				}
 				exit(EXIT_FAILURE);
 			}
-			else
-			{
-				waitpid(s->data.id1, 0, 0);
-				close(s->data.end[1]);
-				//on sauvegarde l'input pour le donner au prochain pipe
-				fd_in = s->data.end[0];
-				s->bob = s->bob->next;
-			}
+			if (fd_in)
+				close(fd_in);
+			fd_in = s->data.end[0];
+			close(s->data.end[1]);
+			s->bob = s->bob->next;
 		}
+		i++;
+	}
+	i = 0;
+	while(i < s->no_pipe + 1)
+	{
+		waitpid(s->data.id1[i], 0, 0);
+		i++;
 	}
 	s->env = s->first;
 	return (0); //37 lignes Fonction erreur pour gagner 6 lignes

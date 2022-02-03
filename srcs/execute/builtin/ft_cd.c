@@ -8,7 +8,7 @@ void	ft_cd(t_struct *s)
 	if (!s->bob->token[1])
 	{
 		if (chdir(s->home.content + 5))
-			printf("%s : No such file or directory\n", s->home.content);
+			printf("HOME not set\n");
 		else
 		{
 			pwd = getcwd(pwd, 0);

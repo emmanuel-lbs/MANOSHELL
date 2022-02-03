@@ -32,7 +32,6 @@ int	ft_strccmp(const char *s1, const char *s2, char c)
 		i++;
 	}
 	i = 0;
-	printf("min = %d\n", min);
 	while ((ss1[i] != '\0' || ss2[i] != '\0') && i < min)
 	{
 		if (ss1[i] - ss2[i] != 0)
@@ -79,6 +78,11 @@ int	ft_checkdup(t_struct *s, char *str)
 					s->data.env_path = ft_split((str), ':');
 					s->data.env_path[0] = (s->data.env_path[0] + 5);
 				}
+				else if (ft_strncmp(str, "HOME=", 5) == 0)
+				{
+					printf("str = %s\n", str);
+					s->home.content = str;
+				}
 				s->env->content = str;
 			}
 			return (0);
@@ -95,6 +99,11 @@ int	ft_checkdup(t_struct *s, char *str)
 				s->data.env_path = ft_split((str), ':');
 				s->data.env_path[0] = (s->data.env_path[0] + 5);
 			}
+			else if (ft_strncmp(str, "HOME=", 5) == 0)
+			{
+				printf("str = %s\n", str);
+				s->home.content = str;
+			}
 			s->env->content = str;
 		}
 		return (0);
@@ -104,6 +113,11 @@ int	ft_checkdup(t_struct *s, char *str)
 		s->data.env_path = ft_split((str), ':');
 		s->data.env_path[0] = (s->data.env_path[0] + 5);
 	}
+	else if (ft_strncmp(str, "HOME=", 5) == 0)
+	{
+		printf("str = %s\n", str);
+		s->home.content = str;
+	}	
 	return (1);
 }
 
