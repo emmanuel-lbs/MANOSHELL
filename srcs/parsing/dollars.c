@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/31 17:11:38 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/03 16:46:23 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,9 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 	if (a_token[0] == 0)
 		return (a_token);
 	if (search_dollars(a_token, s) == -1)
+	{
 		return (NULL);
+	}
 	if (where_dollar(cmd, *i) == 1)
 		a_token = change_dollars(a_token, s->env->content);
 	else
@@ -260,7 +262,6 @@ int	resize_len_for_dollar(char *cmd, int start, int end, t_struct *s)
 {
 	int		diff;
 	char	quote;
-	char	*dollars;
 
 	diff = 0;
 	printf("%s\n",&cmd[end]);

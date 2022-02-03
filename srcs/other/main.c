@@ -1,20 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/28 17:06:20 by elabasqu          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/03 16:07:22 by elabasqu         ###   ########lyon.fr   */
-=======
-/*   Updated: 2022/02/03 11:08:47 by rozhou           ###   ########.fr       */
->>>>>>> e13ee051da76aef3840ea582405ff29e0bfb05c6
-/*                                                                            */
-/* ************************************************************************** */
-
-
 
 #include "../../includes/minishell.h"
 
@@ -104,9 +87,9 @@ int	main(int ac, char **av, char **envp)
 				printf("%sfin heredocs",s->heredocs);
 			}
 			printf ("\033[34;01mPERFECT\033[00m\n");
-			s.data.id1 = malloc(sizeof(int) *(s.no_pipe + 1));
-			ft_exec(&s, str);
-			s.env = s.first;
+			s->data.id1 = malloc(sizeof(int) *(s->no_pipe + 1));
+		//	ft_exec(s, str);
+			s->env = s->first;
 		}
 		g_errna = errno;
 		//	free(str);

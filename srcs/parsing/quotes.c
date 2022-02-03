@@ -9,9 +9,9 @@ int		dollar_in_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
 
 	k = 0;
 	dollars = one_token(cmd, j, s);
-	if (dollars == NULL)
-		return (-1); // change par erno
-	while (dollars[k])
+//	if (dollars == NULL)
+//		return (-1); // change par erno
+	while (dollars && dollars[k])
 		add_char(cpy, dollars, i, &k);
 	cpy[*i] = 0;
 	free(dollars);
