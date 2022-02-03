@@ -33,7 +33,11 @@ static int	ft_pathfinder(t_struct *s, int n)
 int	ft_exec(t_struct *s, char *str)
 {
 	int	fd_in;
+	int	to_close;
+	int	i;
 
+	i = 0;
+	fd_in = -1;
 	while (s->bob != NULL)
 	{
 		if (!s->bob->token[0])
@@ -76,19 +80,25 @@ int	ft_exec(t_struct *s, char *str)
 				printf("Pipe error\n");
 				return (0);
 			}
-			s->data.id1 = fork();
-			if (s->data.id1 == -1)
+			to_close = s->data.end[0];
+			s->data.id1[i] = fork();
+			if (s->data.id1[i] == -1)
 			{
 				printf("Fork error\n");
 				return (-1);
 			}
-			if (s->data.id1 == 0)
+			if (s->data.id1[i] == 0)
 			{	
+				if (to_close)
+					close(to_close);
 				//On change l'input avec l'ancient
 				dup2(fd_in, 0);
+				close(fd_in);
 				if (s->bob->next != NULL)
+				{
 					dup2(s->data.end[1], 1);
-				close(s->data.end[0]);
+					close(s->data.end[1]);
+				}
 				if (is_builtin(s) == 0)
 				{
 					if (ft_pathfinder(s, -1) == -1)
@@ -97,15 +107,20 @@ int	ft_exec(t_struct *s, char *str)
 				}
 				exit(EXIT_FAILURE);
 			}
-			else
-			{
-				waitpid(s->data.id1, 0, 0);
-				close(s->data.end[1]);
-				//on sauvegarde l'input pour le donner au prochain pipe
-				fd_in = s->data.end[0];
-				s->bob = s->bob->next;
-			}
+			if (fd_in)
+				close(fd_in);
+			fd_in = s->data.end[0];
+			close(s->data.end[1]);
+			s->bob = s->bob->next;
 		}
+		i++;
+	}
+	i = 0;
+	while(i < s->no_pipe + 1)
+	{
+		printf("id = %d\n", s->data.id1[i]);
+		waitpid(s->data.id1[i], 0, 0);
+		i++;
 	}
 	s->env = s->first;
 	return (0); //37 lignes Fonction erreur pour gagner 6 lignes
