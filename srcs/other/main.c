@@ -80,15 +80,9 @@ int	main(int ac, char **av, char **envp)
 			printf ("\033[31;01mERROR\033[00m\n");
 		else
 		{
-			if (is_heredocs(&s) == 1)
-			{
-				beging_hered(&s);
-				printf("le heredocs :\n");
-				printf("%sfin heredocs",s.heredocs);
-			}
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			s.data.id1 = malloc(sizeof(int) * s.no_pipe + 1);
-		//	ft_exec(&s, str);
+			ft_exec(&s, str);
 			s.env = s.first;
 		}
 		g_errna = errno;

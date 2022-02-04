@@ -7,15 +7,18 @@ static int	ft_pathfinder(t_struct *s, int n)
 	stat(s->bob->token[0], &buf);
 	if (s->data.env_path == NULL)
 	{
+		printf("NO_PATH\n");
 		if (S_ISDIR(buf.st_mode))
 		{
 			printf("%s: is a directory\n", s->bob->token[0]);
 			return (-1);
 		}
-		else if (access(s->bob->token[0], X_OK))
+		else if (access(s->bob->token[0], X_OK) == 0)
 			return (1);
+		else if (access(s->bob->token[0], F_OK) != 0)
+			printf("%s: No such file or directory\n", s->bob->token[0]);
 		else
-			printf("Command not found: %s\n", s->bob->token[0]);
+			printf("%s: Permission denied\n", s->bob->token[0]);
 		return (-1);
 	}
 	else
@@ -48,9 +51,52 @@ static int	ft_pathfinder(t_struct *s, int n)
 	s->bob->token[0] = s->data.env_path[n];
 	return (1);
 }
-void	ft_redirect(t_bob *bob)
+int		ft_is_heredocs(t_bob *bob)
 {
-	if (bob->fd_in != 0)
+	int	i;
+
+	i = 0;
+	while (bob->token[i])
+	{
+		if (ft_strcmp(bob->token[i], "<<") == 0)
+			return (1);
+		i++;
+	}
+	printf("No heredocs\n");
+	return (0);
+}
+void	ft_redirect(t_bob *bob, t_struct *s)
+{
+	int	fd[2];
+	int	pid;
+	int	to_close;
+
+	if (ft_is_heredocs(bob) == 1)
+	{
+		if (pipe(s->data.end) == -1)
+		{
+			printf("Pipe error\n");
+			exit(0);
+		}
+		to_close = s->data.end[0];
+		pid = fork();
+		if (pid == -1)
+		{
+			printf("Fork error\n");
+			exit(0);
+		}
+		if (pid == 0)
+		{	
+			if (to_close)
+				close(to_close);
+	//		ft_putstr_fd(s->heredocs, fd[1]);
+			close(fd[0]);
+			close(fd[1]);
+			exit(0);
+		}
+		waitpid(pid, 0, 0);
+	}
+	else if (bob->fd_in != 0)
 	{
 		dup2(bob->fd_in, 0);
 		close(bob->fd_in);
@@ -123,11 +169,12 @@ int	ft_exec(t_struct *s, char *str)
 					dup2(s->data.end[1], 1);
 					close(s->data.end[1]);
 				}
-				ft_redirect(s->bob);
+				ft_redirect(s->bob, s);
 				if (is_builtin(s) == 0)
 				{
 					if (ft_pathfinder(s, -1) == -1)
 						exit(EXIT_SUCCESS);
+					printf("before excve\n");
 					execve(s->bob->token[0], s->bob->token, s->data.envp);
 				}
 				exit(EXIT_FAILURE);
@@ -146,6 +193,7 @@ int	ft_exec(t_struct *s, char *str)
 		waitpid(s->data.id1[i], 0, 0);
 		i++;
 	}
+	printf("after excve\n");
 	s->env = s->first;
 	return (0); //37 lignes Fonction erreur pour gagner 6 lignes
 }

@@ -23,16 +23,13 @@ int	is_heredocs(t_struct *s)
 	return (0);
 }
 
-char	*heredocs_end_word(t_bob *bob)
+char	*heredocs_end_word(char	**token, int i)
 {
-	int i;
-
-	i = 0;
-	while (bob->token[i] && strcmp("<<", bob->token[i]) != 0)
+	while (token[i] && strcmp("<<", token[i]) != 0)
 		i++;
-	if (bob->token[i] && strcmp("<<", bob->token[i]) != 0)
+	if (token[i] && strcmp("<<", token[i]) != 0)
 		return (NULL);
-	return (bob->token[i + 1]);
+	return (token[i + 1]);
 }
 
 t_bob	*heredocs_bob(t_bob *bob)
@@ -53,7 +50,7 @@ t_bob	*heredocs_bob(t_bob *bob)
 	return (bob);;
 }
 
-void	heredocs(t_struct *s, char	*end_word)
+void	heredocs(t_bob *bob, char	*end_word)
 {
 	char	*str;
 
@@ -61,24 +58,25 @@ void	heredocs(t_struct *s, char	*end_word)
 	str = readline("<<");
 	if (str == 0 || strcmp(str, end_word) == 0)
 	{
-		s->heredocs = ft_strdup("");
+		bob->heredocs = ft_strdup("");
 		return ;
 	}
-	s->heredocs = ft_strjoin(str, "\n");
+	bob->heredocs = ft_strjoin(str, "\n");
 	free(str);
 	while (1)
 	{
 		str = readline("<<");
 		if (str == 0 || strcmp(str, end_word) == 0)
 			return ;
-		s->heredocs = ft_strjoin(s->heredocs, str);
-		s->heredocs = ft_strjoin(s->heredocs, "\n");
+		bob->heredocs = ft_strjoin(bob->heredocs, str);
+		bob->heredocs = ft_strjoin(bob->heredocs, "\n");
 		free(str);
 	}
 }
 
-void	beging_hered(t_struct *s)
+void	beging_hered(char	**str, int actual_word, t_bob *bob)
 {
-	s->bob = heredocs_bob(s->bob);
-	heredocs(s, heredocs_end_word(s->bob));
+	if (bob->mode_in == 2)
+		free(bob->heredocs);
+	heredocs(bob, heredocs_end_word(str, actual_word));
 }
