@@ -20,13 +20,13 @@ typedef struct s_bob {
 	int				fd_out;
 	int				mode_out;
 	int				mode_in;
+	char			*heredocs;
 	struct s_bob	*next;
 }				t_bob;
 
 typedef struct p_struc {
 	t_bob	*bob;
 	t_bob	*first_bob;
-	char	*heredocs;
 	int		no_pipe;
 	t_data	data;
 	t_list	*env;

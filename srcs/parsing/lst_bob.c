@@ -96,7 +96,6 @@ void	gere_in(char **str, int *actual_word, t_bob *bob)
 		printf("TEST\n");
 		beging_hered(str, *actual_word, bob);
 		(*actual_word)++;
-		(*actual_word)++;
 		bob->mode_in = 2;
 	}
 }
