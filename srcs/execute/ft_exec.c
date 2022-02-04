@@ -51,50 +51,34 @@ static int	ft_pathfinder(t_struct *s, int n)
 	s->bob->token[0] = s->data.env_path[n];
 	return (1);
 }
-int		ft_is_heredocs(t_bob *bob)
-{
-	int	i;
 
-	i = 0;
-	while (bob->token[i])
-	{
-		if (ft_strcmp(bob->token[i], "<<") == 0)
-			return (1);
-		i++;
-	}
-	printf("No heredocs\n");
-	return (0);
-}
-void	ft_redirect(t_bob *bob, t_struct *s)
+void	ft_redirect(t_bob *bob, int	fd_in)
 {
 	int	fd[2];
 	int	pid;
 	int	to_close;
 
-	if (ft_is_heredocs(bob) == 1)
+	printf("checkredirect\n");
+	if (bob->mode_in == 2)
 	{
-		if (pipe(s->data.end) == -1)
-		{
-			printf("Pipe error\n");
-			exit(0);
-		}
-		to_close = s->data.end[0];
+		printf("Heredoc\n");
+		pipe(fd);
+		to_close = fd[0];
 		pid = fork();
-		if (pid == -1)
-		{
-			printf("Fork error\n");
-			exit(0);
-		}
 		if (pid == 0)
-		{	
+		{
 			if (to_close)
 				close(to_close);
-	//		ft_putstr_fd(s->heredocs, fd[1]);
+			ft_putstr_fd(bob->heredocs, fd[1]);
+			dup2(fd_in, 0);
+			close(fd_in);
 			close(fd[0]);
 			close(fd[1]);
 			exit(0);
 		}
-		waitpid(pid, 0, 0);
+		dup2(fd_in, 0);
+		close(fd_in);
+		close(fd[1]);
 	}
 	else if (bob->fd_in != 0)
 	{
@@ -116,6 +100,7 @@ int	ft_exec(t_struct *s, char *str)
 
 	i = 0;
 	fd_in = -1;
+	printf("before excve\n");
 	while (s->bob != NULL)
 	{
 		if (!s->bob->token[0])
@@ -169,12 +154,12 @@ int	ft_exec(t_struct *s, char *str)
 					dup2(s->data.end[1], 1);
 					close(s->data.end[1]);
 				}
-				ft_redirect(s->bob, s);
+				ft_redirect(s->bob, fd_in);
 				if (is_builtin(s) == 0)
 				{
 					if (ft_pathfinder(s, -1) == -1)
 						exit(EXIT_SUCCESS);
-					printf("before excve\n");
+				
 					execve(s->bob->token[0], s->bob->token, s->data.envp);
 				}
 				exit(EXIT_FAILURE);
