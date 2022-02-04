@@ -18,9 +18,11 @@ t_bob	*new_bob(void)
 		if (!list)
 				return (0);
 		list->next = NULL;
+		list->heredocs = NULL;
 		list->fd_in = 0;
 		list->fd_out = 1;
 		list->mode_out = 0;
+		list->mode_in = 0;
 		return (list);
 }
 

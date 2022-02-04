@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/04 13:27:39 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/04 14:02:20 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ char *dollar_not_interpret(char *cmd, int *i)
 		(*i)++;
 		return (ft_strdup(""));
 	}
+	else if
 	while (ft_isalnum(cmd[*i]) == 1 || cmd[*i] == '_')
 		(*i)++;
 	token = malloc(sizeof(char) * (*i - ret + 1));
@@ -190,12 +191,9 @@ char *dollar_not_interpret(char *cmd, int *i)
 	*i = ret;
 	ret = 0;
 	while (cmd[*i] != 0 && (ft_isalnum(cmd[*i]) == 1))
-	{
 		add_char(token, cmd, &ret, i);
-	}
 	token[ret] = 0;
 	return (token);
-
 }
 
 char	*one_token_dollars(char *cmd, int *i, t_struct *s)
