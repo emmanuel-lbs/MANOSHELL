@@ -67,11 +67,11 @@ void	    ft_pipexit(t_struct *s);
 int			is_builtin(t_struct *s);
 int			ft_exec(t_struct *s, char *str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-int			is_heredocs(t_struct *s);
-void		heredocs(t_struct *s, char	*end_word);
-void		beging_hered(t_struct *s);
+void		beging_hered(char	**str, int actual_word, t_bob *bob);
+void		heredocs(t_bob *bob, char	*end_word);
 t_bob		*heredocs_bob(t_bob *bob);
-char		*heredocs_end_word(t_bob *bob);
+char		*heredocs_end_word(char	**token, int i);
+int			is_heredocs(t_struct *s);
 int			ft_check_path(t_struct *s, char **envp, int ac, char **av);
 
 #endif
