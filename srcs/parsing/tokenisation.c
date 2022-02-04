@@ -205,11 +205,7 @@ char	*one_token(char *cmd, int *i, t_struct *s)
 	else if (ft_is_quote(cmd[*i]) == 1)
 		a_token = one_token_quote(cmd, i, s);
 	else if (cmd[*i] == '$')
-	{
 		a_token = one_token_dollars(cmd, i, s);
-		if (a_token == NULL)
-			return (NULL);
-	}
 	else if (cmd[*i] == '|')
 	{
 		(*i)++;
@@ -217,6 +213,8 @@ char	*one_token(char *cmd, int *i, t_struct *s)
 	}
 	else
 		a_token = normal_token(cmd, i, s);
+	if (a_token == NULL)
+		a_token = ft_strdup("");
 	return (a_token);
 }
 
@@ -238,12 +236,12 @@ char	**split_shell(char *cmd, t_struct *s)
 		if (cmd[i])
 		{
 			token[word] = one_token(cmd, &i, s);
-			if (token[word] == NULL)
-			{
-				ft_free_double_char(token);
-				return (NULL);
-			}
-			if (should_i_modif_token(cmd, i, token[word], s) != 0)
+		//	if (token[word] == NULL)
+		//	{
+		//		ft_free_double_char(token);
+		//		return (NULL);
+		//	}
+			if (token[word] != NULL && should_i_modif_token(cmd, i, token[word], s) != 0)
 				modif_token(token[word], token, &word);
 			word++;
 		}

@@ -89,7 +89,7 @@ void	ft_redirect(t_bob *bob, t_struct *s)
 		{	
 			if (to_close)
 				close(to_close);
-			ft_putstr_fd(s->heredocs, fd[1]);
+	//		ft_putstr_fd(s->heredocs, fd[1]);
 			close(fd[0]);
 			close(fd[1]);
 			exit(0);
