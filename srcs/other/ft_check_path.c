@@ -17,7 +17,8 @@ void	ft_create_env(t_struct *s)
 	s->data.envp[2] = ft_strjoin("_=", "/Users/rozhou/42_Cursus/MANOSHELL/./MANOSHELL");
 	s->data.envp[3] = ft_strjoin("OLDPWD", "");
 	s->data.envp[4] = NULL;
-
+	s->home.content = NULL;
+	s->data.env_path = NULL;
 }
 
 int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
