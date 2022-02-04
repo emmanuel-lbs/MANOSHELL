@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/03 16:46:23 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/04 12:49:43 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int	search_dollars(char *dollars, t_struct *s)
 	while (s->env->next != NULL)
 	{
 		if (s->env->content)
-			if (ft_strncmp(dollars, s->env->content, len_env((char *)s->env->content)) == 0)
+			if (ft_strncmp(dollars, s->env->content, len_env((char *)dollars)) == 0)
 				return (1);
 		s->env = s->env->next;
 	}
 	if (s->env->content)
-		if (ft_strncmp(dollars, s->env->content, len_env((char *)s->env->content)) == 0)
+		if (ft_strncmp(dollars, s->env->content, len_env((char *)dollars)) == 0)
 			return (1);
 	s->env = s->first;
 	return (-1);
@@ -189,7 +189,7 @@ char *dollar_not_interpret(char *cmd, int *i)
 		return (NULL);
 	*i = ret;
 	ret = 0;
-	while (cmd[*i] != 0 && (ft_isalnum(cmd[*i]) == 1 || cmd[*i] == '_'))
+	while (cmd[*i] != 0 && (ft_isalnum(cmd[*i]) == 1))
 	{
 		add_char(token, cmd, &ret, i);
 	}
@@ -217,7 +217,7 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 		a_token = change_dollars_no_space(a_token, s->env->content);
 	if (a_token == NULL)
 		return (NULL);
-	if (cmd[*i] != 0 && cmd[*i] != ' ' && (verif_quote(cmd, *i) == 0 || cmd[*i] == '$'))
+	if (cmd[*i] != 0 && cmd[*i] != ' ' && (verif_quote(cmd, *i) == 0 || cmd[*i] == '$' || cmd[*i] == '/'))
 		a_token = fusion_double_token(a_token, cmd, i, s);
 	return (a_token);
 }

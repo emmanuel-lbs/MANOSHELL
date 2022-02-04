@@ -60,7 +60,10 @@ void	heredocs(t_struct *s, char	*end_word)
 	str = "";
 	str = readline("<<");
 	if (str == 0 || strcmp(str, end_word) == 0)
+	{
+		s->heredocs = ft_strdup("");
 		return ;
+	}
 	s->heredocs = ft_strjoin(str, "\n");
 	free(str);
 	while (1)
