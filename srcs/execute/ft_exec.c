@@ -63,21 +63,17 @@ void	ft_redirect(t_bob *bob, int	fd_in)
 	{
 		printf("Heredoc\n");
 		pipe(fd);
-		to_close = fd[0];
 		pid = fork();
 		if (pid == 0)
 		{
-			if (to_close)
-				close(to_close);
 			ft_putstr_fd(bob->heredocs, fd[1]);
-			dup2(fd_in, 0);
-			close(fd_in);
+			dup2(fd[1], 1);
 			close(fd[0]);
 			close(fd[1]);
 			exit(0);
 		}
-		dup2(fd_in, 0);
-		close(fd_in);
+		dup2(fd[0], 0);
+		close(fd[0]);
 		close(fd[1]);
 	}
 	else if (bob->fd_in != 0)
