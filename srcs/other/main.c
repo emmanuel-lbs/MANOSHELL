@@ -85,7 +85,6 @@ int	main(int ac, char **av, char **envp)
 			ft_exec(&s, str);
 			s.env = s.first;
 		}
-		g_errna = errno;
 		//	free(str);
 		//destroy_bob(&s);
 	}

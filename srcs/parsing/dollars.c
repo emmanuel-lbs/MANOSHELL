@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/07 11:33:14 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/02/07 11:42:57 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollars.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/04 14:04:01 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/07 11:32:37 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +170,8 @@ char	*change_dollars(char *dollars, char *var)
 
 	i = 0;
 	j = 0;
+//	if (dollars[0] == '?')
+		//
 	a_token = malloc(sizeof(char) * (strlen_var_env(var) + 1));
 	while (var[i] && var[i] != '=')
 		i++;
@@ -182,7 +196,8 @@ char *dollar_not_interpret(char *cmd, int *i)
 		(*i)++;
 		return (ft_strdup(""));
 	}
-//	else if (
+	else if (cmd[*i] == '?')
+		return (ft_strdup("?"));
 	while (ft_isalnum(cmd[*i]) == 1 || cmd[*i] == '_')
 		(*i)++;
 	token = malloc(sizeof(char) * (*i - ret + 1));
@@ -205,10 +220,15 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 		return (NULL);
 	if (a_token[0] == 0)
 		return (a_token);
-	if (search_dollars(a_token, s) == -1)
+	if (a_token[0] == '?')
 	{
-		return (NULL);
+		free(a_token);
+		(*i)++;
+		a_token = ft_itoa(g_errna);
+		return (a_token);
 	}
+	if (search_dollars(a_token, s) == -1)
+		return (NULL);
 	if (where_dollar(cmd, *i) == 1)
 		a_token = change_dollars(a_token, s->env->content);
 	else
