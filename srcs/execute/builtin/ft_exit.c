@@ -16,17 +16,20 @@ static int	ft_checkdigit(char *str)
 
 void	ft_exit(t_struct *s)
 {
-	printf("exit\n");
+	ft_putstr_fd("exit \n", STDIN_FILENO);
 	if (s->bob->token[1] == NULL)
 	{
 		g_errna = 0;
 		exit(0);
 	}
 	else if (s->bob->token[1] && s->bob->token[2] != NULL)
-		printf("too many arguments");
+	{
+		ft_putstr_fd("exit: too many arguments\n", STDIN_FILENO);
+		g_errna = 1;
+	}
 	else if (ft_checkdigit(s->bob->token[1]) == -1)
 	{
-		printf("numeric argument required\n");
+		ft_putstr_fd("exit: numeric argument required\n", STDIN_FILENO);
 		g_errna = 2;
 		exit(2);
 	}

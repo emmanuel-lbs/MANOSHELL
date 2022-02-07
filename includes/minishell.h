@@ -14,7 +14,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-int         g_errna;
+extern int         g_errna;
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PARSING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
