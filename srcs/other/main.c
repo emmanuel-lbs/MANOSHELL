@@ -1,6 +1,8 @@
 
 #include "../../includes/minishell.h"
 
+int	g_errna = 0;
+
 static void	ft_get_pwd(t_struct *s, char *pwd)
 {
 	int		i;
@@ -83,6 +85,7 @@ int	main(int ac, char **av, char **envp)
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			s.data.id1 = malloc(sizeof(int) * s.no_pipe + 1);
 			ft_exec(&s, str);
+			printf("4: gerna = %d\n", g_errna);
 			s.env = s.first;
 		}
 		//	free(str);
