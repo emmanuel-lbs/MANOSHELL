@@ -18,5 +18,4 @@ int	is_builtin(t_struct *s)
 		ft_pipexit(s);
 	else
 		return (0);
-	return (1);
 }
