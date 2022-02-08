@@ -14,7 +14,11 @@ static int	ft_pathfinder(t_struct *s, int n)
 			return (-1);
 		}
 		else if (access(s->bob->token[0], F_OK) != 0)
+		{
 			printf("%s: No such file or directory\n", s->bob->token[0]);
+			g_errna = 127;
+			return (-1);			
+		}
 		else if (access(s->bob->token[0], X_OK) == 0)
 			return (1);
 		else
@@ -36,16 +40,17 @@ static int	ft_pathfinder(t_struct *s, int n)
 			n++;
 		if (!s->data.env_path[n])
 		{
-			if (S_ISDIR(buf.st_mode))
+			/*if (S_ISDIR(buf.st_mode))
 			{
 				printf("Command not found: %s\n", s->bob->token[0]);
 				return (-1);
-			}
-			else if (access(s->bob->token[0], X_OK) == 0)
+			}*/
+			if (access(s->bob->token[0], X_OK) == 0)
 				return (1);
 			else
 			{
 				printf("Command not found: %s\n", s->bob->token[0]);
+				g_errna = 127;
 				return (-1);
 			}
 		}
@@ -157,6 +162,7 @@ int	ft_exec(t_struct *s, char *str)
 		{
 			if (pipe(s->data.end) == -1)
 			{
+				g_errna = errno;
 				printf("Pipe error\n");
 				return (0);
 			}
@@ -164,6 +170,7 @@ int	ft_exec(t_struct *s, char *str)
 			s->data.id1[i] = fork();
 			if (s->data.id1[i] == -1)
 			{
+				g_errna = errno;
 				printf("Fork error\n");
 				return (-1);
 			}
