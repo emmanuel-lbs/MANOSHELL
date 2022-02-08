@@ -4,6 +4,7 @@ void ft_env(t_struct *s)
 {
 	if (s->bob->token[1] != NULL)
 	{
+		g_errna = 1;
 		printf("env: Invalid number of arguments\n");
 		exit(1);
 	}
