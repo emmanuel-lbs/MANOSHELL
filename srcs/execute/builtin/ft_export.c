@@ -91,7 +91,6 @@ int	ft_checkdup(t_struct *s, char *str)
 	}
 	if (ft_strccmp(s->env->content, str, '=') == 0)
 	{
-		printf("str = %s\nenv content = %s\n", str, s->env->content);
 		if (ft_strgetchar(str, '=') == 1)
 		{
 			if (ft_strncmp(str, "PATH=", 5) == 0)
@@ -100,10 +99,7 @@ int	ft_checkdup(t_struct *s, char *str)
 				s->data.env_path[0] = (s->data.env_path[0] + 5);
 			}
 			else if (ft_strncmp(str, "HOME=", 5) == 0)
-			{
-				printf("str = %s\n", str);
 				s->home.content = str;
-			}
 			s->env->content = str;
 		}
 		return (0);
@@ -255,6 +251,7 @@ void	ft_export(t_struct *s)
 		{
 			if (!ft_isalpha_(s->bob->token[i][0]))
 			{
+				g_errna = 1;
 				printf("export: \'%s\': not a valid identifier\n", s->bob->token[i]);
 			}
 			else
@@ -263,19 +260,15 @@ void	ft_export(t_struct *s)
 				{
 					if (!ft_isalnum_(s->bob->token[i][j]))
 					{
+						g_errna = 1;
 						printf("export: \'%s\': not a valid identifier\n", s->bob->token[i]);
 					}
 					j++;
 				}
 				if (s->bob->token[i][j] == '=' || !s->bob->token[i][j])
 				{
-					printf("checkdup\n");
-					printf("token = %s\n", s->bob->token[i]);
 					if (ft_checkdup(s, s->bob->token[i]) == 1)
-					{
-						printf("dup not found\n");
 						ft_lstadd_back(&s->env->next, ft_lstnew(s->bob->token[i]));
-					}
 				}
 			}
 			i++;
