@@ -40,11 +40,11 @@ static int	ft_pathfinder(t_struct *s, int n)
 			n++;
 		if (!s->data.env_path[n])
 		{
-			/*if (S_ISDIR(buf.st_mode))
+			if (S_ISDIR(buf.st_mode))
 			{
 				printf("Command not found: %s\n", s->bob->token[0]);
 				return (-1);
-			}*/
+			}
 			if (access(s->bob->token[0], X_OK) == 0)
 				return (1);
 			else
