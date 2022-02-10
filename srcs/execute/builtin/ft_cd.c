@@ -22,18 +22,19 @@ void	ft_cd(t_struct *s)
 				s->pwd.content = ft_strjoin("PWD=", s->pwd.content);
 				s->old_pwd.content = ft_strjoin("OLD", s->old_pwd.content);
 			}
+			g_errna = 0;
 		}
 	}
 	else if (ft_strcmp(s->bob->token[1], "-") == 0)
 	{
 		if (s->old_pwd.content == NULL)
 		{
-			g_errna = 1;			
+			g_errna = 1;
 			printf("OLDPWD not set\n");
 		}
 		else if (chdir(s->old_pwd.content + 7))
 		{
-			g_errna = 1;			
+			g_errna = 1;
 			printf("%s : No such file or directory\n", s->old_pwd.content + 7);
 		}
 		else
@@ -46,6 +47,7 @@ void	ft_cd(t_struct *s)
 				s->pwd.content = ft_strjoin("PWD=", s->pwd.content);
 				s->old_pwd.content = ft_strjoin("OLD", s->old_pwd.content);
 			}
+			g_errna = 0;
 		}
 	}
 	else
@@ -66,6 +68,7 @@ void	ft_cd(t_struct *s)
 				s->pwd.content = ft_strjoin("PWD=", s->pwd.content);
 				s->old_pwd.content = ft_strjoin("OLD", s->old_pwd.content);
 			}
+			g_errna = 0;
 		}
 	}
 }

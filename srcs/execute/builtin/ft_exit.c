@@ -19,6 +19,7 @@ void	ft_exit(t_struct *s)
 	ft_putstr_fd("exit \n", STDIN_FILENO);
 	if (s->bob->token[1] == NULL)
 	{
+		tcsetattr(0, TCSANOW, &s->old_termios);
 		g_errna = 0;
 		exit(0);
 	}
@@ -29,6 +30,7 @@ void	ft_exit(t_struct *s)
 	}
 	else if (ft_checkdigit(s->bob->token[1]) == -1)
 	{
+		tcsetattr(0, TCSANOW, &s->old_termios);
 		ft_putstr_fd("exit: numeric argument required\n", STDIN_FILENO);
 		g_errna = 2;
 		exit(2);

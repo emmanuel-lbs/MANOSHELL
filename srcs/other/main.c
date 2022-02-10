@@ -52,31 +52,56 @@ void	destroy_bob(t_struct *s)
 	free(s->first_bob);
 }
 
+void ctrl_c(int n)
+{
+	(void)n;
+	g_errna = 130;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	ft_signal(t_struct *s)
+{
+	tcgetattr(0, &s->old_termios);
+	tcgetattr(0, &s->new_termios);
+    s->new_termios.c_lflag &= ~ECHOCTL;
+	s->new_termios.c_cc[VQUIT] = 0;
+    tcsetattr(0, TCSANOW, &s->new_termios);
+	signal(SIGINT, ctrl_c);
+}
+
 int	main(int ac, char **av, char **envp)
 {
-	char		*str;
-	t_struct	s;
+	char			*str;
+	t_struct		s;
+	//struct termios termios;
 
 //	s = malloc(&sizeof(&s));
 	str = "";
 	ft_check_path(&s, envp, ac, av);
-	s.env = s.first;
+	/*s.env = s.first;
 	while (s.env->next)
 	{
 		printf(" %s\n", s.env->content);
 		s.env = s.env->next;
 	}
 	printf(" %s\n", s.env->content);
-	printf("cmp = %d\n", ft_strccmp("TERM=", "TERM", '='));
+	printf("cmp = %d\n", ft_strccmp("TERM=", "TERM", '='));*/
 	//g_errna = errno;
 	while (1)
 	{
 		//On stocke le stdin dans str,
 		//on peut changer ça en le mettant dans une struct au besoin.
 		ft_get_pwd(&s, s.pwd.content);
+		ft_signal(&s);
 		str = readline(s.prompt);
 		if (str == 0)
+		{
+			tcsetattr(0, TCSANOW, &s.old_termios);
 			break ;
+		}
 		add_history(str);
 		if (parsing(str, &s) == -1)
 			printf ("\033[31;01mERROR\033[00m\n");
@@ -85,7 +110,6 @@ int	main(int ac, char **av, char **envp)
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			s.data.id1 = malloc(sizeof(int) * s.no_pipe + 1);
 			ft_exec(&s, str);
-			printf("4: gerna = %d\n", g_errna);
 			s.env = s.first;
 		}
 		//	free(str);
