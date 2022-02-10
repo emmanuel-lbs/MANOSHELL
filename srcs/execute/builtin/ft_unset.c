@@ -64,6 +64,7 @@ void	ft_unset(t_struct *s)
 	{
 		if (!ft_isalpha_(s->bob->token[i][0]))
 		{
+			g_errna = 1;
 			printf("unset: \'%s\': not a valid identifier\n", s->bob->token[i]);
 		}
 		else
@@ -72,6 +73,7 @@ void	ft_unset(t_struct *s)
 			{
 				if (!ft_isalnum_(s->bob->token[i][j]))
 				{
+					g_errna = 1;
 					printf("unset: \'%s\': not a valid identifier\n", s->bob->token[i]);
 				}
 				j++;
@@ -82,19 +84,12 @@ void	ft_unset(t_struct *s)
 				{
 					if (ft_strncmp(s->env->content, s->bob->token[i], ft_strclen(s->env->content, '=')) == 0)
 					{
-						printf("1: next = %s\n", s->env->content);
 						if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
-						{
 							s->old_pwd.content = NULL;
-						}
 						else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
-						{
 							s->data.env_path = NULL;
-						}
 						else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
-						{
 							s->home.content = NULL;
-						}
 						s->first = s->first->next;
 						ft_delfirst(&s->env);
 						break ;
@@ -102,18 +97,11 @@ void	ft_unset(t_struct *s)
 					if (ft_strncmp(s->env->next->content, s->bob->token[i], ft_strclen(s->env->next->content, '=')) == 0)
 					{
 						if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
-						{
 							s->old_pwd.content = NULL;
-						}
 						else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
-						{
 							s->data.env_path = NULL;
-						}
 						else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
-						{
-							s->home.content = NULL;
-						}						
-						printf("2: next = %s\n", s->env->next->content);
+							s->home.content = NULL;	
 						ft_delone(&s->env);
 						break ;
 					}
@@ -122,18 +110,11 @@ void	ft_unset(t_struct *s)
 						if (ft_strcmp(s->env->next->content, s->bob->token[i]) == 0)
 						{
 							if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
-							{
 								s->old_pwd.content = NULL;
-							}
 							else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
-							{
 								s->data.env_path = NULL;
-							}
 							else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
-							{
-								s->home.content = NULL;
-							}							
-							printf("3: next = %s\n", s->env->next->content);
+								s->home.content = NULL;				
 							ft_delone(&s->env);
 							break ;
 						}

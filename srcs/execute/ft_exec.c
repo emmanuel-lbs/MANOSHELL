@@ -7,19 +7,26 @@ static int	ft_pathfinder(t_struct *s, int n)
 	stat(s->bob->token[0], &buf);
 	if (s->data.env_path == NULL)
 	{
-		printf("NO_PATH\n");
 		if (S_ISDIR(buf.st_mode))
 		{
 			printf("%s: is a directory\n", s->bob->token[0]);
+			g_errna = 126;
 			return (-1);
+		}
+		else if (access(s->bob->token[0], F_OK) != 0)
+		{
+			printf("%s: No such file or directory\n", s->bob->token[0]);
+			g_errna = 127;
+			return (-1);			
 		}
 		else if (access(s->bob->token[0], X_OK) == 0)
 			return (1);
-		else if (access(s->bob->token[0], F_OK) != 0)
-			printf("%s: No such file or directory\n", s->bob->token[0]);
 		else
+		{
 			printf("%s: Permission denied\n", s->bob->token[0]);
-		return (-1);
+			g_errna = 126;
+			return (-1);
+		}
 	}
 	else
 	{
@@ -33,17 +40,17 @@ static int	ft_pathfinder(t_struct *s, int n)
 			n++;
 		if (!s->data.env_path[n])
 		{
-			printf("check\n");
 			if (S_ISDIR(buf.st_mode))
 			{
 				printf("Command not found: %s\n", s->bob->token[0]);
 				return (-1);
 			}
-			else if (access(s->bob->token[0], X_OK) == 0)
+			if (access(s->bob->token[0], X_OK) == 0)
 				return (1);
 			else
 			{
 				printf("Command not found: %s\n", s->bob->token[0]);
+				g_errna = 127;
 				return (-1);
 			}
 		}
@@ -58,10 +65,8 @@ void	ft_redirect(t_bob *bob, int	fd_in)
 	int	pid;
 	int	to_close;
 
-	printf("checkredirect\n");
 	if (bob->mode_in == 2)
 	{
-		printf("Heredoc\n");
 		pipe(fd);
 		pid = fork();
 		if (pid == 0)
@@ -91,40 +96,73 @@ void	ft_redirect(t_bob *bob, int	fd_in)
 int	ft_exec(t_struct *s, char *str)
 {
 	int	fd_in;
+	int	fd_out;
 	int	to_close;
 	int	i;
+	int	status;
 
 	i = 0;
 	fd_in = -1;
-	printf("before excve\n");
+	fd_out = -1;
 	while (s->bob != NULL)
 	{
 		if (!s->bob->token[0])
 			s->bob = s->bob->next;
-		else if (strcmp(s->bob->token[0], "cd") == 0 && !s->bob->next)
+		else if (strcmp(s->bob->token[0], "cd") == 0 && i == 0 && !s->bob->next)
 		{
+			fd_in = dup(0);
+			fd_out = dup(1);
+			ft_redirect(s->bob, 0);
 			ft_cd(s);
+			dup2(fd_in, 0);
+			dup2(fd_out, 1);
+			close(fd_in);
+			close(fd_out);
 			s->bob = s->bob->next;
 		}
-		else if (strcmp(s->bob->token[0], "export") == 0 && !s->bob->next)
+		else if (strcmp(s->bob->token[0], "export") == 0 && i == 0 && !s->bob->next)
 		{
+			fd_in = dup(0);
+			fd_out = dup(1);
+			ft_redirect(s->bob, 0);
 			ft_export(s);
+			dup2(fd_in, 0);
+			dup2(fd_out, 1);
+			close(fd_in);
+			close(fd_out);
 			s->bob = s->bob->next;
 		}
-		else if (strcmp(s->bob->token[0], "unset") == 0 && !s->bob->next)
+		else if (strcmp(s->bob->token[0], "unset") == 0 && i == 0 && !s->bob->next)
 		{
+			fd_in = dup(0);
+			fd_out = dup(1);
+			ft_redirect(s->bob, 0);
 			ft_unset(s);
+			dup2(fd_in, 0);
+			dup2(fd_out, 1);
+			close(fd_in);
+			close(fd_out);
 			s->bob = s->bob->next;
 		}
-		else if (strcmp(s->bob->token[0], "exit") == 0 && !s->bob->next)
+		else if (strcmp(s->bob->token[0], "exit") == 0 && i == 0 && !s->bob->next)
 		{
+			fd_in = dup(0);
+			fd_out = dup(1);
+			ft_redirect(s->bob, 0);
+			printf("exit \n");
 			ft_exit(s);
+			dup2(fd_in, 0);
+			dup2(fd_out, 1);
+			close(fd_in);
+			close(fd_out);
 			s->bob = s->bob->next;
 		}
+/*								EXEC PIPE																*/
 		else
 		{
 			if (pipe(s->data.end) == -1)
 			{
+				g_errna = errno;
 				printf("Pipe error\n");
 				return (0);
 			}
@@ -132,6 +170,7 @@ int	ft_exec(t_struct *s, char *str)
 			s->data.id1[i] = fork();
 			if (s->data.id1[i] == -1)
 			{
+				g_errna = errno;
 				printf("Fork error\n");
 				return (-1);
 			}
@@ -139,7 +178,8 @@ int	ft_exec(t_struct *s, char *str)
 			{	
 				if (to_close)
 					close(to_close);
-				//On change l'input avec l'ancient
+				if (ft_pathfinder(s, -1) == -1)
+					exit(127);
 				if (fd_in)
 				{
 					dup2(fd_in, 0);
@@ -152,13 +192,8 @@ int	ft_exec(t_struct *s, char *str)
 				}
 				ft_redirect(s->bob, fd_in);
 				if (is_builtin(s) == 0)
-				{
-					if (ft_pathfinder(s, -1) == -1)
-						exit(EXIT_SUCCESS);
-				
 					execve(s->bob->token[0], s->bob->token, s->data.envp);
-				}
-				exit(EXIT_FAILURE);
+				exit(g_errna);
 			}
 			if (fd_in)
 				close(fd_in);
@@ -171,10 +206,10 @@ int	ft_exec(t_struct *s, char *str)
 	i = 0;
 	while(i < s->no_pipe + 1)
 	{
-		waitpid(s->data.id1[i], 0, 0);
+		waitpid(s->data.id1[i], &status, 0);
 		i++;
 	}
-	printf("after excve\n");
+	g_errna = WEXITSTATUS(status);
 	s->env = s->first;
 	return (0); //37 lignes Fonction erreur pour gagner 6 lignes
 }
