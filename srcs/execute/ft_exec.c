@@ -1,5 +1,12 @@
 #include "../../includes/minishell.h"
 
+void ctrl_child(int n)
+{
+	(void)n;
+	g_errna = 130;
+	printf("\n");
+}
+
 static int	ft_pathfinder(t_struct *s, int n)
 {
 	struct stat	buf;
@@ -104,7 +111,6 @@ int	ft_exec(t_struct *s, char *str)
 	i = 0;
 	fd_in = -1;
 	fd_out = -1;
-	tcsetattr(0, TCSANOW, &s->old_termios);
 	while (s->bob != NULL)
 	{
 		if (!s->bob->token[0])
@@ -195,6 +201,8 @@ int	ft_exec(t_struct *s, char *str)
 				if (is_builtin(s) == 0)
 				{
 					g_errna = 0;
+					tcsetattr(0, TCSANOW, &s->old_termios);
+					signal(SIGINT, ctrl_child);
 					execve(s->bob->token[0], s->bob->token, s->data.envp);
 					exit(1);
 				}
@@ -211,6 +219,8 @@ int	ft_exec(t_struct *s, char *str)
 	i = 0;
 	while(i < s->no_pipe + 1)
 	{
+		tcsetattr(0, TCSANOW, &s->old_termios);
+		signal(SIGINT, ctrl_child);
 		waitpid(s->data.id1[i], &status, 0);
 		i++;
 	}
