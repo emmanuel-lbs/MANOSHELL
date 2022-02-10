@@ -1,27 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   var_first_token.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/10 16:11:37 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/02/10 16:24:22 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-static int    is_cmd(t_struct *s, char *str)
+int	is_cmd(t_struct *s, char *str)
 {
-    int		n;
-    char	**test;
+	int		n;
+	char	**cmd;
 
-
-    n = 0;
-    if (s->data.env_path)
+	n = 0;
+	if (s->data.env_path)
 	{
-		test = malloc (sizeof(char**) * (ft_super_strlen(s->data.env_path) + 1));
+		cmd = malloc(sizeof(char **) * (ft_super_strlen(s->data.env_path) + 1));
 		if (access(str, F_OK) == 0)
 			return (1);
 		while (s->data.env_path[++n])
 		{
-			test[n] = ft_strjoin(s->data.env_path[n], "/");
-			test[n] = ft_strjoin(test[n], str);
+			cmd[n] = ft_strjoin(s->data.env_path[n], "/");
+			cmd[n] = ft_strjoin(cmd[n], str);
 		}
-		test[n] = 0;
+		cmd[n] = 0;
 		n = 0;
-		while (test[n] && access(test[n], F_OK) != 0 )
+		while (cmd[n] && access(cmd[n], F_OK) != 0)
 			n++;
-		if (!test[n])
+		if (!cmd[n])
 		{
 			printf("Command not found: %s\n", str);
 			return (0);
@@ -70,7 +81,7 @@ int	is_first_word_and_dollars(char *cmd, int i)
 	return (1);
 }
 
-char *first_word_fct(char *a_token)
+char	*first_word_fct(char *a_token)
 {
 	int		j;
 	char	*first_word;
@@ -82,7 +93,7 @@ char *first_word_fct(char *a_token)
 		return (NULL);
 	first_word = malloc(sizeof(char) * (j + 1));
 	if (first_word == NULL)
-		return (NULL); //ernor = -1;
+		return (NULL);
 	j = 0;
 	while (a_token[j] && a_token[j] != ' ')
 	{
@@ -95,8 +106,8 @@ char *first_word_fct(char *a_token)
 
 char	*next_token(char *a_token)
 {
-	int	j;
-	int	i;
+	int		j;
+	int		i;
 	char	*first_word;
 
 	i = 0;
@@ -110,36 +121,10 @@ char	*next_token(char *a_token)
 		j++;
 	first_word = malloc(sizeof(char) * (j - i + 1));
 	if (first_word == NULL)
-		return (NULL); //ernor = -1;
+		return (NULL);
 	j = 0;
 	while (a_token[i])
 		add_char(first_word, a_token, &j, &i);
 	first_word[j] = 0;
 	return (first_word);
-}
-
-
-int	should_i_modif_token(char *cmd, int i, char *a_token, t_struct *s)
-{
-	char	*first_word;
-
-	if (is_first_word_and_dollars(cmd, i) == 0)
-		return (0);
-	first_word = first_word_fct(a_token);
-	if (first_word == NULL)
-		return (0);
-	if (!(ft_is_builtin(first_word) == 1 || is_cmd(s, first_word) == 1))
-		return (0);
-	return (1);
-
-}
-
-void	modif_token(char *a_token, char **lst_tkn, int *nb_word)
-{
-	char	*first_word;
-
-	first_word = first_word_fct(a_token);
-	lst_tkn[*nb_word] = first_word;
-	(*nb_word)++;
-	lst_tkn[*nb_word] = next_token(a_token);
 }

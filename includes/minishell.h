@@ -27,12 +27,14 @@ int			skip_quote(char *s, char quote, int *i);
 int			command_syntax(char *str);
 /*split*/
 int			ft_countwords(char *s);
+char		*one_token(char *cmd, int *i, t_struct *s);
+char		*one_token_quote(char *cmd, int *i, t_struct *s);
 char		**split_shell(char *cmd, t_struct *s);
 /*quotes*/
+int			verif_quote(char *cmd, int i);
 int			dollar_in_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
 int			cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
 int			verif_quote(char *cmd, int i);
-char		*one_token_quote(char *cmd, int *i, t_struct *s);
 /*DOLLARS*/
 char		*change_dollars(char *dollars, char *var);
 char		*dollar_not_interpret(char *cmd, int *i);
@@ -53,11 +55,23 @@ int			len_env(char *env);
 /*CHEVRONS*/
 int			gere_chevron(char **str, int *actual_word, t_bob *bob);
 int			lst_ajustement(char **str, int start, int end);
+char		*cpy_chevron(char *cmd, int *i);
+/*COUNT*/
+void		how_many_token(char *s, int *i, int *nb);
+int			ajustement(char *s, t_struct *struc);
+int			wcount(char *s);
+/*VAR_FIRST_TOKEN*/
+int			is_cmd(t_struct *s, char *str);
+int			ft_is_builtin(char *str);
+int			is_first_word_and_dollars(char *cmd, int i);
+char		*next_token(char *a_token);
+int			is_first_word_and_dollars(char *cmd, int i);
+char		*first_word_fct(char *a_token);
 /*utils*/
 int			ft_is_chevron(char c);
 int			ft_is_quote(char c);
 void		add_char(char *cpy, char *str, int *i, int *j);
-int			should_i_modif_token(char *cmd, int i, char *a_token, t_struct *s);
+int			should_mod(char *cmd, int i, char *a_token, t_struct *s);
 void		modif_token(char *a_token, char **lst_tkn, int *nb_word);
 /*lst_bob*/
 t_bob		*create_bob(char **str);

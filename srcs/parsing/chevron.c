@@ -6,24 +6,24 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 14:51:13 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 16:26:31 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	gere_out(char **str, int *actual_word, t_bob *bob)
+void	gere_out(char **str, int *i, t_bob *bob)
 {
 	if (bob->fd_out != 1)
 		close(bob->fd_out);
-	if (!str[*actual_word][1])
+	if (!str[*i][1])
 	{
-		bob->fd_out = open(str[++(*actual_word)], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		bob->fd_out = open(str[++(*i)], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		bob->mode_out = 1;
 	}
 	else
 	{
-		bob->fd_out = open(str[++(*actual_word)], O_CREAT | O_WRONLY | O_APPEND, 0644);
+		bob->fd_out = open(str[++(*i)], O_CREAT | O_WRONLY | O_APPEND, 0644);
 		bob->mode_out = 2;
 	}
 }
@@ -72,3 +72,25 @@ int	lst_ajustement(char **str, int start, int end)
 	return (nb);
 }
 
+char	*cpy_chevron(char *cmd, int *i)
+{
+	char	*a_token;
+
+	if (ft_is_chevron(cmd[*i]) == 1 && ft_is_chevron(cmd[(*i) + 1]) == 1)
+	{
+		if (cmd[*i] == '<')
+			a_token = ft_strdup("<<");
+		else
+			a_token = ft_strdup(">>");
+		(*i) += 2;
+	}
+	else
+	{
+		if (cmd[*i] == '<')
+			a_token = ft_strdup("<");
+		else
+			a_token = ft_strdup(">");
+		(*i)++;
+	}
+	return (a_token);
+}

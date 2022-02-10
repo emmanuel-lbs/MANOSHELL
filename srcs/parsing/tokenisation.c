@@ -1,98 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenisation.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/10 16:25:02 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/02/10 16:25:04 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
-
-char	*one_token(char *cmd, int *i, t_struct *s);
-char	*one_token_quote(char *cmd, int *i, t_struct *s);
-int	verif_quote(char *cmd, int i);
-
-//int	ft_countwords(char *s)
-//{
-//	int	nb;
-//	int	i;
-//
-//	i = 0;
-//	nb = 0;
-//	while (s[i])
-//	{
-//		if (s[i] != ' ')
-//			nb++;
-//		while (s[i] && s[i] != ' ')
-//			i++;
-//		while (s[i] && s[i] == ' ')
-//			i++;
-//	}
-//	return (nb);
-//}
-
-void	how_many_token(char *s, int *i, int *nb)
-{
-	if (*i != 0 && s[(*i) - 1] != ' ' && (ft_is_chevron(s[*i]) == 1 || s[*i] == '|'))
-		(*nb)++;
-	if (s[*i] == '|' && (ft_is_quote(s[(*i) + 1]) == 1 || (s[(*i) + 1] != ' ' && ft_is_chevron(s[(*i) + 1]) == 0)))
-		(*nb)++;
-	if (s[*i] && ft_is_quote(s[*i]) == 1)
-		skip_quote(s, s[*i], i);
-	else if (s[*i] && ft_is_chevron(s[*i]) == 1)
-	{
-		while (s[*i] && ft_is_chevron(s[*i]) == 1)
-			(*i)++;
-		if (s[*i] && s[*i] != ' ')
-			(*nb)++;
-	}
-	else
-		(*i)++;
-}
-
-int	ajustement(char *s, t_struct *struc)
-{
-	int i;
-	int nb;
-	char	*a_token;
-
-	i = 0;
-	nb = 0;
-	while (s[i])
-	{
-		if (s[i] == '$')
-		{
-			a_token = one_token_dollars(s, &i, struc);
-			if (a_token != NULL && a_token[0] != 0)
-			{
-				if (should_i_modif_token(s, i, a_token, struc) == 1)
-					nb += 2;
-				free(a_token);
-
-			}
-			else if (a_token != NULL && a_token[0] == 0)
-			{
-				if (ft_isdigit(s[i]) == 1)
-					nb += 1;
-			}
-		}
-		else
-			i++;
-
-	}
-	return (nb);
-}
-
-int	ft_countwords(char *s)
-{
-	int	nb;
-	int	i;
-
-	i = 0;
-	nb = 0;
-	while (s[i])
-	{
-		if (s[i] && s[i] != ' ')
-			nb++;
-		while (s[i] && s[i] != ' ')
-			how_many_token(s, &i, &nb);
-		while (s[i] && s[i] == ' ')
-			i++;
-	}
-	return (nb);
-}
 
 /*
  *
@@ -142,37 +60,14 @@ char	*fusion_double_token(char *str, char *cmd, int *i, t_struct *s)
 	return (retur);
 }
 
-
-char	*cpy_chevron(char *cmd, int *i)
-{
-	char	*a_token;
-
-	if (ft_is_chevron(cmd[*i]) == 1 && ft_is_chevron(cmd[(*i) + 1]) == 1)
-	{
-		if (cmd[*i] == '<')
-			a_token = ft_strdup("<<");
-		else
-			a_token = ft_strdup(">>");
-		(*i) += 2;
-	}
-	else
-	{
-		if (cmd[*i] == '<')
-			a_token = ft_strdup("<");
-		else
-			a_token = ft_strdup(">");
-		(*i)++;
-	}
-	return (a_token);
-}
-
 char	*normal_token(char *cmd, int *i, t_struct *s)
 {
 	int		j;
 	char	*a_token;
 
 	j = *i;
-	while (cmd[*i] && cmd[*i] != ' ' && ft_is_chevron(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
+	while (cmd[*i] && cmd[*i] != ' ' \
+			&& ft_is_chevron(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
 	{
 		if (cmd[*i] == '\'' || cmd[*i] == '\"' )
 			skip_quote(cmd, cmd[*i], i);
@@ -184,7 +79,8 @@ char	*normal_token(char *cmd, int *i, t_struct *s)
 		return (NULL);
 	*i = j;
 	j = 0;
-	while (cmd[*i] && cmd[*i] != ' ' && ft_is_chevron(cmd[*i]) == 0 && ft_is_quote(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
+	while (cmd[*i] && cmd[*i] != ' ' && ft_is_chevron(cmd[*i]) == 0 \
+			&& ft_is_quote(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
 		add_char(a_token, cmd, &j, i);
 	usleep(100);
 	if (cmd[*i] != '$' && ft_is_quote(cmd[*i]) == 1)
@@ -224,7 +120,7 @@ char	**split_shell(char *cmd, t_struct *s)
 	int		i;
 	int		word;
 
-	token = malloc(sizeof(char *) * (ft_countwords(cmd) + ajustement(cmd, s) + 1));
+	token = malloc(sizeof(char *) * (wcount(cmd) + ajustement(cmd, s) + 1));
 	if (token == NULL)
 		return (NULL);
 	i = 0;
@@ -236,12 +132,7 @@ char	**split_shell(char *cmd, t_struct *s)
 		if (cmd[i])
 		{
 			token[word] = one_token(cmd, &i, s);
-		//	if (token[word] == NULL)
-		//	{
-		//		ft_free_double_char(token);
-		//		return (NULL);
-		//	}
-			if (token[word] != NULL && should_i_modif_token(cmd, i, token[word], s) != 0)
+			if (token[word] != NULL && should_mod(cmd, i, token[word], s) != 0)
 				modif_token(token[word], token, &word);
 			word++;
 		}
