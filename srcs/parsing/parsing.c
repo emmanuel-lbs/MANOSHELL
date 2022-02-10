@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/10 14:52:46 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/02/10 14:53:26 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	number_pipe(char *str)
@@ -15,13 +27,12 @@ int	number_pipe(char *str)
 			pip++;
 		i++;
 	}
-	printf("%d\n",pip);
 	return (pip);
 }
 
 int	parsing(char *str, t_struct *s)
 {
-	char **tokeniser;
+	char	**tokeniser;
 
 	if (no_commande(str) == -1)
 		return (-1);
@@ -36,4 +47,3 @@ int	parsing(char *str, t_struct *s)
 	ft_free_double_char(tokeniser);
 	return (0);
 }
-
