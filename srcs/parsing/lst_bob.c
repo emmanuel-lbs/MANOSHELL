@@ -1,144 +1,76 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_bob.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/10 14:51:07 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/02/10 14:51:09 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 t_bob	*lastbob(t_bob *bob)
 {
-		if (!bob)
-				return (0);
-		while (bob->next)
-				bob = bob->next;
-		return (bob);
+	if (!bob)
+		return (0);
+	while (bob->next)
+		bob = bob->next;
+	return (bob);
 }
 
 t_bob	*new_bob(void)
 {
-		t_bob *list;
+	t_bob	*list;
 
-		list = malloc(sizeof(*list));
-		if (!list)
-				return (0);
-		list->next = NULL;
-		list->heredocs = NULL;
-		list->fd_in = 0;
-		list->fd_out = 1;
-		list->mode_out = 0;
-		list->mode_in = 0;
-		return (list);
+	list = malloc(sizeof(*list));
+	if (!list)
+		return (0);
+	list->next = NULL;
+	list->heredocs = NULL;
+	list->fd_in = 0;
+	list->fd_out = 1;
+	list->mode_out = 0;
+	list->mode_in = 0;
+	return (list);
 }
 
-void	printf_lst(t_bob *bob)
-{
-	int i;
-	while (bob != NULL)
-	{
-		i = 0;
-		while (bob->token[i])
-		{
-			printf(" -%s- ",bob->token[i]);
-			i++;
-		}
-		printf("out = %d in = %d", bob->fd_out, bob->fd_in);
-		printf("mode in = %d, heredocs = %s\n",bob->mode_in, bob->heredocs);
-		printf("\n");
-		bob = bob->next;
-	}
-}
+/*
+params	: la struct et l'input taper
+return	: je sais pas encore///////////////////
+def		: cree la liste chainer comportant les cmd de char ** les fd;/
+*/
 
-///*
-// * params	: la struct et l'input taper
-// * return	: je sais pas encore/////////////////////////////////////////////////////////
-// * def		: cree la liste chainer comportant les cmd de char ** les fd;
-// */
-//
 char	*one_token_for_bob(char *str)
 {
-		int i;
-		int j;
-		char *a_token;
+	int		i;
+	int		j;
+	char	*a_token;
 
-		i = 0;
-		j = 0;
-		a_token = malloc(sizeof(char) * (ft_strlen(str) + 1));
-		if (!a_token)
-				return (NULL);
-		while (str[i])
-			add_char(a_token, str, &j, &i);
-		a_token[j] = 0;
-		return (a_token);
-}
-
-void	gere_out(char **str, int *actual_word, t_bob *bob)
-{
-	if (bob->fd_out != 1)
-		close(bob->fd_out);
-	if (!str[*actual_word][1])
-	{
-		bob->fd_out = open(str[++(*actual_word)], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		bob->mode_out = 1;
-	}
-	else
-	{
-		bob->fd_out = open(str[++(*actual_word)], O_CREAT | O_WRONLY | O_APPEND, 0644);
-		bob->mode_out = 2;
-	}
-}
-
-void	gere_in(char **str, int *actual_word, t_bob *bob)
-{
-		printf("TEST\n");
-	if (bob->fd_in != 0)
-		close(bob->fd_in);
-	if (!str[*actual_word][1])
-	{
-		bob->mode_in = 1;
-		bob->fd_in = open(str[++(*actual_word)], O_RDONLY);
-	}
-	else
-	{
-		printf("TEST\n");
-		beging_hered(str, *actual_word, bob);
-		(*actual_word)++;
-		bob->mode_in = 2;
-	}
-}
-
-int	gere_chevron(char **str, int *actual_word, t_bob *bob)
-{
-	if (str[*actual_word][0] == '>')
-		gere_out(str, actual_word, bob);
-	else if (str[*actual_word][0] == '<')
-		gere_in(str, actual_word, bob);
-	if (bob->fd_in == -1 || bob->fd_out == -1)
-		return (-1);
-	return (0);
-}
-
-int lst_ajustement(char **str, int start, int end)
-{
-	int nb;
-
-	nb = 0;
-	while (start < end)
-	{
-		if (ft_is_chevron(str[start][0]) && str[start][1] != '<')
-			nb -= 2;
-		start++;
-	}
-	return (nb);
+	i = 0;
+	j = 0;
+	a_token = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!a_token)
+		return (NULL);
+	while (str[i])
+		add_char(a_token, str, &j, &i);
+	a_token[j] = 0;
+	return (a_token);
 }
 
 int	fct(char **str, int start, int end, t_bob *bob)
 {
-	int word;
+	int	word;
 	int	file_ret;
 
 	file_ret = 0;
 	bob = lastbob(bob);
 	word = end - start + lst_ajustement(str, start, end);
-	bob->token = malloc(sizeof(char *) * (end - start + 1)); // - token chevron et name_file
+	bob->token = malloc(sizeof(char *) * (end - start + 1));
 	if (!bob->token)
 		return (-1);
-
 	word = 0;
 	while (start < end)
 	{
@@ -157,27 +89,25 @@ int	fct(char **str, int start, int end, t_bob *bob)
 	if (bob->fd_in == -1)
 		bob->fd_out = -1;
 	return (0);
-	//changer return par la variable global
 }
 
 t_bob	*create_bob(char **str)
 {
-	t_bob *bob;
-	int start;
-	int end;
+	t_bob	*bob;
+	int		start;
+	int		end;
+	t_bob	*first_bob;
 
 	start = 0;
 	end = 0;
 	bob = new_bob();
-	t_bob *first_bob;
 	first_bob = bob;
-
-	int j;
 	while (str[end])
 	{
 		while (str[end] && str[end][0] != '|')
 			end++;
-		fct(str, start, end, bob);
+		if (fct(str, start, end, bob) == -1)
+			return (NULL);
 		if (str[end] && str[end][0] == '|')
 			end += 1;
 		if (str[end])
@@ -187,6 +117,5 @@ t_bob	*create_bob(char **str)
 		}
 		start = end;
 	}
-	printf_lst(first_bob);
 	return (first_bob);
 }

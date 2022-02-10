@@ -2,7 +2,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <termios.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -12,6 +11,7 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <termios.h>
 # include "../libft/libft.h"
 # include "structure.h"
 
@@ -40,6 +40,19 @@ int			search_dollars(char *dollars, t_struct *s);
 char		*one_token_dollars(char *cmd, int *i, t_struct *s);
 char		*fusion_double_token(char *str, char *cmd, int *i, t_struct *s);
 int			resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
+/*DOLLARS_UTILS*/
+int			resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
+int			strlen_var_env_no_space(char *var);
+char		*change_dollars(char *dollars, char *var);
+char		*change_dollars_no_space(char *dollars, char *var);
+int			search_diff(char *cmd, int *start, t_struct *s);
+int			diff_in_var_env(char *var);
+int			strlen_var_env(char *var);
+int			last_caractr(char *var);
+int			len_env(char *env);
+/*CHEVRONS*/
+int			gere_chevron(char **str, int *actual_word, t_bob *bob);
+int			lst_ajustement(char **str, int start, int end);
 /*utils*/
 int			ft_is_chevron(char c);
 int			ft_is_quote(char c);
@@ -69,7 +82,6 @@ int			is_builtin(t_struct *s);
 int			ft_exec(t_struct *s, char *str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void		beging_hered(char	**str, int actual_word, t_bob *bob);
-void        ctrl_c(int	n);
 void		heredocs(t_bob *bob, char	*end_word);
 t_bob		*heredocs_bob(t_bob *bob);
 char		*heredocs_end_word(char	**token, int i);

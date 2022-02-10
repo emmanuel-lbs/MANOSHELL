@@ -9,10 +9,13 @@ SRCS = srcs/other/main.c \
 		srcs/parsing/var_first_token.c \
 		srcs/parsing/utils.c \
 		srcs/parsing/quotes.c \
+		srcs/parsing/chevron.c \
+		srcs/parsing/again_dollars.c \
 		srcs/parsing/lst_bob.c \
 		srcs/execute/ft_exec.c \
 		srcs/execute/is_builtin.c \
 		srcs/parsing/dollars.c \
+		srcs/parsing/utils_dollars.c \
 		srcs/execute/builtin/ft_echo.c \
 		srcs/execute/builtin/ft_pwd.c \
 		srcs/execute/builtin/ft_cd.c \
