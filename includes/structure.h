@@ -25,16 +25,18 @@ typedef struct s_bob {
 }				t_bob;
 
 typedef struct p_struc {
-	t_bob	*bob;
-	t_bob	*first_bob;
-	int		no_pipe;
-	t_data	data;
-	t_list	*env;
-	t_list	*first;
-	t_list	pwd;
-	t_list	old_pwd;
-	t_list	home;
-	char	*prompt;
+	t_bob			*bob;
+	t_bob			*first_bob;
+	int				no_pipe;
+	t_data			data;
+	t_list			*env;
+	t_list			*first;
+	t_list			pwd;
+	t_list			old_pwd;
+	t_list			home;
+	char			*prompt;
+	struct termios	old_termios;
+	struct termios	new_termios;
 }				t_struct;
 
 #endif

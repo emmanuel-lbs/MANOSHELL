@@ -2,8 +2,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"
-# include "structure.h"
+# include <termios.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -13,6 +12,8 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include "../libft/libft.h"
+# include "structure.h"
 
 extern int         g_errna;
 
@@ -68,6 +69,7 @@ int			is_builtin(t_struct *s);
 int			ft_exec(t_struct *s, char *str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void		beging_hered(char	**str, int actual_word, t_bob *bob);
+void        ctrl_c(int	n);
 void		heredocs(t_bob *bob, char	*end_word);
 t_bob		*heredocs_bob(t_bob *bob);
 char		*heredocs_end_word(char	**token, int i);

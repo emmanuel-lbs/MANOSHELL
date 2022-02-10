@@ -104,6 +104,7 @@ int	ft_exec(t_struct *s, char *str)
 	i = 0;
 	fd_in = -1;
 	fd_out = -1;
+	tcsetattr(0, TCSANOW, &s->old_termios);
 	while (s->bob != NULL)
 	{
 		if (!s->bob->token[0])
@@ -192,7 +193,11 @@ int	ft_exec(t_struct *s, char *str)
 				}
 				ft_redirect(s->bob, fd_in);
 				if (is_builtin(s) == 0)
+				{
+					g_errna = 0;
 					execve(s->bob->token[0], s->bob->token, s->data.envp);
+					exit(1);
+				}
 				exit(g_errna);
 			}
 			if (fd_in)
