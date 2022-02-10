@@ -1,5 +1,16 @@
-#include "../../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/10 15:46:10 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/02/10 15:47:32 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../../includes/minishell.h"
 
 /*
  * params	:	la commande entiere qui vient d'etre taper
@@ -8,58 +19,58 @@
  */
 int	chevron(char *str)
 {
-		int	i;
+	int	i;
 
-		i = 0;
-		while (str[i] && ft_is_chevron(str[i]))
-				i++;
-		if (i > 2)
-		{
-				if (str[i] == 0)
-						i--;
-				if (str[0] == '<' && str[1] == '<' && str[2] == '<')
-						printf("this operator is not support `<<<' \n");
-				else
-						printf("syntax error near unexpected token `%c'\n", str[i]);
-				return (-1);
-		}
-		if (i == 2 && str[0] != str[1])
-		{
-				printf("syntax error near unexpected token `%c'\n", str[1]);
-				return (-1);
-		}
-		while (str[i] && ft_is_ispaces(str[i]))
-				i++;
-		if (str[i] && (ft_is_chevron(str[i]) || str[i] == '|'))
-		{
-				printf("syntax error near unexpected token `%c'\n", str[i]);
-				return (-1);
-		}
-		return (0);
+	i = 0;
+	while (str[i] && ft_is_chevron(str[i]))
+		i++;
+	if (i > 2)
+	{
+		if (str[i] == 0)
+			i--;
+		if (str[0] == '<' && str[1] == '<' && str[2] == '<')
+			printf("this operator is not support `<<<' \n");
+		else
+			printf("syntax error near unexpected token `%c'\n", str[i]);
+		return (-1);
+	}
+	if (i == 2 && str[0] != str[1])
+	{
+		printf("syntax error near unexpected token `%c'\n", str[1]);
+		return (-1);
+	}
+	while (str[i] && ft_is_ispaces(str[i]))
+		i++;
+	if (str[i] && (ft_is_chevron(str[i]) || str[i] == '|'))
+	{
+		printf("syntax error near unexpected token `%c'\n", str[i]);
+		return (-1);
+	}
+	return (0);
 }
 
 int	check_double_pipe(char *str)
 {
-		int i;
+	int	i;
 
-		i = 0;
-		while (str[i])
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] && str[i] == '|')
 		{
-				if (str[i] && str[i] == '|')
-				{
-						i++;
-						while (str[i] && str[i] == ' ')
-								i++;
-						if (str[i] && str[i] == '|')
-						{
-								printf("syntax error near unexpected token `%c'\n", str[i]);
-								return (-1);
-						}
-				}
-				if (str[i])
-						i++;
+			i++;
+			while (str[i] && str[i] == ' ')
+				i++;
+			if (str[i] && str[i] == '|')
+			{
+				printf("syntax error near unexpected token `%c'\n", str[i]);
+				return (-1);
+			}
 		}
-		return (0);
+		if (str[i])
+			i++;
+	}
+	return (0);
 }
 
 /*
@@ -69,25 +80,25 @@ int	check_double_pipe(char *str)
  */
 int	specific_case_syntax(char *str)
 {
-		int last_caract;
+	int	last_caract;
 
-		if (check_double_pipe(str) == -1)
-				return (-1);
-		last_caract = ft_strlen(str) - 1;
-		if (str[0] == '|')
-		{
-				printf("syntax error near unexpected token `%c'\n", str[0]);
-				return (-1);
-		}
-		while (last_caract > 0 && ft_is_ispaces(str[last_caract]))
-				last_caract--;
-		if (str[last_caract] == '|' || ft_is_chevron(str[last_caract]))
-		{
-				printf("syntax error near unexpected token");
-				printf(" `%c'\n", str[last_caract]);
-				return (-1);
-		}
-		return (0);
+	if (check_double_pipe(str) == -1)
+		return (-1);
+	last_caract = ft_strlen(str) - 1;
+	if (str[0] == '|')
+	{
+		printf("syntax error near unexpected token `%c'\n", str[0]);
+		return (-1);
+	}
+	while (last_caract > 0 && ft_is_ispaces(str[last_caract]))
+		last_caract--;
+	if (str[last_caract] == '|' || ft_is_chevron(str[last_caract]))
+	{
+		printf("syntax error near unexpected token");
+		printf(" `%c'\n", str[last_caract]);
+		return (-1);
+	}
+	return (0);
 }
 
 /*
@@ -112,6 +123,7 @@ int	drole_de_chevron(char *cmd)
 	}
 	return (0);
 }
+
 int	command_syntax(char *str)
 {
 	int	i;
@@ -135,26 +147,4 @@ int	command_syntax(char *str)
 			i++;
 	}
 	return (0);
-}
-
-/*
- * params	: la commande qui viens d'etre taper
- * return	: -1 si erreur, 0 si tout est ok
- * def		: check si ligne vide
- */
-
-int	no_commande(char *str)
-{
-	int i;
-
-	i = 0;
-	if (str[i] == 0)
-		return (-1);
-	while (str[i])
-	{
-		if (str[i] != ' ')
-			return (0);
-		i++;
-	}
-	return (-1);
 }

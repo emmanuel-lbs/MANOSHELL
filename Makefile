@@ -12,6 +12,7 @@ SRCS = srcs/other/main.c \
 		srcs/parsing/chevron.c \
 		srcs/parsing/again_dollars.c \
 		srcs/parsing/lst_bob.c \
+		srcs/parsing/count.c \
 		srcs/execute/ft_exec.c \
 		srcs/execute/is_builtin.c \
 		srcs/parsing/dollars.c \

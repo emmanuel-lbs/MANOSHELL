@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:52:46 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 14:53:26 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/10 16:24:54 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,28 @@ int	number_pipe(char *str)
 		i++;
 	}
 	return (pip);
+}
+
+/*
+ * params	: la commande qui viens d'etre taper
+ * return	: -1 si erreur, 0 si tout est ok
+ * def		: check si ligne vide
+ */
+
+int	no_commande(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == 0)
+		return (-1);
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (-1);
 }
 
 int	parsing(char *str, t_struct *s)
