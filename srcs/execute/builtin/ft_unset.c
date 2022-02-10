@@ -92,6 +92,7 @@ void	ft_unset(t_struct *s)
 							s->home.content = NULL;
 						s->first = s->first->next;
 						ft_delfirst(&s->env);
+						g_errna = 0;
 						break ;
 					}
 					if (ft_strncmp(s->env->next->content, s->bob->token[i], ft_strclen(s->env->next->content, '=')) == 0)
@@ -103,6 +104,7 @@ void	ft_unset(t_struct *s)
 						else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
 							s->home.content = NULL;	
 						ft_delone(&s->env);
+						g_errna = 0;
 						break ;
 					}
 					else
@@ -114,8 +116,9 @@ void	ft_unset(t_struct *s)
 							else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
 								s->data.env_path = NULL;
 							else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
-								s->home.content = NULL;				
+								s->home.content = NULL;
 							ft_delone(&s->env);
+							g_errna = 0;
 							break ;
 						}
 					}

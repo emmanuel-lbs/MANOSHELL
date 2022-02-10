@@ -17,4 +17,5 @@ void ft_env(t_struct *s)
 	}
 	if (ft_strchr(s->env->content, '=') != NULL)
 		printf("%s\n", s->env->content);
+	g_errna = 0;
 }	

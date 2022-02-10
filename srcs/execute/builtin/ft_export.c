@@ -233,6 +233,7 @@ void	ft_lstsort_str(t_struct *s)
 	ft_lstprint(first);
 	first = sortlist;
 	ft_lstc(&sortlist);
+	g_errna = 0;
 }
 
 void	ft_export(t_struct *s)
@@ -269,6 +270,7 @@ void	ft_export(t_struct *s)
 				{
 					if (ft_checkdup(s, s->bob->token[i]) == 1)
 						ft_lstadd_back(&s->env->next, ft_lstnew(s->bob->token[i]));
+					g_errna = 0;
 				}
 			}
 			i++;

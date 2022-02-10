@@ -51,5 +51,8 @@ void	ft_echo(t_struct *s)
 	if (!s->bob->token[1])
 		printf("\n");
 	else
+	{
 		ft_write_echo(s);
+	}
+	g_errna = 0;
 }

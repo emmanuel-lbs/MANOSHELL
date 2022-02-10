@@ -9,4 +9,5 @@ void	ft_pwd(void)
 	if (str)
 		printf("%s\n", str);
 	free(str);
+	g_errna = 0;
 }
