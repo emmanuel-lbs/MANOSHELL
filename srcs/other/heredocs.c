@@ -74,9 +74,11 @@ void	heredocs(t_bob *bob, char	*end_word)
 	}
 }
 
+
 void	beging_hered(char	**str, int actual_word, t_bob *bob)
 {
 	if (bob->mode_in == 2)
 		free(bob->heredocs);
+//	signal(SIGINT, &ctrl_c);
 	heredocs(bob, heredocs_end_word(str, actual_word));
 }
