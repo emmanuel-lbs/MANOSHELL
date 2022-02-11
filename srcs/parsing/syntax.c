@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:46:10 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 15:47:32 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 14:56:18 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	command_syntax(char *str)
 	int	i;
 
 	i = 0;
-	if (specific_case_syntax(str) == -1 || drole_de_chevron(str) == -1)
+	if (specific_case_syntax(str) == -1)
 		return (-1);
 	while (str[i])
 	{
