@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/11 14:58:23 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 15:04:03 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*dollar_not_interpret(char *cmd, int *i)
 int	not_a_dollar(char *cmd, int i)
 {
 	i++;
-	if (ft_isalnum(cmd[i]) == 0 && cmd[i] != '_')
+	if (ft_isalnum(cmd[i]) == 0 && cmd[i] != '_' && cmd[i] != '?')
 		return (0);
 	return (1);
 }
