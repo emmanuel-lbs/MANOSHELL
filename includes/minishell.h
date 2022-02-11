@@ -43,6 +43,7 @@ char		*one_token_dollars(char *cmd, int *i, t_struct *s);
 char		*fusion_double_token(char *str, char *cmd, int *i, t_struct *s);
 int			resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
 /*DOLLARS_UTILS*/
+char		*normal_token(char *cmd, int *i, t_struct *s);
 int			resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
 int			strlen_var_env_no_space(char *var);
 char		*change_dollars(char *dollars, char *var);

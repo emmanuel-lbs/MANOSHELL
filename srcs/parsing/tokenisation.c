@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:02 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 16:25:04 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 14:33:30 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ char	*normal_token(char *cmd, int *i, t_struct *s)
 	while (cmd[*i] && cmd[*i] != ' ' && ft_is_chevron(cmd[*i]) == 0 \
 			&& ft_is_quote(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
 		add_char(a_token, cmd, &j, i);
-	usleep(100);
 	if (cmd[*i] != '$' && ft_is_quote(cmd[*i]) == 1)
 		cpy_quote(a_token, cmd, &j, i, s);
 	a_token[j] = 0;
