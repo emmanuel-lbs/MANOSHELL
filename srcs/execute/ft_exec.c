@@ -3,8 +3,8 @@
 void ctrl_child(int n)
 {
 	(void)n;
-	g_errna = 130;
 	printf("\n");
+	g_errna = 130;
 }
 
 static int	ft_pathfinder(t_struct *s, int n)
@@ -24,7 +24,7 @@ static int	ft_pathfinder(t_struct *s, int n)
 		{
 			printf("%s: No such file or directory\n", s->bob->token[0]);
 			g_errna = 127;
-			return (-1);			
+			return (-1);
 		}
 		else if (access(s->bob->token[0], X_OK) == 0)
 			return (1);
@@ -156,7 +156,6 @@ int	ft_exec(t_struct *s, char *str)
 			fd_in = dup(0);
 			fd_out = dup(1);
 			ft_redirect(s->bob, 0);
-			printf("exit \n");
 			ft_exit(s);
 			dup2(fd_in, 0);
 			dup2(fd_out, 1);
@@ -220,7 +219,7 @@ int	ft_exec(t_struct *s, char *str)
 	while(i < s->no_pipe + 1)
 	{
 		tcsetattr(0, TCSANOW, &s->old_termios);
-		signal(SIGINT, ctrl_child);
+		signal(SIGINT, SIG_IGN);
 		waitpid(s->data.id1[i], &status, 0);
 		i++;
 	}

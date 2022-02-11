@@ -16,9 +16,9 @@ static int	ft_checkdigit(char *str)
 
 void	ft_exit(t_struct *s)
 {
-	ft_putstr_fd("exit \n", STDIN_FILENO);
 	if (s->bob->token[1] == NULL)
 	{
+		ft_putstr_fd("exit \n", STDIN_FILENO);
 		tcsetattr(0, TCSANOW, &s->old_termios);
 		g_errna = 0;
 		exit(0);
@@ -37,6 +37,7 @@ void	ft_exit(t_struct *s)
 	}
 	else
 	{
+		ft_putstr_fd("exit \n", STDIN_FILENO);
 		g_errna = atoi(s->bob->token[1]);
 		exit(atoi(s->bob->token[1]));
 	}
