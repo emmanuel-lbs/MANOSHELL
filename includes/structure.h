@@ -8,6 +8,7 @@ typedef struct s_data{
 	int		end[2];
 	int		n;
 	int		*id1;
+	int		shlvl;
 	char	**path;
 	char	**args;
 	char	**envp;

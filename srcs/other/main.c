@@ -100,11 +100,18 @@ int	main(int ac, char **av, char **envp)
 		if (str == 0)
 		{
 			tcsetattr(0, TCSANOW, &s.old_termios);
+			printf("exit\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			g_errna = 0;
 			break ;
 		}
 		add_history(str);
 		if (parsing(str, &s) == -1)
+		{
+			g_errna = 0;
 			printf ("\033[31;01mERROR\033[00m\n");
+		}
 		else
 		{
 			printf ("\033[34;01mPERFECT\033[00m\n");
