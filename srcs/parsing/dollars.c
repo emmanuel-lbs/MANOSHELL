@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 14:48:14 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 14:34:08 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,57 @@ char	*dollar_not_interpret(char *cmd, int *i)
 		return (NULL);
 	*i = ret;
 	ret = 0;
-	while (cmd[*i] != 0 && (ft_isalnum(cmd[*i]) == 1))
+	while (cmd[*i] != 0 && ((ft_isalnum(cmd[*i]) == 1) || cmd[*i] == '_'))
 		add_char(token, cmd, &ret, i);
 	token[ret] = 0;
 	return (token);
 }
 
+int	not_a_dollar(char *cmd, int i)
+{
+	i++;
+	if (ft_isalnum(cmd[i]) == 0 || cmd[i] == '_')
+		return (0);
+	return (1);
+}
+
+char	*fake_dollars(char *cmd, int *i, t_struct *s)
+{
+	int		j;
+	char	*a_token;
+
+	j = *i;
+	(*i)++;
+	while (cmd[*i] && cmd[*i] != ' ' \
+			&& ft_is_chevron(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
+	{
+		if (cmd[*i] == '\'' || cmd[*i] == '\"' )
+			skip_quote(cmd, cmd[*i], i);
+		else
+			(*i)++;
+	}
+	a_token = malloc(sizeof(char) * (*i - j + 10));
+	if (a_token == NULL)
+		return (NULL);
+	*i = j;
+	j = 0;
+	add_char(a_token, cmd, &j, i);
+	while (cmd[*i] && cmd[*i] != ' ' && ft_is_chevron(cmd[*i]) == 0 \
+			&& ft_is_quote(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
+		add_char(a_token, cmd, &j, i);
+	if (cmd[*i] != '$' && ft_is_quote(cmd[*i]) == 1)
+		cpy_quote(a_token, cmd, &j, i, s);
+	a_token[j] = 0;
+	if (cmd[*i] == '$')
+		return (fusion_double_token(a_token, cmd, i, s));
+	return (a_token);
+}
 char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 {
 	char	*a_token;
 
+	if (not_a_dollar(cmd, *i) == 0)
+		return (fake_dollars(cmd, i, s));
 	a_token = dollar_not_interpret(cmd, i);
 	if (a_token == NULL || a_token[0] == 0)
 		return (a_token);
