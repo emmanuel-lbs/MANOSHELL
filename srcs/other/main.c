@@ -81,6 +81,8 @@ int	main(int ac, char **av, char **envp)
 //	s = malloc(&sizeof(&s));
 	str = "";
 	ft_check_path(&s, envp, ac, av);
+	if (!isatty(0) || !isatty(1))
+		return (1);
 	/*s.env = s.first;
 	while (s.env->next)
 	{

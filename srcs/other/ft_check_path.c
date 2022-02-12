@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 //Initialisation de la structure Data et environnement
