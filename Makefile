@@ -16,10 +16,11 @@ SRCS = srcs/other/main.c \
 		srcs/parsing/utils_dollars.c \
 		srcs/parsing/dollars.c \
 		srcs/execute/ft_exec.c \
+		srcs/execute/ft_fork_exec.c \
 		srcs/execute/is_builtin.c \
-		srcs/execute/pathfinder.c \
-		srcs/execute/redirect.c \
-		srcs/execute/utils_exec.c \
+		srcs/execute/ft_pathfinder.c \
+		srcs/execute/ft_redirect.c \
+		srcs/execute/ft_utils_exec.c \
 		srcs/execute/builtin/ft_echo.c \
 		srcs/execute/builtin/ft_pwd.c \
 		srcs/execute/builtin/ft_cd.c \
