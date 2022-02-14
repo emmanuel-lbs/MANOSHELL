@@ -82,6 +82,9 @@ void		new_block(t_struct *s, char **str);
 /*Utils*/
 int	        ft_isalnum_(int c);
 int	        ft_isalpha_(int c);
+int			ft_pathfinder(t_struct *s, int n);
+void	    ft_redirect(t_bob *bob, int	fd_in);
+void	    ft_redir_close(int fd, int std);
 /*Builtin function*/
 int	        ft_strccmp(const char *s1, const char *s2, char c);
 void		ft_echo(t_struct *s);
@@ -94,7 +97,10 @@ void	    ft_exit(t_struct *s);
 void	    ft_pipexit(t_struct *s);
 /*Main execution*/
 int			is_builtin(t_struct *s);
+int			is_first_builtin(t_struct *s, int fd_in, int fd_out);
 int			ft_exec(t_struct *s, char *str);
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SIGNALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+void		ctrl_child(int n);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void		beging_hered(char	**str, int actual_word, t_bob *bob);
 void		heredocs(t_bob *bob, char	*end_word);
@@ -102,5 +108,7 @@ t_bob		*heredocs_bob(t_bob *bob);
 char		*heredocs_end_word(char	**token, int i);
 int			is_heredocs(t_struct *s);
 int			ft_check_path(t_struct *s, char **envp, int ac, char **av);
+
+
 
 #endif

@@ -13,10 +13,13 @@ SRCS = srcs/other/main.c \
 		srcs/parsing/again_dollars.c \
 		srcs/parsing/lst_bob.c \
 		srcs/parsing/count.c \
+		srcs/parsing/utils_dollars.c \
+		srcs/parsing/dollars.c \
 		srcs/execute/ft_exec.c \
 		srcs/execute/is_builtin.c \
-		srcs/parsing/dollars.c \
-		srcs/parsing/utils_dollars.c \
+		srcs/execute/pathfinder.c \
+		srcs/execute/redirect.c \
+		srcs/execute/utils_exec.c \
 		srcs/execute/builtin/ft_echo.c \
 		srcs/execute/builtin/ft_pwd.c \
 		srcs/execute/builtin/ft_cd.c \
@@ -24,6 +27,7 @@ SRCS = srcs/other/main.c \
 		srcs/execute/builtin/ft_unset.c \
 		srcs/execute/builtin/ft_env.c \
 		srcs/execute/builtin/ft_exit.c \
+
 		
 
 OBJS = $(SRCS:.c=.o)
