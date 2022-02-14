@@ -82,6 +82,8 @@ void		new_block(t_struct *s, char **str);
 /*Utils*/
 int	        ft_isalnum_(int c);
 int	        ft_isalpha_(int c);
+void		ft_delfirst(t_list **lst);
+void		ft_delone(t_list **lst);
 int			ft_pathfinder(t_struct *s, int n);
 void	    ft_redirect(t_bob *bob, int	fd_in);
 void	    ft_redir_close(int fd, int std);
@@ -99,7 +101,7 @@ void	    ft_pipexit(t_struct *s);
 int			is_builtin(t_struct *s);
 int			is_first_builtin(t_struct *s, int fd_in, int fd_out);
 void 		ft_fork_exec(t_struct *s, int *fd_in, int *fd_out)
-int			ft_exec(t_struct *s, char *str);
+int			ft_exec(t_struct *s, char *str, int i);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SIGNALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void		ctrl_child(int n);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

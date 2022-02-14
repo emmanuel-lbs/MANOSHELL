@@ -118,7 +118,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			s.data.id1 = malloc(sizeof(int) * s.no_pipe + 1);
-			ft_exec(&s, str);
+			ft_exec(&s, str, 0);
 			s.env = s.first;
 		}
 		//	free(str);

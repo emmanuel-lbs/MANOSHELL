@@ -29,7 +29,7 @@ static void	ft_child_exec(t_struct *s, int to_close, int *fd_in)
 	exit(g_errna);
 }
 
-void	ft_fork_exec(t_struct *s, int *fd_in, int *fd_out)
+void	ft_fork_exec(t_struct *s, int *fd_in, int *fd_out, int i)
 {
 	int to_close;
 
