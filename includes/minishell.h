@@ -90,13 +90,12 @@ void	    ft_redirect(t_bob *bob, int	fd_in);
 void	    ft_redir_close(int fd, int std);
 void		ft_setenv_null(t_struct *s);
 int	        ft_strgetchar(char *str, char c);
-int	        ft_strccmp(const char *s1, const char *s2, char c);
+int	        ft_strccmp(const char *s1, const char *s2, char c, int i);
 void		ft_lstcontent_swp(t_list *lst1, t_list *lst2);
 t_list		*ft_lstcopy(t_struct *s);
 void 		ft_lstc(t_list **lst);
 void 		ft_lstsort_str(t_struct *s);
 /*Builtin function*/
-int	        ft_strccmp(const char *s1, const char *s2, char c);
 void		ft_echo(t_struct *s);
 void		ft_cd(t_struct *s);
 void		ft_pwd(void);

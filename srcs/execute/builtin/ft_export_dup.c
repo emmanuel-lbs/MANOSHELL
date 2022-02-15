@@ -2,7 +2,7 @@
 
 static int ft_checkalldup(t_struct *s, char *str)
 {
-    if (ft_strccmp(s->env->content, str, '=') == 0)
+    if (ft_strccmp(s->env->content, str, '=', 0) == 0)
     {
         if (ft_strgetchar(str, '=') == 1)
         {
@@ -24,7 +24,7 @@ static int ft_checkalldup(t_struct *s, char *str)
 
 static int ft_checkequal(t_struct *s, char *str)
 {
-    if (ft_strccmp(s->env->content, str, '=') == 0)
+    if (ft_strccmp(s->env->content, str, '=', 0) == 0)
     {
         if (ft_strgetchar(str, '=') == 1)
         {
@@ -46,7 +46,7 @@ int ft_checkdup(t_struct *s, char *str)
     s->env = s->first;
     while (s->env->next != NULL)
     {
-        if (ft_strccmp(s->env->content, str, '=') == 0)
+        if (ft_strccmp(s->env->content, str, '=', 0) == 0)
         {
             if (ft_checkalldup(s, str) == 0)
                 return (0);
