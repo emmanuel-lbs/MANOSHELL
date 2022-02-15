@@ -109,7 +109,7 @@ void	    ft_pipexit(t_struct *s);
 /*Main execution*/
 int			is_builtin(t_struct *s);
 int			is_first_builtin(t_struct *s, int fd_in, int fd_out);
-void 		ft_fork_exec(t_struct *s, int *fd_in, int *fd_out)
+void		ft_fork_exec(t_struct *s, int *fd_in, int *fd_out, int i);
 int			ft_exec(t_struct *s, char *str, int i);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SIGNALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void        ctrl_c(int n);
