@@ -3,6 +3,7 @@
 SRCS = srcs/other/main.c \
 		srcs/other/ft_check_path.c \
 		srcs/other/heredocs.c \
+		srcs/other/signo.c \
 		srcs/parsing/parsing.c \
 		srcs/parsing/tokenisation.c \
 		srcs/parsing/syntax.c \

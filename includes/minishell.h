@@ -112,7 +112,9 @@ int			is_first_builtin(t_struct *s, int fd_in, int fd_out);
 void 		ft_fork_exec(t_struct *s, int *fd_in, int *fd_out)
 int			ft_exec(t_struct *s, char *str, int i);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SIGNALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+void        ctrl_c(int n);
 void		ctrl_child(int n);
+void    	ft_signal(t_struct *s);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void		beging_hered(char	**str, int actual_word, t_bob *bob);
 void		heredocs(t_bob *bob, char	*end_word);

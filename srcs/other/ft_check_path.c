@@ -20,30 +20,12 @@ void	ft_create_env(t_struct *s)
 	s->data.env_path = NULL;
 }
 
-int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
+static void	ft_setenv(t_struct *s)
 {
-	int	i;
-
-	s->data.av = av;
-	s->data.ac = ac;
-	if (envp[0] == NULL)
-		ft_create_env(s);
-	else
-		s->data.envp = envp;
-	s->env = ft_lstnew(s->data.envp[0]);
-	i = 1;
-	while (s->data.envp[i])
-	{
-		ft_lstadd_back(&s->env->next, ft_lstnew(s->data.envp[i]));
-		i++;
-	}
-	s->first = s->env;
 	while (s->env->next != NULL)
 	{
 		if (ft_strncmp(s->env->content, "PWD=", 4) == 0)
-		{
 			s->pwd = *s->env;
-		}
 		else if (ft_strncmp(s->env->content, "OLDPWD", 6) == 0)
 		{
 				s->old_pwd = *s->env;
@@ -54,13 +36,39 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 		s->env = s->env->next;
 	}
 	if (ft_strncmp(s->env->content, "PWD=", 4) == 0)
-	{
 			s->pwd = *s->env;
-	}
 	else if (ft_strncmp(s->env->content, "OLDPWD", 6) == 0)
+	{
 			s->old_pwd = *s->env;
+			s->old_pwd.content = NULL;
+	}
 	else if (ft_strncmp(s->env->content, "HOME=", 5) == 0)
 			s->home = *s->env;
+}
+
+static void	ft_setup_data(t_struct *s, int ac, char **av, char **envp)
+{
+	s->data.av = av;
+	s->data.ac = ac;
+	if (envp[0] == NULL)
+		ft_create_env(s);
+	else
+		s->data.envp = envp;
+}
+int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
+{
+	int	i;
+
+	ft_setup_data(s, ac, av, envp);
+	s->env = ft_lstnew(s->data.envp[0]);
+	i = 1;
+	while (s->data.envp[i])
+	{
+		ft_lstadd_back(&s->env->next, ft_lstnew(s->data.envp[i]));
+		i++;
+	}
+	s->first = s->env;
+	ft_setenv(s);
 	i = 0;
 	while (s->data.envp[i] && ft_strncmp(s->data.envp[i], "PATH=", 5))
 			i++;
