@@ -31,25 +31,31 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 	free(mem);
 }
 
-void	destroy_bob(t_struct *s)
+void	destroy_bob(char *str, t_struct *s)
 {
+	free(str);
 	s->bob = s->first_bob;
-	while (s->bob != NULL)
+	while (s->bob->next != NULL)
 	{
 		ft_free_double_char(s->bob->token);
-		if (s->bob->fd_out)
+		if (s->bob->fd_out != 1)
 			close(s->bob->fd_out);
-		if (s->bob->fd_in)
+		if (s->bob->fd_in != 0)
 			close(s->bob->fd_in);
 		s->bob = s->bob->next;
 	}
-//	s->env = s->first;
-//	while (s->env !- NULL)
-//	{
-//
-//	}
-	free(s->bob);
-	free(s->first_bob);
+	ft_free_double_char(s->bob->token);
+//	if (s->bob->fd_out)
+//		close(s->bob->fd_out);
+//	if (s->bob->fd_in)
+//		close(s->bob->fd_in);
+	//	s->env = s->first;
+	//	while (s->env !- NULL)
+	//	{
+	//
+	//	}
+	//	free(s->bob);
+	//	free(s->first_bob);
 }
 
 void ctrl_c(int n)
@@ -66,9 +72,9 @@ void	ft_signal(t_struct *s)
 {
 	tcgetattr(0, &s->old_termios);
 	tcgetattr(0, &s->new_termios);
-    s->new_termios.c_lflag &= ~ECHOCTL;
+	s->new_termios.c_lflag &= ~ECHOCTL;
 	s->new_termios.c_cc[VQUIT] = 0;
-    tcsetattr(0, TCSANOW, &s->new_termios);
+	tcsetattr(0, TCSANOW, &s->new_termios);
 	signal(SIGINT, ctrl_c);
 }
 
@@ -78,19 +84,19 @@ int	main(int ac, char **av, char **envp)
 	t_struct		s;
 	//struct termios termios;
 
-//	s = malloc(&sizeof(&s));
+	//	s = malloc(&sizeof(&s));
 	str = "";
 	ft_check_path(&s, envp, ac, av);
 	if (!isatty(0) || !isatty(1))
 		return (1);
 	/*s.env = s.first;
-	while (s.env->next)
-	{
-		printf(" %s\n", s.env->content);
-		s.env = s.env->next;
-	}
-	printf(" %s\n", s.env->content);
-	printf("cmp = %d\n", ft_strccmp("TERM=", "TERM", '='));*/
+	  while (s.env->next)
+	  {
+	  printf(" %s\n", s.env->content);
+	  s.env = s.env->next;
+	  }
+	  printf(" %s\n", s.env->content);
+	  printf("cmp = %d\n", ft_strccmp("TERM=", "TERM", '='));*/
 	//g_errna = errno;
 	while (1)
 	{
@@ -121,7 +127,6 @@ int	main(int ac, char **av, char **envp)
 			ft_exec(&s, str);
 			s.env = s.first;
 		}
-		//	free(str);
-		//destroy_bob(&s);
+		destroy_bob(str, &s);
 	}
 }
