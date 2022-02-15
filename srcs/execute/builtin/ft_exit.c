@@ -14,33 +14,24 @@ static int	ft_checkdigit(char *str)
 	return (1);
 }
 
+static void ft_print_exit(t_struct *s, char *str, int error)
+{
+	tcsetattr(0, TCSANOW, &s->old_termios);
+	printf("%s\n", str)
+	g_errna = error;
+	exit(error);
+}
+
 void	ft_exit(t_struct *s)
 {
 	if (s->bob->token[1] == NULL)
-	{
-		ft_putstr_fd("exit \n", STDIN_FILENO);
-		tcsetattr(0, TCSANOW, &s->old_termios);
-		g_errna = 0;
-		exit(0);
-	}
+		ft_print_exit("exit \n", 0);
 	else if (s->bob->token[1] && s->bob->token[2] != NULL)
-	{
-		ft_putstr_fd("exit: too many arguments\n", STDIN_FILENO);
-		g_errna = 1;
-	}
+		ft_print_exit("exit: too many arguments\n", 1);
 	else if (ft_checkdigit(s->bob->token[1]) == -1)
-	{
-		tcsetattr(0, TCSANOW, &s->old_termios);
-		ft_putstr_fd("exit: numeric argument required\n", STDIN_FILENO);
-		g_errna = 2;
-		exit(2);
-	}
+		ft_print_exit("exit: numeric argument required\n", 2);
 	else
-	{
-		ft_putstr_fd("exit \n", STDIN_FILENO);
-		g_errna = atoi(s->bob->token[1]);
-		exit(atoi(s->bob->token[1]));
-	}
+		ft_print_exit("exit \n", atoi(s->bob->token[1]));		
 }
 
 void	ft_pipexit(t_struct *s)

@@ -1,53 +1,55 @@
 #include "../../../includes/minishell.h"
 
-void	ft_delone(t_list **lst)
+int	ft_unset_all(t_struct *s);
 {
-	t_list	*tmp;
-	t_list	*mem;
-
-	tmp = *lst;
-	mem = tmp->next;
-	tmp->next = tmp->next->next;
-	free(mem);
-}
-
-void	ft_delfirst(t_list **lst)
-{
-	t_list	*tmp;
-	t_list	*mem;
-
-	tmp = *lst;
-	mem = tmp;
-	tmp = tmp->next;
-	free(mem);
-}
-
-int	ft_isalpha_(int c)
-{
-	if ((65 <= c && c <= 90) || (97 <= c && c <= 122) || c == '_')
-		return (1);
-	return (0);
-}
-
-int	ft_isalnum_(int c)
-{
-	if (ft_isalpha_(c) || ft_isdigit(c))
-		return (1);
-	return (0);
-}
-
-int	ft_strclen(char *str, char c)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
+	if (ft_strncmp(s->env->content, s->bob->token[i], ft_strclen(s->env->content, '=')) == 0)
 	{
-		if (str[i] == c)
-			return (i);
-		i++;
+		ft_setenv_null(s);
+		s->first = s->first->next;
+		ft_delfirst(&s->env);
+		return (1);
 	}
-	return (-1);
+	if (ft_strncmp(s->env->next->content, s->bob->token[i], ft_strclen(s->env->next->content, '=')) == 0)
+	{
+		ft_setenv_null(s);
+		ft_delone(&s->env);
+		return (1);
+	}
+	else
+	{
+		if (ft_strcmp(s->env->next->content, s->bob->token[i]) == 0)
+		{
+			ft_setenv_null(s);
+			ft_delone(&s->env);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+static void	ft_unset2(t_struct *s, int i, int j)
+{
+	while (s->bob->token[i][j])
+	{
+		if (!ft_isalnum_(s->bob->token[i][j]))
+		{
+			g_errna = 1;
+			printf("unset: \'%s\': not a valid identifier\n", s->bob->token[i]);
+		}
+		j++;
+	}
+	if (!s->bob->token[i][j])
+	{
+		while (s->env->next != NULL)
+		{
+			if (ft_unset_all(s) == 1)
+			{
+				g_errna = 0;
+				break ;
+			}
+			s->env = s->env->next;
+		}
+	}
 }
 
 void	ft_unset(t_struct *s)
@@ -68,64 +70,7 @@ void	ft_unset(t_struct *s)
 			printf("unset: \'%s\': not a valid identifier\n", s->bob->token[i]);
 		}
 		else
-		{
-			while (s->bob->token[i][j])
-			{
-				if (!ft_isalnum_(s->bob->token[i][j]))
-				{
-					g_errna = 1;
-					printf("unset: \'%s\': not a valid identifier\n", s->bob->token[i]);
-				}
-				j++;
-			}
-			if (!s->bob->token[i][j])
-			{
-				while (s->env->next != NULL)
-				{
-					if (ft_strncmp(s->env->content, s->bob->token[i], ft_strclen(s->env->content, '=')) == 0)
-					{
-						if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
-							s->old_pwd.content = NULL;
-						else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
-							s->data.env_path = NULL;
-						else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
-							s->home.content = NULL;
-						s->first = s->first->next;
-						ft_delfirst(&s->env);
-						g_errna = 0;
-						break ;
-					}
-					if (ft_strncmp(s->env->next->content, s->bob->token[i], ft_strclen(s->env->next->content, '=')) == 0)
-					{
-						if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
-							s->old_pwd.content = NULL;
-						else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
-							s->data.env_path = NULL;
-						else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
-							s->home.content = NULL;	
-						ft_delone(&s->env);
-						g_errna = 0;
-						break ;
-					}
-					else
-					{
-						if (ft_strcmp(s->env->next->content, s->bob->token[i]) == 0)
-						{
-							if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
-								s->old_pwd.content = NULL;
-							else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)
-								s->data.env_path = NULL;
-							else if (ft_strncmp(s->env->next->content, "HOME=", 5) == 0)
-								s->home.content = NULL;
-							ft_delone(&s->env);
-							g_errna = 0;
-							break ;
-						}
-					}
-					s->env = s->env->next;
-				}
-			}
-		}
+			ft_unset2(s, i, j);
 		i++;
 	}
 }

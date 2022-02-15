@@ -58,26 +58,6 @@ void	destroy_bob(char *str, t_struct *s)
 	//	free(s->first_bob);
 }
 
-void ctrl_c(int n)
-{
-	(void)n;
-	g_errna = 130;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	ft_signal(t_struct *s)
-{
-	tcgetattr(0, &s->old_termios);
-	tcgetattr(0, &s->new_termios);
-	s->new_termios.c_lflag &= ~ECHOCTL;
-	s->new_termios.c_cc[VQUIT] = 0;
-	tcsetattr(0, TCSANOW, &s->new_termios);
-	signal(SIGINT, ctrl_c);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	char			*str;
@@ -124,7 +104,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			printf ("\033[34;01mPERFECT\033[00m\n");
 			s.data.id1 = malloc(sizeof(int) * s.no_pipe + 1);
-			ft_exec(&s, str);
+			ft_exec(&s, str, 0);
 			s.env = s.first;
 		}
 		destroy_bob(str, &s);
