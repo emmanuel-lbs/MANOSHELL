@@ -6,13 +6,13 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:47 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:29:48 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/16 13:32:03 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void ft_env(t_struct *s)
+void	ft_env(t_struct *s)
 {
 	if (s->bob->token[1] != NULL)
 	{
