@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 13:30:06 by rozhou            #+#    #+#             */
+/*   Updated: 2022/02/16 13:30:07 by rozhou           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	is_builtin(t_struct *s)
@@ -18,10 +30,14 @@ int	is_builtin(t_struct *s)
 		ft_pipexit(s);
 	else
 		return (0);
+	return (1);
 }
 
-static void	ft_redirect_builtins(t_struct *s, void (*builtin)(t_struct *))
+static int	ft_redirect_builtins(t_struct *s, void (*builtin)(t_struct *))
 {
+	int	fd_in;
+	int	fd_out;
+
 	fd_in = dup(0);
 	fd_out = dup(1);
 	ft_redirect(s->bob, 0);
@@ -31,9 +47,10 @@ static void	ft_redirect_builtins(t_struct *s, void (*builtin)(t_struct *))
 	close(fd_in);
 	close(fd_out);
 	s->bob = s->bob->next;
+	return (1);
 }
 
-int	is_first_builtin(t_struct *s, int fd_in, int fd_out)
+int	is_first_builtin(t_struct *s, int i)
 {
 	if (strcmp(s->bob->token[0], "cd") == 0 && i == 0 && !s->bob->next)
 		return (ft_redirect_builtins(s, &ft_cd));

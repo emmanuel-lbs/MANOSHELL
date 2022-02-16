@@ -1,15 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 13:29:57 by rozhou            #+#    #+#             */
+/*   Updated: 2022/02/16 13:29:58 by rozhou           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/minishell.h"
 
-int	ft_unset_all(t_struct *s);
+static int	ft_unset_all(t_struct *s, int i)
 {
-	if (ft_strncmp(s->env->content, s->bob->token[i], ft_strclen(s->env->content, '=')) == 0)
+	if (ft_strncmp(s->env->content, s->bob->token[i],
+			ft_strclen(s->env->content, '=')) == 0)
 	{
 		ft_setenv_null(s);
 		s->first = s->first->next;
 		ft_delfirst(&s->env);
 		return (1);
 	}
-	if (ft_strncmp(s->env->next->content, s->bob->token[i], ft_strclen(s->env->next->content, '=')) == 0)
+	if (ft_strncmp(s->env->next->content, s->bob->token[i],
+			ft_strclen(s->env->next->content, '=')) == 0)
 	{
 		ft_setenv_null(s);
 		ft_delone(&s->env);
@@ -42,7 +56,7 @@ static void	ft_unset2(t_struct *s, int i, int j)
 	{
 		while (s->env->next != NULL)
 		{
-			if (ft_unset_all(s) == 1)
+			if (ft_unset_all(s, i) == 1)
 			{
 				g_errna = 0;
 				break ;
@@ -56,8 +70,6 @@ void	ft_unset(t_struct *s)
 {
 	int		i;
 	int		j;
-	t_list	*mem;
-	t_list	*tmp;
 
 	s->env = s->first;
 	i = 1;
