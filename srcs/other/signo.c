@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void ctrl_c(int n)
+void	ctrl_c(int n)
 {
 	(void)n;
 	g_errna = 130;

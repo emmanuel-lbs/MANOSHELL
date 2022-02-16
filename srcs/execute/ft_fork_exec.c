@@ -35,6 +35,7 @@ static void	ft_child_exec(t_struct *s, int to_close, int *fd_in)
 		g_errna = 0;
 		tcsetattr(0, TCSANOW, &s->old_termios);
 		signal(SIGINT, ctrl_child);
+		signal(SIGQUIT, ctrl_quit);
 		execve(s->bob->token[0], s->bob->token, s->data.envp);
 		exit(1);
 	}
