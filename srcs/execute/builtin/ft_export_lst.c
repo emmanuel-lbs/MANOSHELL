@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:52 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:29:53 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/16 14:18:38 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_list	*ft_lstcopy(t_struct *s)
 	return (mem);
 }
 
-void	ft_lstc(t_list **lst)
+void	ft_lstfree(t_list **lst)
 {
 	t_list	*current;
 	t_list	*next;
@@ -87,6 +87,6 @@ void	ft_lstsort_str(t_struct *s)
 	first = sortlist;
 	ft_lstprint(first);
 	first = sortlist;
-	ft_lstc(&sortlist);
+	ft_lstfree(&sortlist);
 	g_errna = 0;
 }
