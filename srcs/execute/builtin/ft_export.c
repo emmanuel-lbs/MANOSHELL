@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:55 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:29:56 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/16 14:07:51 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static void	ft_exportall(t_struct *s, int i, int j)
 		if (s->bob->token[i][j] == '=' || !s->bob->token[i][j])
 		{
 			if (ft_checkdup(s, s->bob->token[i]) == 1)
-				ft_lstadd_back(&s->env->next, ft_lstnew(s->bob->token[i]));
+				ft_lstadd_back(&s->env->next,
+					ft_lstnew(ft_strdup(s->bob->token[i])));
 			g_errna = 0;
 		}
 	}

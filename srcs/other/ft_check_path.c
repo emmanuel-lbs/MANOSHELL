@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_path.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 14:02:57 by rozhou            #+#    #+#             */
+/*   Updated: 2022/02/16 14:03:03 by rozhou           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 //Initialisation de la structure Data et environnement
@@ -13,7 +25,8 @@ void	ft_create_env(t_struct *s)
 	str = getcwd(str, 0);
 	s->data.envp[0] = ft_strjoin("PWD=", str);
 	s->data.envp[1] = ft_strjoin("SHLVL=", "1");
-	s->data.envp[2] = ft_strjoin("_=", "/Users/rozhou/42_Cursus/MANOSHELL/./MANOSHELL");
+	s->data.envp[2] = \ 
+		ft_strjoin("_=", "/Users/rozhou/42_Cursus/MANOSHELL/./MANOSHELL");
 	s->data.envp[3] = ft_strjoin("OLDPWD", "");
 	s->data.envp[4] = NULL;
 	s->home.content = NULL;

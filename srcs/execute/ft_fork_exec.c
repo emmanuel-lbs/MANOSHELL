@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:00 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:30:01 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/16 13:54:24 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_fork_exec(t_struct *s, int *fd_in, int i)
 		exit(ft_print_error("Pipe error\n", errno));
 	to_close = s->data.end[0];
 	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, ctrl_quit);
 	s->data.id1[i] = fork();
 	if (s->data.id1[i] == -1)
 		exit(ft_print_error("Fork error\n", errno));
