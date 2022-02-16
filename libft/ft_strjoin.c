@@ -6,8 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 17:04:15 by elabasqu          #+#    #+#             */
-/*   Updated: 2021/11/18 09:57:03 by rozhou           ###   ########.fr       */
-/*   Updated: 2021/11/17 16:35:56 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/16 15:12:15 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +36,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	ns[i + j] = '\0';
-	//free((char *)s1);
 	return (ns);
 }
