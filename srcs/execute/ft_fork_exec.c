@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:00 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:30:01 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/16 13:46:08 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	ft_child_exec(t_struct *s, int to_close, int *fd_in)
 		g_errna = 0;
 		tcsetattr(0, TCSANOW, &s->old_termios);
 		signal(SIGINT, ctrl_child);
+		signal(SIGQUIT, ctrl_quit);
 		execve(s->bob->token[0], s->bob->token, s->data.envp);
 		exit(1);
 	}
