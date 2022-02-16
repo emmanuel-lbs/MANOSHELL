@@ -107,6 +107,6 @@ int	main(int ac, char **av, char **envp)
 			ft_exec(&s, str, 0);
 			s.env = s.first;
 		}
-		destroy_bob(str, &s);
+		//destroy_bob(str, &s);
 	}
 }

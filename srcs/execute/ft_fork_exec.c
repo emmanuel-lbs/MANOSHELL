@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_fork_exec.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 13:30:00 by rozhou            #+#    #+#             */
+/*   Updated: 2022/02/16 13:30:01 by rozhou           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static int	ft_print_error(char *str, int error)
@@ -11,7 +23,7 @@ static void	ft_child_exec(t_struct *s, int to_close, int *fd_in)
 {
 	if (to_close)
 		close(to_close);
-	if (ft_pathfinder(s, -1) == -1)
+	if (ft_pathfinder(s, 0) == -1)
 		exit(127);
 	if (*fd_in)
 		ft_redir_close(*fd_in, 0);
@@ -29,23 +41,21 @@ static void	ft_child_exec(t_struct *s, int to_close, int *fd_in)
 	exit(g_errna);
 }
 
-void	ft_fork_exec(t_struct *s, int *fd_in, int *fd_out, int i)
+void	ft_fork_exec(t_struct *s, int *fd_in, int i)
 {
-	int to_close;
+	int	to_close;
 
 	if (pipe(s->data.end) == -1)
-		return (ft_print_error("Pipe error\n", errno));
+		exit(ft_print_error("Pipe error\n", errno));
 	to_close = s->data.end[0];
 	signal(SIGINT, SIG_IGN);
 	s->data.id1[i] = fork();
 	if (s->data.id1[i] == -1)
-		return (ft_print_error("Fork error\n", errno));
+		exit(ft_print_error("Fork error\n", errno));
 	if (s->data.id1[i] == 0)
-	{
-		ft_child_exec(s, to_close, *fd_in)
-	}
+		ft_child_exec(s, to_close, fd_in);
 	if (*fd_in)
-        close(*fd_in);
+		close(*fd_in);
 	*fd_in = s->data.end[0];
 	close(s->data.end[1]);
 	s->bob = s->bob->next;

@@ -55,6 +55,7 @@ static void	ft_setup_data(t_struct *s, int ac, char **av, char **envp)
 	else
 		s->data.envp = envp;
 }
+
 int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 {
 	int	i;

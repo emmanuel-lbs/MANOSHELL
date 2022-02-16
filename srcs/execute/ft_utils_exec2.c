@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils_exec2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 13:30:05 by rozhou            #+#    #+#             */
+/*   Updated: 2022/02/16 13:30:06 by rozhou           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-void    ft_setenv_null(t_struct *s)
+void	ft_setenv_null(t_struct *s)
 {
 	if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
 		s->old_pwd.content = NULL;
@@ -54,7 +66,7 @@ static int	ft_find_min(unsigned char *ss1, unsigned char *ss2, char c, int min)
 
 int	ft_strccmp(const char *s1, const char *s2, char c, int i)
 {
-	int			min;
+	int				min;
 	unsigned char	*ss1;
 	unsigned char	*ss2;
 

@@ -1,4 +1,3 @@
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -15,7 +14,7 @@
 # include "../libft/libft.h"
 # include "structure.h"
 
-extern int         g_errna;
+extern int			g_errna;
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PARSING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -85,16 +84,17 @@ int			ft_isalpha_(int c);
 void		ft_delfirst(t_list **lst);
 void		ft_delone(t_list **lst);
 int			ft_strclen(char *str, char c);
-int			ft_pathfinder(t_struct *s, int n);
-void	    ft_redirect(t_bob *bob, int	fd_in);
-void	    ft_redir_close(int fd, int std);
 void		ft_setenv_null(t_struct *s);
-int	        ft_strgetchar(char *str, char c);
-int	        ft_strccmp(const char *s1, const char *s2, char c, int i);
+int			ft_pathfinder(t_struct *s, int n);
+void		ft_redirect(t_bob *bob, int fd_in);
+void		ft_redir_close(int fd, int std);
+void		ft_setenv_null(t_struct *s);
+int			ft_strgetchar(char *str, char c);
+int			ft_strccmp(const char *s1, const char *s2, char c, int i);
 void		ft_lstcontent_swp(t_list *lst1, t_list *lst2);
 t_list		*ft_lstcopy(t_struct *s);
-void 		ft_lstc(t_list **lst);
-void 		ft_lstsort_str(t_struct *s);
+void		ft_lstc(t_list **lst);
+void		ft_lstsort_str(t_struct *s);
 /*Builtin function*/
 void		ft_echo(t_struct *s);
 void		ft_cd(t_struct *s);
@@ -104,17 +104,17 @@ void		ft_lstprint(t_list *lst);
 void		ft_export(t_struct *s);
 void		ft_unset(t_struct *s);
 void		ft_env(t_struct *s);
-void	    ft_exit(t_struct *s);
-void	    ft_pipexit(t_struct *s);
+void		ft_exit(t_struct *s);
+void		ft_pipexit(t_struct *s);
 /*Main execution*/
 int			is_builtin(t_struct *s);
-int			is_first_builtin(t_struct *s, int fd_in, int fd_out);
-void		ft_fork_exec(t_struct *s, int *fd_in, int *fd_out, int i);
+int			is_first_builtin(t_struct *s, int i);
+void		ft_fork_exec(t_struct *s, int *fd_in, int i);
 int			ft_exec(t_struct *s, char *str, int i);
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SIGNALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-void        ctrl_c(int n);
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SIGNALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+void		ctrl_c(int n);
 void		ctrl_child(int n);
-void    	ft_signal(t_struct *s);
+void		ft_signal(t_struct *s);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void		beging_hered(char	**str, int actual_word, t_bob *bob);
 void		heredocs(t_bob *bob, char	*end_word);
@@ -122,7 +122,5 @@ t_bob		*heredocs_bob(t_bob *bob);
 char		*heredocs_end_word(char	**token, int i);
 int			is_heredocs(t_struct *s);
 int			ft_check_path(t_struct *s, char **envp, int ac, char **av);
-
-
 
 #endif
