@@ -40,9 +40,8 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 	free(mem);
 }
 
-void	destroy_bob(char *str, t_struct *s)
+void	destroy_bob(t_struct *s)
 {
-	free(str);
 	s->bob = s->first_bob;
 	while (s->bob->next != NULL)
 	{
@@ -53,18 +52,6 @@ void	destroy_bob(char *str, t_struct *s)
 			close(s->bob->fd_in);
 		s->bob = s->bob->next;
 	}
-	ft_free_double_char(s->bob->token);
-//	if (s->bob->fd_out)
-//		close(s->bob->fd_out);
-//	if (s->bob->fd_in)
-//		close(s->bob->fd_in);
-	//	s->env = s->first;
-	//	while (s->env !- NULL)
-	//	{
-	//
-	//	}
-	//	free(s->bob);
-	//	free(s->first_bob);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -116,9 +103,9 @@ int	main(int ac, char **av, char **envp)
 			s.data.id1 = malloc(sizeof(int) * s.no_pipe + 1);
 			ft_exec(&s, 0);
 			s.env = s.first;
+			destroy_bob(&s);
 		}
-		//destroy_bob(str, &s);
+		free(str);
 		free(s.prompt);
 	}
-	while (1);
 }
