@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:45 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:29:46 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/17 12:33:20 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void	ft_echo(t_struct *s)
 	if (!s->bob->token[1])
 		printf("\n");
 	else
-	{
 		ft_write_echo(s);
-	}
 	g_errna = 0;
 }
