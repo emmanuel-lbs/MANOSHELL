@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:01 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:30:02 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/16 15:26:00 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static int	ft_checkfile(struct stat *buf, t_struct *s)
 {
 	if (S_ISDIR(buf->st_mode))
 	{
-		printf("1: Command not found: %s\n", s->bob->token[0]);
+		printf("Command not found: %s\n", s->bob->token[0]);
 		return (-1);
 	}
 	if (access(s->bob->token[0], X_OK) == 0)
 		return (1);
 	else
 	{
-		printf("2: Command not found: %s\n", s->bob->token[0]);
+		printf("Command not found: %s\n", s->bob->token[0]);
 		g_errna = 127;
 		return (-1);
 	}

@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:40 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:29:42 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/17 12:19:21 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ static void	ft_cd_home(t_struct *s)
 	pwd = NULL;
 	if (chdir(s->home.content + 5))
 	{
-		g_errna = 1;
-		printf("HOME not set\n");
+		if (!s->home.content)
+		{
+			g_errna = 1;
+			printf("HOME not set\n");
+		}
 	}
 	else
 	{

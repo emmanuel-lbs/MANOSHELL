@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:06 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:30:07 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/17 10:49:32 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ int	is_first_builtin(t_struct *s, int i)
 		return (ft_redirect_builtins(s, &ft_exit));
 	else
 		return (0);
+	return (1);
 }
