@@ -43,7 +43,7 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 void	destroy_bob(t_struct *s)
 {
 	s->bob = s->first_bob;
-	while (s->bob->next != NULL)
+	while (s->bob != NULL)
 	{
 		ft_free_double_char(s->bob->token);
 		if (s->bob->fd_out != 1)
