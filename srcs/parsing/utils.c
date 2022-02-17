@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 16:25:26 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 13:52:57 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,22 @@ int	skip_quote(char *s, char quote, int *i)
 			return (-1);
 	return (0);
 }
+
+void	printf_lst(t_bob *bob)
+{
+	int i;
+	while (bob != NULL)
+	{
+		i = 0;
+		while (bob->token[i])
+		{
+			printf(" -%s- ",bob->token[i]);
+			i++;
+		}
+		printf("out = %d in = %d", bob->fd_out, bob->fd_in);
+		printf("mode in = %d, heredocs = %s\n",bob->mode_in, bob->heredocs);
+		printf("\n");
+		bob = bob->next;
+	}
+}
+

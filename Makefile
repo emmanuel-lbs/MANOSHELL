@@ -16,6 +16,7 @@ SRCS = srcs/other/main.c \
 		srcs/parsing/count.c \
 		srcs/parsing/utils_dollars.c \
 		srcs/parsing/dollars.c \
+		srcs/parsing/fake_dollars.c \
 		srcs/execute/ft_exec.c \
 		srcs/execute/ft_fork_exec.c \
 		srcs/execute/is_builtin.c \

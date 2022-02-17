@@ -50,6 +50,14 @@ t_bob	*heredocs_bob(t_bob *bob)
 	return (bob);;
 }
 
+void	sig_airdog(int n)
+{
+	(void)n;
+	printf("\n");
+	g_errna = 1;
+	exit(g_errna);
+}
+
 void	heredocs(t_bob *bob, char	*end_word)
 {
 	char	*str;
@@ -74,11 +82,44 @@ void	heredocs(t_bob *bob, char	*end_word)
 	}
 }
 
-
-void	beging_hered(char	**str, int actual_word, t_bob *bob)
+int	second_airdog(t_bob *bob, char *end_word)
 {
-	if (bob->mode_in == 2)
-		free(bob->heredocs);
-//	signal(SIGINT, &ctrl_c);
-	heredocs(bob, heredocs_end_word(str, actual_word));
+	int	pid;
+	int		status;
+	int	fd[2];
+
+	if (pipe(fd) == -1)
+	{
+		printf("Pipe error\n");
+		return (-1);
+	}
+	pid = fork();
+	if (pid == -1)
+	{
+		printf("Pid error\n");
+		return (-1);;
+	}
+	signal(SIGINT, SIG_IGN);
+	if (pid == 0)
+	{
+		signal(SIGINT, &sig_airdog);
+		heredocs(bob, end_word);
+		ft_putstr_fd(bob->heredocs, fd[1]);
+		ft_redir_close(fd[1], 1);
+		exit(1);
+	}
+	//	exit(1);
+	close(fd[0]);
+	close(fd[1]);
+	return (0);
+}
+
+void	beging_hered(char **str, int actual_word, t_bob *bob)
+{
+	second_airdog(bob, heredocs_end_word(str, actual_word));
+	//	if (g_error_number)
+	//		return (-1);
+	//	close(fd[0]);
+	//	close(fd[1]);
+	//	return (0);
 }

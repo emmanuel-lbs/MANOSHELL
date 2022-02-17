@@ -41,6 +41,9 @@ int			search_dollars(char *dollars, t_struct *s);
 char		*one_token_dollars(char *cmd, int *i, t_struct *s);
 char		*fusion_double_token(char *str, char *cmd, int *i, t_struct *s);
 int			resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
+/*FAKE_DOLLARS*/
+int	not_a_dollar(char *cmd, int i);
+char	*fake_dollars(char *cmd, int *i, t_struct *s);
 /*DOLLARS_UTILS*/
 char		*normal_token(char *cmd, int *i, t_struct *s);
 int			resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
@@ -117,11 +120,12 @@ void		ctrl_child(int n);
 void		ctrl_quit(int n);
 void		ft_signal(t_struct *s);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-void		beging_hered(char	**str, int actual_word, t_bob *bob);
+void			beging_hered(char	**str, int actual_word, t_bob *bob);
 void		heredocs(t_bob *bob, char	*end_word);
 t_bob		*heredocs_bob(t_bob *bob);
 char		*heredocs_end_word(char	**token, int i);
 int			is_heredocs(t_struct *s);
 int			ft_check_path(t_struct *s, char **envp, int ac, char **av);
 
+void	printf_lst(t_bob *bob);////////////////
 #endif

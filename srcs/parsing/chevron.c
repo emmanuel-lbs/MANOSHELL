@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 16:26:31 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/17 13:12:59 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	gere_out(char **str, int *i, t_bob *bob)
 
 void	gere_in(char **str, int *actual_word, t_bob *bob)
 {
-	printf("TEST\n");
 	if (bob->fd_in != 0)
 		close(bob->fd_in);
 	if (!str[*actual_word][1])
@@ -40,7 +39,6 @@ void	gere_in(char **str, int *actual_word, t_bob *bob)
 	}
 	else
 	{
-		printf("TEST\n");
 		beging_hered(str, *actual_word, bob);
 		(*actual_word)++;
 		bob->mode_in = 2;
