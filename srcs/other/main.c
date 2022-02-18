@@ -20,7 +20,6 @@ static void	ft_get_pwd(t_struct *s, char *pwd)
 	}
 	if (g_errna != 0)
 	{
-
 		freestr = ft_strjoin(mem[i - 1], "\033[0m ");
 		s->prompt = ft_strjoin("\033[0;31m➜ \033[1;36m", freestr);
 	}

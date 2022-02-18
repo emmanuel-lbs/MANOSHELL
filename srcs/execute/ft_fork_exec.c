@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:00 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 11:54:14 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/18 12:24:29 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	ft_fork_exec(t_struct *s, int *fd_in, int i)
 		ft_child_exec(s, to_close, fd_in);
 	if (*fd_in)
 		close(*fd_in);
+	if (s->bob->mode_in == 2)
+		close(s->bob->fd[1]);
 	*fd_in = s->data.end[0];
 	close(s->data.end[1]);
 	s->bob = s->bob->next;
