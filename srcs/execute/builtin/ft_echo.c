@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:45 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/17 12:33:20 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/18 11:50:23 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static int	echo_flag(char *str)
 	i = 1;
 	while (str[i])
 	{	
-		if (str[i] == 'n')
-			return (1);
+		if (str[i] != 'n')
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 static void	ft_write_echo(t_struct *s)
