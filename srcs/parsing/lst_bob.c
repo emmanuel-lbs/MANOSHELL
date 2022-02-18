@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:07 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/18 12:01:26 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/18 12:52:04 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	fct(char **str, int start, int end, t_bob *bob)
 	file_ret = 0;
 	bob = lastbob(bob);
 	word = end - start + lst_ajustement(str, start, end);
+	printf("%d et %d \n", end - start, word);
 	bob->token = malloc(sizeof(char *) * (end - start + 1));
 	if (!bob->token)
 		return (-1);

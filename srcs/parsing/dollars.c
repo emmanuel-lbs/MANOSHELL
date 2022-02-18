@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/18 12:12:13 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/18 12:27:48 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,7 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 	if (a_token == NULL || a_token[0] == 0)
 		return (a_token);
 	if (a_token[0] == '?')
-	{
-		free(a_token);
-		(*i)++;
-		a_token = ft_itoa(g_errna);
-		return (a_token);
-	}
+		return (dollars_erno(&a_token, i));
 	if (search_dollars(a_token, s) == -1)
 		return (NULL);
 	if (where_dollar(cmd, *i) == 1)
