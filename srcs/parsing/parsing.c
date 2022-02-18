@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:52:46 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/17 13:55:24 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/18 12:12:54 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ int	parsing(char *str, t_struct *s)
 	ft_free_double_char(tokeniser);
 //	if (g_errna == 1)
 //		return (-1);
-//	printf_lst(s->bob);
+	printf_lst(s->bob);
 	return (0);
 }
