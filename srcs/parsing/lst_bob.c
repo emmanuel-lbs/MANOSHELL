@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:07 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/18 12:52:04 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/18 13:13:47 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int	fct(char **str, int start, int end, t_bob *bob)
 	file_ret = 0;
 	bob = lastbob(bob);
 	word = end - start + lst_ajustement(str, start, end);
-	printf("%d et %d \n", end - start, word);
-	bob->token = malloc(sizeof(char *) * (end - start + 1));
+	bob->token = malloc(sizeof(char *) * (word + 1));
 	if (!bob->token)
 		return (-1);
 	word = 0;
@@ -76,8 +75,8 @@ int	fct(char **str, int start, int end, t_bob *bob)
 	{
 		if (ft_is_chevron(str[start][0]) && file_ret != -1)
 			file_ret = gere_chevron(str, &start, bob);
-		else if (ft_is_chevron(str[start][0]) && str[start][1] != '<')
-			start += 2;
+		else if (ft_is_chevron(str[start][0]))
+			start++;
 		else
 		{
 			bob->token[word] = one_token_for_bob(str[start]);
@@ -86,8 +85,6 @@ int	fct(char **str, int start, int end, t_bob *bob)
 		start++;
 	}
 	bob->token[word] = 0;
-	if (bob->fd_in == -1)
-		bob->fd_out = -1;
 	return (0);
 }
 

@@ -45,6 +45,7 @@ int			resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
 int	not_a_dollar(char *cmd, int i);
 char	*fake_dollars(char *cmd, int *i, t_struct *s);
 /*DOLLARS_UTILS*/
+char		*dollars_erno(char **a_token, int *i);
 char		*normal_token(char *cmd, int *i, t_struct *s);
 int			resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
 int			strlen_var_env_no_space(char *var);
