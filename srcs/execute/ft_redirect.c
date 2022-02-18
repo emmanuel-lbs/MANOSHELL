@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:02 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 12:20:34 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/18 13:29:19 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_heredoc_redirect(t_bob *bob)
 	close(bob->fd[1]);
 }
 
-void	ft_redirect(t_bob *bob, int fd_in)
+void	ft_redirect(t_bob *bob)
 {
 	if (bob->mode_in == 2)
 		ft_heredoc_redirect(bob);

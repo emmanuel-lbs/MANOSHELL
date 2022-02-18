@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:06 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 12:43:10 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/18 13:30:17 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	ft_redirect_builtins(t_struct *s, void (*builtin)(t_struct *))
 
 	fd_in = dup(0);
 	fd_out = dup(1);
-	ft_redirect(s->bob, 0);
+	ft_redirect(s->bob);
 	(*builtin)(s);
 	ft_redir_close(fd_in, 0);
 	ft_redir_close(fd_out, 1);
