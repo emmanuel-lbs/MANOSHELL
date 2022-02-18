@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:01 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 15:26:00 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/18 11:53:20 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_checkfile_nopath(struct stat buf, t_struct *s)
 	else if (access(s->bob->token[0], F_OK) != 0)
 	{
 		printf("%s: No such file or directory\n", s->bob->token[0]);
-		g_errna = 127;
+		g_errna = 126;
 		return (-1);
 	}
 	else if (access(s->bob->token[0], X_OK) == 0)
@@ -40,11 +40,16 @@ static int	ft_checkfile(struct stat *buf, t_struct *s)
 {
 	if (S_ISDIR(buf->st_mode))
 	{
-		printf("Command not found: %s\n", s->bob->token[0]);
+		printf("%s: is a directory\n", s->bob->token[0]);
+		g_errna = 126;
 		return (-1);
 	}
-	if (access(s->bob->token[0], X_OK) == 0)
-		return (1);
+	else if (access(s->bob->token[0], F_OK) == 0)
+	{
+		printf("%s: Permission denied\n", s->bob->token[0]);
+		g_errna = 126;
+		return (-1);
+	}
 	else
 	{
 		printf("Command not found: %s\n", s->bob->token[0]);
