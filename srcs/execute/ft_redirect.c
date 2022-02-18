@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:02 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 11:45:18 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/18 12:20:34 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,8 @@
 
 static void	ft_heredoc_redirect(t_bob *bob)
 {
-	int	pid;
-	int	fd[2];
-
-	pipe(fd);
-	pid = fork();
-	if (pid == 0)
-	{
-//		ft_putstr_fd(bob->heredocs, fd[1]);
-		ft_redir_close(fd[1], 1);
-		close(fd[0]);
-		exit(0);
-	}
-	ft_redir_close(fd[0], 0);
-	close(fd[1]);
+	ft_redir_close(bob->fd[0], 0);
+	close(bob->fd[1]);
 }
 
 void	ft_redirect(t_bob *bob, int fd_in)
