@@ -121,7 +121,6 @@ void		ctrl_quit(int n);
 void		ft_signal(t_struct *s);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void			beging_hered(char	**str, int actual_word, t_bob *bob);
-void		heredocs(t_bob *bob, char	*end_word);
 t_bob		*heredocs_bob(t_bob *bob);
 char		*heredocs_end_word(char	**token, int i);
 int			is_heredocs(t_struct *s);
