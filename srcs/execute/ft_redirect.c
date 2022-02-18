@@ -21,7 +21,7 @@ static void	ft_heredoc_redirect(t_bob *bob)
 	pid = fork();
 	if (pid == 0)
 	{
-		ft_putstr_fd(bob->heredocs, fd[1]);
+//		ft_putstr_fd(bob->heredocs, fd[1]);
 		ft_redir_close(fd[1], 1);
 		close(fd[0]);
 		exit(0);

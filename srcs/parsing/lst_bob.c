@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:07 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/17 14:12:07 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/18 12:01:26 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_bob	*new_bob(void)
 	if (!list)
 		return (0);
 	list->next = NULL;
-	list->heredocs = NULL;
 	list->fd_in = 0;
 	list->fd_out = 1;
 	list->mode_out = 0;

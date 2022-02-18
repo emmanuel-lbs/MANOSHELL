@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/17 13:52:57 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/18 12:01:00 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	printf_lst(t_bob *bob)
 			i++;
 		}
 		printf("out = %d in = %d", bob->fd_out, bob->fd_in);
-		printf("mode in = %d, heredocs = %s\n",bob->mode_in, bob->heredocs);
+		printf("mode in = %d, heredocs = \n",bob->mode_in);
 		printf("\n");
 		bob = bob->next;
 	}
