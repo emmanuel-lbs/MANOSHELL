@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:02:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 12:52:07 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/18 13:21:51 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,12 @@ static void	ft_create_env(t_struct *s)
 	s->data.env_path = NULL;
 }
 
-static void	ft_shlvl(t_struct *s)
-{
-	s->env->content = ft_strjoin("SHLVL=",
-			ft_itoa(ft_atoi(s->env->content + 6) + 1));
-}
-
 static void	ft_setenv(t_struct *s)
 {
 	while (s->env->next != NULL)
 	{
 		if (ft_strncmp(s->env->content, "PWD=", 4) == 0)
 			s->pwd = *s->env;
-		if (ft_strncmp(s->env->content, "SHLVL=", 6) == 0)
-			ft_shlvl(s);
 		else if (ft_strncmp(s->env->content, "OLDPWD", 6) == 0)
 		{
 				s->old_pwd = *s->env;
@@ -84,11 +76,13 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	if (s->env)
 		ft_lstprint(s->env);
 	s->env = ft_lstnew(s->data.envp[0]);
-	i = 1;
-	while (s->data.envp[i])
+	i = 0;
+	while (s->data.envp[++i])
 	{
+		if (ft_strncmp(s->data.envp[i], "SHLVL=", 6) == 0)
+			s->data.envp[i] = ft_strjoin("SHLVL=",
+					ft_itoa(ft_atoi(s->data.envp[i] + 6) + 1));
 		ft_lstadd_back(&s->env->next, ft_lstnew(s->data.envp[i]));
-		i++;
 	}
 	s->first = s->env;
 	ft_setenv(s);
