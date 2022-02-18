@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/17 13:12:59 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/18 13:13:21 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ int	gere_chevron(char **str, int *actual_word, t_bob *bob)
 	else if (str[*actual_word][0] == '<')
 		gere_in(str, actual_word, bob);
 	if (bob->fd_in == -1 || bob->fd_out == -1)
+	{
+		if (bob->fd_in == -1)
+			bob->fd_out = -1;
 		return (-1);
+	}
 	return (0);
 }
 
