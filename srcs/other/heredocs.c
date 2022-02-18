@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredocs.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/18 12:00:32 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/02/18 12:00:32 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	is_heredocs(t_struct *s)
@@ -58,34 +70,37 @@ void	sig_airdog(int n)
 	exit(g_errna);
 }
 
-void	heredocs(t_bob *bob, char	*end_word)
+char	*heredocs(char	*end_word)
 {
 	char	*str;
+	char	*hered;
 
 	str = "";
 	str = readline("<<");
 	if (str == 0 || strcmp(str, end_word) == 0)
 	{
-		bob->heredocs = ft_strdup("");
-		return ;
+		hered = ft_strdup("");
+		return (hered);;
 	}
-	bob->heredocs = ft_strjoin(str, "\n");
+	hered = ft_strjoin(str, "\n");
 	free(str);
 	while (1)
 	{
 		str = readline("<<");
 		if (str == 0 || strcmp(str, end_word) == 0)
-			return ;
-		bob->heredocs = ft_strjoin(bob->heredocs, str);
-		bob->heredocs = ft_strjoin(bob->heredocs, "\n");
+			return (hered);
+		hered = ft_strjoin(hered, str);
+		hered = ft_strjoin(hered, "\n");
 		free(str);
 	}
+	return (hered);
 }
 
 int	second_airdog(t_bob *bob, char *end_word)
 {
 	int	pid;
-	int		status;
+	int	status;
+	char	*hered;
 	int	fd[2];
 
 	if (pipe(fd) == -1)
@@ -103,14 +118,13 @@ int	second_airdog(t_bob *bob, char *end_word)
 	if (pid == 0)
 	{
 		signal(SIGINT, &sig_airdog);
-		heredocs(bob, end_word);
-		ft_putstr_fd(bob->heredocs, fd[1]);
+		hered = heredocs(end_word);
+		ft_putstr_fd(hered, fd[1]);
 		ft_redir_close(fd[1], 1);
 		exit(1);
 	}
-	//	exit(1);
-	close(fd[0]);
-	close(fd[1]);
+	bob->fd[0] = fd[0];
+	bob->fd[1] = fd[1];
 	return (0);
 }
 

@@ -21,7 +21,7 @@ typedef struct s_bob {
 	int				fd_out;
 	int				mode_out;
 	int				mode_in;
-	char			*heredocs;
+	int				fd[2];
 	struct s_bob	*next;
 }				t_bob;
 
