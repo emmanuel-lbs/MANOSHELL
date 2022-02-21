@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:36:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:37:53 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 15:38:54 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ char		*one_token_quote(char *cmd, int *i, t_struct *s);
 char		**split_shell(char *cmd, t_struct *s);
 /*quotes*/
 int			verif_quote(char *cmd, int i);
-int			dollar_in_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
-int			cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s);
+int			dollar_in_quote(char *cpy, char *cmd, int *norme[2], t_struct *s);
+int			cpy_quote(char *cpy, char *cmd, int *n[2], t_struct *s);
+int			cpy_quote_avant(char *cpy, char *cmd, int *n[2], t_struct *s);
 int			verif_quote(char *cmd, int i);
 /*DOLLARS*/
 char		*change_dollars(char *dollars, char *var);

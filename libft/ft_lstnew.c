@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:02:05 by rozhou            #+#    #+#             */
-/*   Updated: 2020/11/27 16:03:19 by rozhou           ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 14:42:40 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list *list;
+	t_list	*list;
 
-	if (!(list = malloc(sizeof(*list))))
+	list = malloc(sizeof(*list));
+	if (!list)
 		return (0);
 	list->content = content;
 	list->next = NULL;

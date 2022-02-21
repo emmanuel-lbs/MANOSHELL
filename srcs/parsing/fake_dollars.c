@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:28:06 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:01:55 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 15:24:46 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*fake_dollars(char *cmd, int *i, t_struct *s)
 {
 	int		j;
 	char	*a_token;
+	int		*norme[2];
 
 	(*i)++;
 	a_token = malloc(sizeof(char) * (token_len(cmd, *i) - *i));
@@ -35,8 +36,10 @@ char	*fake_dollars(char *cmd, int *i, t_struct *s)
 	while (cmd[*i] && cmd[*i] != ' ' && ft_is_chevron(cmd[*i]) == 0 \
 			&& ft_is_quote(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
 		add_char(a_token, cmd, &j, i);
+	norme[0] = &j;
+	norme[1] = i;
 	if (cmd[*i] != '$' && ft_is_quote(cmd[*i]) == 1)
-		cpy_quote(a_token, cmd, &j, i, s);
+		cpy_quote(a_token, cmd, norme, s);
 	a_token[j] = 0;
 	if (cmd[*i] == '$')
 		return (fusion_double_token(a_token, cmd, i, s));
