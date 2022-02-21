@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:02:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 13:21:51 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/21 11:15:24 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	ft_create_env(t_struct *s)
 	str = getcwd(str, 0);
 	s->data.envp[0] = ft_strjoin("PWD=", str);
 	s->data.envp[1] = ft_strjoin("SHLVL=", "1");
-	s->data.envp[2] = ft_strjoin("_=", "/Users/rozhou/42_Cursus/MANOSHELL/./MANOSHELL");
+	s->data.envp[2] = ft_strjoin("_=",
+			"/Users/rozhou/42_Cursus/MANOSHELL/./MANOSHELL");
 	s->data.envp[3] = ft_strjoin("OLDPWD", "");
 	s->data.envp[4] = NULL;
 	s->home.content = NULL;

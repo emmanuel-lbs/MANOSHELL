@@ -81,9 +81,9 @@ int	main(int ac, char **av, char **envp)
 		ft_get_pwd(&s, s.pwd.content);
 		ft_signal(&s);
 		str = readline(s.prompt);
+		tcsetattr(0, TCSANOW, &s.old_termios);
 		if (str == 0)
 		{
-			tcsetattr(0, TCSANOW, &s.old_termios);
 			printf("exit\n");
 			rl_on_new_line();
 			rl_replace_line("", 0);
