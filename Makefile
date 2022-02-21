@@ -1,6 +1,7 @@
 ##############################  SOURCE & OBJETS  ###############################
 
 SRCS = srcs/other/main.c \
+		srcs/other/ft_getpwd.c \
 		srcs/other/ft_check_path.c \
 		srcs/other/heredocs.c \
 		srcs/other/heredocs_utils.c \
