@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:00:32 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:22:26 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 14:26:46 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,4 @@ int	second_airdog(t_bob *bob, char *end_word)
 void	beging_hered(char **str, int actual_word, t_bob *bob)
 {
 	second_airdog(bob, heredocs_end_word(str, actual_word));
-		printf("gerrna = %d\n", g_errna);	
 }
