@@ -125,6 +125,7 @@ void		ft_env(t_struct *s);
 void		ft_exit(t_struct *s);
 void		ft_pipexit(t_struct *s);
 /*Main execution*/
+void		ft_get_pwd(t_struct *s, char *pwd);
 int			is_builtin(t_struct *s);
 int			is_first_builtin(t_struct *s, int i);
 void		ft_fork_exec(t_struct *s, int *fd_in, int i);
