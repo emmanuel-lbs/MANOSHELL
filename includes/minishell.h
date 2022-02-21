@@ -99,6 +99,7 @@ void		ft_lstcontent_swp(t_list *lst1, t_list *lst2);
 t_list		*ft_lstcopy(t_struct *s);
 void		ft_lstc(t_list **lst);
 void		ft_lstsort_str(t_struct *s);
+char		*ft_strjoinfree(const char *s1, const char *s2, int alloc_args);
 /*Builtin function*/
 void		ft_echo(t_struct *s);
 void		ft_cd(t_struct *s);
@@ -114,14 +115,14 @@ void		ft_pipexit(t_struct *s);
 int			is_builtin(t_struct *s);
 int			is_first_builtin(t_struct *s, int i);
 void		ft_fork_exec(t_struct *s, int *fd_in, int i);
-int			ft_exec(t_struct *s, int i);
+int			ft_exec(t_struct *s, int i, int status, int builtin);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SIGNALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void		ctrl_c(int n);
 void		ctrl_child(int n);
 void		ctrl_quit(int n);
 void		ft_signal(t_struct *s);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-void			beging_hered(char	**str, int actual_word, t_bob *bob);
+void		beging_hered(char	**str, int actual_word, t_bob *bob);
 t_bob		*heredocs_bob(t_bob *bob);
 char		*heredocs_end_word(char	**token, int i);
 int			is_heredocs(t_struct *s);

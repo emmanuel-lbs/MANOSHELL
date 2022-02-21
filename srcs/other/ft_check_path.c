@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:02:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/21 11:15:24 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/21 13:47:48 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,15 @@ static void	ft_setup_data(t_struct *s, int ac, char **av, char **envp)
 		s->data.envp = envp;
 }
 
+static void	ft_shlvl(t_struct *s, int i)
+{
+	char	*mem;
+
+	mem = ft_itoa(ft_atoi(s->data.envp[i] + 6) + 1);
+	s->data.envp[i] = ft_strjoin("SHLVL=", mem);
+	free(mem);
+}
+
 int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 {
 	int	i;
@@ -81,8 +90,7 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	while (s->data.envp[++i])
 	{
 		if (ft_strncmp(s->data.envp[i], "SHLVL=", 6) == 0)
-			s->data.envp[i] = ft_strjoin("SHLVL=",
-					ft_itoa(ft_atoi(s->data.envp[i] + 6) + 1));
+			ft_shlvl(s, i);
 		ft_lstadd_back(&s->env->next, ft_lstnew(s->data.envp[i]));
 	}
 	s->first = s->env;
