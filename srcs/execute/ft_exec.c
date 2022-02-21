@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:59 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 13:36:47 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/21 12:07:31 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ int	ft_exec(t_struct *s, int i)
 	tcsetattr(0, TCSANOW, &s->old_termios);
 	while (s->bob != NULL)
 	{
-		if (!s->bob->token[0][0])
+		if (!s->bob->token[0])
+			s->bob = s->bob->next;
+		else if (!s->bob->token[0][0])
 		{
 			printf("Command not found: \n");
 			g_errna = 1;
-		}	
-		if (is_first_builtin(s, i) == 1)
+		}
+		else if (is_first_builtin(s, i) == 1)
 			builtin = 1;
 		else
 			ft_fork_exec(s, &fd_in, i);
