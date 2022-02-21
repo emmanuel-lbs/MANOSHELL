@@ -33,3 +33,11 @@ void	ctrl_quit(int n)
 	printf("Quit: 3\n");
 	g_errna = 131;
 }
+
+void	sig_airdog(int n)
+{
+	(void)n;
+	printf("\n");
+	g_errna = 1;
+	exit(g_errna);
+}

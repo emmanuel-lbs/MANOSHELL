@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:02 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/11 14:33:30 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 14:18:15 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,9 @@ char	*normal_token(char *cmd, int *i, t_struct *s)
 	int		j;
 	char	*a_token;
 
-	j = *i;
-	while (cmd[*i] && cmd[*i] != ' ' \
-			&& ft_is_chevron(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
-	{
-		if (cmd[*i] == '\'' || cmd[*i] == '\"' )
-			skip_quote(cmd, cmd[*i], i);
-		else
-			(*i)++;
-	}
-	a_token = malloc(sizeof(char) * (*i - j + 1));
+	a_token = malloc(sizeof(char) * (token_len(cmd, *i) - *i));
 	if (a_token == NULL)
 		return (NULL);
-	*i = j;
 	j = 0;
 	while (cmd[*i] && cmd[*i] != ' ' && ft_is_chevron(cmd[*i]) == 0 \
 			&& ft_is_quote(cmd[*i]) == 0 && cmd[*i] != '|' && cmd[*i] != '$')
@@ -93,7 +83,6 @@ char	*normal_token(char *cmd, int *i, t_struct *s)
 char	*one_token(char *cmd, int *i, t_struct *s)
 {
 	char	*a_token;
-	int		start;
 
 	if (ft_is_chevron(cmd[*i]) == 1)
 		a_token = cpy_chevron(cmd, i);

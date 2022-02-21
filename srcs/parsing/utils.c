@@ -6,38 +6,17 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/18 12:01:00 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 14:01:30 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	add_char(char *cpy, char *str, int *i, int *j)
-{
-		cpy[*i] = str[*j];
-		(*i)++;
-		(*j)++;
-}
-
-int	ft_is_quote(char c)
-{
-	if (c == '\"' || c == '\'')
-		return (1);
-	return (0);
-}
-
-int	ft_is_chevron(char c)
-{
-	if (c == '<' || c == '>')
-		return (1);
-	return (0);
-}
-
 int	skip_quote(char *s, char quote, int *i)
 {
 	(*i)++;
 	while (s[*i] && s[*i] != quote)
-			(*i)++;
+		(*i)++;
 	if (s[*i] != quote)
 	{
 		printf("missing one quote\n");
@@ -56,21 +35,53 @@ int	skip_quote(char *s, char quote, int *i)
 	return (0);
 }
 
+int	ft_is_builtin(char *str)
+{
+	if (strcmp(str, "cd") == 0)
+		return (1);
+	else if (ft_strcmp(str, "echo") == 0)
+		return (1);
+	else if (strcmp(str, "pwd") == 0)
+		return (1);
+	else if (strcmp(str, "export") == 0)
+		return (1);
+	else if (strcmp(str, "unset") == 0)
+		return (1);
+	else if (strcmp(str, "env") == 0)
+		return (1);
+	else if (strcmp(str, "exit") == 0)
+		return (1);
+	return (0);
+}
+
+int	token_len(char *cmd, int i)
+{
+	while (cmd[i] && cmd[i] != ' ' \
+			&& ft_is_chevron(cmd[i]) == 0 && cmd[i] != '|' && cmd[i] != '$')
+	{
+		if (cmd[i] == '\'' || cmd[i] == '\"' )
+			skip_quote(cmd, cmd[i], &i);
+		else
+			i++;
+	}
+	return (i);
+}
+
 void	printf_lst(t_bob *bob)
 {
-	int i;
+	int	i;
+
 	while (bob != NULL)
 	{
 		i = 0;
 		while (bob->token[i])
 		{
-			printf(" -%s- ",bob->token[i]);
+			printf(" -%s- ", bob->token[i]);
 			i++;
 		}
 		printf("out = %d in = %d", bob->fd_out, bob->fd_in);
-		printf("mode in = %d, heredocs = \n",bob->mode_in);
+		printf("mode in = %d, heredocs = \n", bob->mode_in);
 		printf("\n");
 		bob = bob->next;
 	}
 }
-

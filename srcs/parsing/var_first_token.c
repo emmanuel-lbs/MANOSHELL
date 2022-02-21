@@ -6,31 +6,43 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:11:37 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 16:24:22 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 13:45:54 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	**lst_cmd(t_struct *s, char *str)
+{
+	int		n;
+	char	**cmd;
+
+	cmd = malloc(sizeof(char **) * (ft_super_strlen(s->data.env_path) + 1));
+	if (access(str, X_OK) == 0)
+		return (NULL);
+	n = 0;
+	while (s->data.env_path[n])
+	{
+		cmd[n] = ft_strjoin(s->data.env_path[n], "/");
+		cmd[n] = ft_strjoin(cmd[n], str);
+		n++;
+	}
+	cmd[n] = 0;
+	return (cmd);
+}
 
 int	is_cmd(t_struct *s, char *str)
 {
 	int		n;
 	char	**cmd;
 
-	n = 0;
 	if (s->data.env_path)
 	{
-		cmd = malloc(sizeof(char **) * (ft_super_strlen(s->data.env_path) + 1));
-		if (access(str, F_OK) == 0)
-			return (1);
-		while (s->data.env_path[++n])
-		{
-			cmd[n] = ft_strjoin(s->data.env_path[n], "/");
-			cmd[n] = ft_strjoin(cmd[n], str);
-		}
-		cmd[n] = 0;
+		cmd = lst_cmd(s, str);
+		if (cmd == NULL)
+			return (-1);
 		n = 0;
-		while (cmd[n] && access(cmd[n], F_OK) != 0)
+		while (cmd[n] && access(cmd[n], X_OK) != 0)
 			n++;
 		if (!cmd[n])
 		{
@@ -40,25 +52,6 @@ int	is_cmd(t_struct *s, char *str)
 		return (1);
 	}
 	printf("Command not found: %s\n", str);
-	return (0);
-}
-
-int	ft_is_builtin(char *str)
-{
-	if (strcmp(str, "cd") == 0)
-		return (1);
-	else if (ft_strcmp(str, "echo") == 0)
-		return (1);
-	else if (strcmp(str, "pwd") == 0)
-		return (1);
-	else if (strcmp(str, "export") == 0)
-		return (1);
-	else if (strcmp(str, "unset") == 0)
-		return (1);
-	else if (strcmp(str, "env") == 0)
-		return (1);
-	else if (strcmp(str, "exit") == 0)
-		return (1);
 	return (0);
 }
 

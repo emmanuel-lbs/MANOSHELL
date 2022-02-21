@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:46:10 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/11 14:56:18 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 13:48:09 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,27 @@
  * return	:	-1 si erreur, 0 si tout est ok
  * def		:	check les erreur de syntax chevron "<<< << <> >< <| >|"
  */
+
+int	chevron_deux(char *str, int i)
+{
+	if (i == 2 && str[0] != str[1])
+	{
+		if (str[1] == '<')
+			printf("syntax error near unexpected token `%c'\n", str[1]);
+		else
+			printf("syntax error near unexpected token `newline'\n");
+		return (-1);
+	}
+	while (str[i] && ft_is_ispaces(str[i]))
+		i++;
+	if (str[i] && (ft_is_chevron(str[i]) || str[i] == '|'))
+	{
+		printf("syntax error near unexpected token `%c'\n", str[i]);
+		return (-1);
+	}
+	return (0);
+}
+
 int	chevron(char *str)
 {
 	int	i;
@@ -34,18 +55,8 @@ int	chevron(char *str)
 			printf("syntax error near unexpected token `%c'\n", str[i]);
 		return (-1);
 	}
-	if (i == 2 && str[0] != str[1])
-	{
-		printf("syntax error near unexpected token `%c'\n", str[1]);
+	if (chevron_deux(str, i) == -1)
 		return (-1);
-	}
-	while (str[i] && ft_is_ispaces(str[i]))
-		i++;
-	if (str[i] && (ft_is_chevron(str[i]) || str[i] == '|'))
-	{
-		printf("syntax error near unexpected token `%c'\n", str[i]);
-		return (-1);
-	}
 	return (0);
 }
 
@@ -106,23 +117,6 @@ int	specific_case_syntax(char *str)
  * return	:	-1 si erreur, 0 si tout est ok
  * def		:	vas check la syyntax de chaques commande
  */
-
-int	drole_de_chevron(char *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (ft_isascii(cmd[i]) == 0)
-		{
-			printf("ascci etendu not supported sorry\n");
-			return (-1);
-		}
-		i++;
-	}
-	return (0);
-}
 
 int	command_syntax(char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:05:28 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/01/28 12:49:21 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/20 18:47:53 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_list
 	struct s_list	*next;
 }		t_list;
 
+int			ft_is_ispaces(char c);
 int			get_next_line(int fd, char **line);
 int			ft_isline(const char *s, int i);
 char		*ft_gnl_join(char const *prefixe, char const *suffixe);
@@ -39,7 +40,6 @@ void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memccpy(void *dest, const void *src, int c, size_t n);
 int			ft_isprint(int c);
-int			ft_is_ispaces(int c);
 int			ft_isdigit(int c);
 int			ft_isascii(int c);
 int			ft_isalpha(int c);
@@ -84,5 +84,9 @@ char		**ft_free_split(char **str);
 int			ft_power(int base, int power);
 void		print_error(char *error);
 char		**ft_free_double_char(char **str);
+void		ft_double_free(char ***str);
+int			ft_is_quote(char c);
+int			ft_is_chevron(char c);
+void		add_char(char *cpy, char *str, int *i, int *j);
 
 #endif

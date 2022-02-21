@@ -6,7 +6,7 @@
 #    By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 15:33:24 by elabasqu          #+#    #+#              #
-#    Updated: 2021/11/30 14:15:43 by rozhou           ###   ########.fr        #
+#    Updated: 2022/02/20 18:47:06 by elabasqu         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,13 @@ SRCS = ft_memset.c \
 	   ft_bzero.c \
 	   ft_memcpy.c \
 	   ft_strlen.c \
-	   ft_isdigit.c \
-	   ft_isalnum.c \
-	   ft_isascii.c \
+	   ft_is_all.c \
+	   ft_is_all_2.c \
 	   ft_toupper.c \
+	   ft_add_char.c \
 	   ft_tolower.c \
 	   ft_strchr.c \
 	   ft_strrchr.c \
-	   ft_isalpha.c \
-	   ft_is_ispaces.c \
-	   ft_isprint.c \
 	   ft_memchr.c \
 	   ft_memcmp.c \
 	   ft_strlcat.c \

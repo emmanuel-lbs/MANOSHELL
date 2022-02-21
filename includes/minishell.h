@@ -77,6 +77,7 @@ int			ft_is_quote(char c);
 void		add_char(char *cpy, char *str, int *i, int *j);
 int			should_mod(char *cmd, int i, char *a_token, t_struct *s);
 void		modif_token(char *a_token, char **lst_tkn, int *nb_word);
+int			token_len(char *cmd, int i);
 /*lst_bob*/
 t_bob		*create_bob(char **str);
 void		add_back_bob(t_bob **bob, t_bob *add);
@@ -120,6 +121,7 @@ void		ctrl_c(int n);
 void		ctrl_child(int n);
 void		ctrl_quit(int n);
 void		ft_signal(t_struct *s);
+void		sig_airdog(int n);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void			beging_hered(char	**str, int actual_word, t_bob *bob);
 t_bob		*heredocs_bob(t_bob *bob);

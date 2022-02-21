@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:28:06 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/18 12:42:14 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 14:01:55 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,13 @@ int	not_a_dollar(char *cmd, int i)
 	return (1);
 }
 
-int	fake_dollars_len(char *cmd, int i)
-{
-	while (cmd[i] && cmd[i] != ' ' \
-			&& ft_is_chevron(cmd[i]) == 0 && cmd[i] != '|' && cmd[i] != '$')
-	{
-		if (cmd[i] == '\'' || cmd[i] == '\"' )
-			skip_quote(cmd, cmd[i], &i);
-		else
-			i++;
-	}
-	return (i);
-}
-
 char	*fake_dollars(char *cmd, int *i, t_struct *s)
 {
 	int		j;
 	char	*a_token;
 
 	(*i)++;
-	a_token = malloc(sizeof(char) * (fake_dollars_len(cmd, *i) - *i));
+	a_token = malloc(sizeof(char) * (token_len(cmd, *i) - *i));
 	if (a_token == NULL)
 		return (NULL);
 	(*i)--;

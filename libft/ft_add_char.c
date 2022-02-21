@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_ispaces.c                                    :+:      :+:    :+:   */
+/*   ft_add_char.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <elabasqu@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/14 12:45:23 by elabasqu          #+#    #+#             */
-/*   Updated: 2021/03/20 16:34:19 by elabasqu         ###   ########lyon.fr   */
+/*   Created: 2022/02/20 18:46:32 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/02/20 18:46:43 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_is_ispaces(char c)
+#include "libft.h"
+
+void	add_char(char *cpy, char *str, int *i, int *j)
 {
-	if ((c <= 32 && c >= 0) || c == 127)
-		return (1);
-	return (0);
+		cpy[*i] = str[*j];
+		(*i)++;
+		(*j)++;
 }
+

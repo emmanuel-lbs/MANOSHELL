@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 19:03:54 by elabasqu          #+#    #+#             */
-/*   Updated: 2021/11/17 16:06:19 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/20 15:53:10 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,17 @@ char	**ft_free_double_char(char **str)
 	free(str);
 	return (NULL);
 }
+
+void	ft_double_free(char ***str)
+{
+	int i;
+
+	i = 0;
+	while ((*str)[i])
+	{
+		free((*str)[i]);
+		i++;
+	}
+	free(*str);
+}
+

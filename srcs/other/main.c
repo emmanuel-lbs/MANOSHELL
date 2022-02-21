@@ -1,4 +1,3 @@
-
 #include "../../includes/minishell.h"
 
 int	g_errna = 0;
@@ -53,41 +52,63 @@ void	destroy_bob(t_struct *s)
 	}
 }
 
+void	str_zero(void)
+{
+	printf("exit\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_errna = 0;
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char			*str;
 	t_struct		s;
-	//struct termios termios;
 
-	//	s = malloc(&sizeof(&s));
-	str = "";
 	ft_check_path(&s, envp, ac, av);
 	if (!isatty(0) || !isatty(1))
 		return (1);
-	/*s.env = s.first;
-	  while (s.env->next)
-	  {
-	  printf(" %s\n", s.env->content);
-	  s.env = s.env->next;
-	  }
-	  printf(" %s\n", s.env->content);
-	  printf("cmp = %d\n", ft_strccmp("TERM=", "TERM", '='));*/
-	//g_errna = errno;
-	int i = 0;
-	while (i++ < 50)
+	while (1)
 	{
-		//On stocke le stdin dans str,
-		//on peut changer ça en le mettant dans une struct au besoin.
 		ft_get_pwd(&s, s.pwd.content);
 		ft_signal(&s);
 		str = readline(s.prompt);
 		tcsetattr(0, TCSANOW, &s.old_termios);
 		if (str == 0)
 		{
-			printf("exit\n");
-			rl_on_new_line();
-			rl_replace_line("", 0);
+			str_zero();
+			break ;
+		}
+		add_history(str);
+		if (parsing(str, &s) == -1)
 			g_errna = 0;
+		else
+		{
+			ft_exec(&s, 0);
+			destroy_bob(&s);
+		}
+		free(str);
+		free(s.prompt);
+	}
+}
+/*
+ * int	main(int ac, char **av, char **envp)
+{
+	char			*str;
+	t_struct		s;
+
+	ft_check_path(&s, envp, ac, av);
+	if (!isatty(0) || !isatty(1))
+		return (1);
+	while (1)
+	{
+		ft_get_pwd(&s, s.pwd.content);
+		ft_signal(&s);
+		str = readline(s.prompt);
+		tcsetattr(0, TCSANOW, &s.old_termios);
+		if (str == 0)
+		{
+			str_zero();
 			break ;
 		}
 		add_history(str);
@@ -108,3 +129,4 @@ int	main(int ac, char **av, char **envp)
 		free(s.prompt);
 	}
 }
+*/

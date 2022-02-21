@@ -6,43 +6,11 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:00:32 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 12:44:57 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/21 14:19:21 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	is_heredocs(t_struct *s)
-{
-	int	i;
-
-	s->bob = s->first_bob;
-	while (s->bob != NULL)
-	{
-		i = 0;
-		while (s->bob->token[i])
-		{
-			if (s->bob->token[i][0] == '<' && s->bob->token[i][1] == '<')
-			{
-				s->bob = s->first_bob;
-				return (1);
-			}
-			i++;
-		}
-		s->bob = s->bob->next;
-	}
-	s->bob = s->first_bob;
-	return (0);
-}
-
-char	*heredocs_end_word(char	**token, int i)
-{
-	while (token[i] && strcmp("<<", token[i]) != 0)
-		i++;
-	if (token[i] && strcmp("<<", token[i]) != 0)
-		return (NULL);
-	return (token[i + 1]);
-}
 
 t_bob	*heredocs_bob(t_bob *bob)
 {
@@ -60,14 +28,6 @@ t_bob	*heredocs_bob(t_bob *bob)
 	printf("error\n");
 	exit(-1);
 	return (bob);
-}
-
-void	sig_airdog(int n)
-{
-	(void)n;
-	printf("\n");
-	g_errna = 1;
-	exit(g_errna);
 }
 
 char	*heredocs(char	*end_word)
@@ -124,7 +84,7 @@ int	second_airdog(t_bob *bob, char *end_word)
 		close(fd[0]);
 		exit(0);
 	}
-	waitpid(pid, 0, 0);
+	waitpid(pid, &status, 0);
 	bob->fd[0] = fd[0];
 	bob->fd[1] = fd[1];
 	return (0);
