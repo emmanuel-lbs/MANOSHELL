@@ -2,42 +2,6 @@
 
 int	g_errna = 0;
 
-static void	ft_get_pwd(t_struct *s, char *pwd)
-{
-	int		i;
-	char	**mem;
-	char	*freestr;
-
-	mem = ft_split((pwd), '/');
-	i = 0;
-	while (mem[i])
-		i++;
-	if (i == 1)
-	{
-		mem[0][0] = '/';
-		mem[0][1] = '\0';
-	}
-	if (g_errna != 0)
-	{
-		freestr = ft_strjoin(mem[i - 1], "\033[0m ");
-		s->prompt = ft_strjoin("\033[0;31m➜ \033[1;36m", freestr);
-	}
-	else
-	{
-		freestr = ft_strjoin(mem[i - 1], "\033[0m ");
-		s->prompt = ft_strjoin("\033[0;32m➜ \033[1;36m", freestr);
-	}
-	free(freestr);
-	i = 0;
-	while (mem[i])
-	{
-		free(mem[i]);
-		i++;
-	}
-	s->env = s->first->next;
-	free(mem);
-}
-
 void	destroy_bob(t_struct *s)
 {
 	s->bob = s->first_bob;

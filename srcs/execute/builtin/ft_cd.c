@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:40 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/21 14:13:53 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/21 14:26:35 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	ft_cd_home(t_struct *s)
 {
 	char	*pwd;
-	char	*mem;
 
 	pwd = NULL;
 	if (chdir(s->home.content + 5))
@@ -28,9 +27,7 @@ static void	ft_cd_home(t_struct *s)
 	}
 	else
 	{
-		mem = pwd;
 		pwd = getcwd(pwd, 0);
-		free(pwd);
 		if (pwd)
 		{
 			s->old_pwd.content = s->pwd.content;
