@@ -90,7 +90,7 @@ void		ft_delone(t_list **lst);
 int			ft_strclen(char *str, char c);
 void		ft_setenv_null(t_struct *s);
 int			ft_pathfinder(t_struct *s, int n);
-void		ft_redirect(t_bob *bob, int fd_in);
+void		ft_redirect(t_bob *bob);
 void		ft_redir_close(int fd, int std);
 void		ft_setenv_null(t_struct *s);
 int			ft_strgetchar(char *str, char c);

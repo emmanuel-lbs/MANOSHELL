@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:52 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 14:18:38 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/18 13:28:55 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_lstfree(t_list **lst)
 	*lst = NULL;
 }
 
-static void	ft_lst_swapall(t_list *first, t_list *mem, t_list *sortlist)
+static void	ft_lst_swapall(t_list *first, t_list *mem)
 {
 	while (first->next != NULL)
 	{
@@ -83,7 +83,7 @@ void	ft_lstsort_str(t_struct *s)
 	mem = ft_lstcopy(s);
 	first = mem;
 	sortlist = first;
-	ft_lst_swapall(first, mem, sortlist);
+	ft_lst_swapall(first, mem);
 	first = sortlist;
 	ft_lstprint(first);
 	first = sortlist;

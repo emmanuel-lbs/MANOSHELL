@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:00 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 13:09:48 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/18 13:40:10 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_child_exec(t_struct *s, int to_close, int *fd_in)
 		ft_redir_close(*fd_in, 0);
 	if (s->bob->next != NULL)
 		ft_redir_close(s->data.end[1], 1);
-	ft_redirect(s->bob, *fd_in);
+	ft_redirect(s->bob);
 	if (is_builtin(s) == 0)
 	{
 		if (ft_pathfinder(s, 0) == -1)
