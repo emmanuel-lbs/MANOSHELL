@@ -84,7 +84,7 @@ int	main(int ac, char **av, char **envp)
 			g_errna = 0;
 		else
 		{
-			ft_exec(&s, 0);
+			ft_exec(&s, 0, 0, 0);
 			destroy_bob(&s);
 		}
 		free(str);
@@ -119,9 +119,9 @@ int	main(int ac, char **av, char **envp)
 		}
 		else
 		{
+			printf("gerrna = %d\n", g_errna);
 			printf ("\033[34;01mPERFECT\033[00m\n");
-			s.data.id1 = malloc(sizeof(int) * s.no_pipe + 1);
-			ft_exec(&s, 0);
+			ft_exec(&s, 0, 0, 0);
 			s.env = s.first;
 			destroy_bob(&s);
 		}

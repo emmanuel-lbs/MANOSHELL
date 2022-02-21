@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:00:32 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:19:21 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 14:22:26 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	second_airdog(t_bob *bob, char *end_word)
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		g_errna = WEXITSTATUS(status);
 	bob->fd[0] = fd[0];
 	bob->fd[1] = fd[1];
 	return (0);
@@ -93,9 +95,5 @@ int	second_airdog(t_bob *bob, char *end_word)
 void	beging_hered(char **str, int actual_word, t_bob *bob)
 {
 	second_airdog(bob, heredocs_end_word(str, actual_word));
-	//	if (g_error_number)
-	//		return (-1);
-	//	close(fd[0]);
-	//	close(fd[1]);
-	//	return (0);
+		printf("gerrna = %d\n", g_errna);	
 }

@@ -25,6 +25,7 @@ SRCS = srcs/other/main.c \
 		srcs/execute/ft_redirect.c \
 		srcs/execute/ft_utils_exec.c \
 		srcs/execute/ft_utils_exec2.c \
+		srcs/execute/ft_strjoinfree.c \
 		srcs/execute/builtin/ft_echo.c \
 		srcs/execute/builtin/ft_pwd.c \
 		srcs/execute/builtin/ft_cd.c \
