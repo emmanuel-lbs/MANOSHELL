@@ -6,56 +6,31 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:45:38 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 15:45:41 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 15:39:04 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	dollar_in_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
-{
-	char	*dollars;
-	int		k;
-
-	k = 0;
-	dollars = one_token(cmd, j, s);
-	if (dollars == NULL)
-		return (-1);
-	while (dollars && dollars[k])
-		add_char(cpy, dollars, i, &k);
-	cpy[*i] = 0;
-	free(dollars);
-	return (0);
-}
-
-int	cpy_quote(char *cpy, char *cmd, int *i, int *j, t_struct *s)
+int	cpy_quote(char *cpy, char *cmd, int *n[2], t_struct *s)
 {
 	char	quote;
 
-	quote = cmd[*j];
-	(*j)++;
-	while (cmd[*j] && cmd[*j] != quote)
-	{
-		if (cmd[*j] == '$' && quote == '\"')
-		{
-			if (dollar_in_quote(cpy, cmd, i, j, s) == -1)
-				return (-1);
-		}
-		else
-			add_char(cpy, cmd, i, j);
-	}
-	(*j)++;
-	if (cmd[*j] && ft_is_quote(cmd[*j]) == 1)
-		cpy_quote(cpy, cmd, i, j, s);
-	if (cmd[*j] && cmd[*j] == '$')
-		if (dollar_in_quote(cpy, cmd, i, j, s) == -1)
+	quote = cmd[*n[1]];
+	if (cpy_quote_avant(cpy, cmd, n, s) == -1)
+		return (-1);
+	(*n[1])++;
+	if (cmd[*n[1]] && ft_is_quote(cmd[*n[1]]) == 1)
+		cpy_quote(cpy, cmd, n, s);
+	if (cmd[*n[1]] && cmd[*n[1]] == '$')
+		if (dollar_in_quote(cpy, cmd, n, s) == -1)
 			return (-1);
-	while (cmd[*j] && cmd[*j] != ' ' && ft_is_chevron(cmd[*j]) == 0 \
-			&& ft_is_quote(cmd[*j]) == 0 && cmd[*j] != '|')
-		add_char(cpy, cmd, i, j);
-	if (cmd[*j] && ft_is_quote(cmd[*j]) == 1)
-		cpy_quote(cpy, cmd, i, j, s);
-	cpy[*i] = 0;
+	while (cmd[*n[1]] && cmd[*n[1]] != ' ' && ft_is_chevron(cmd[*n[1]]) == 0 \
+			&& ft_is_quote(cmd[*n[1]]) == 0 && cmd[*n[1]] != '|')
+		add_char(cpy, cmd, n[0], n[1]);
+	if (cmd[*n[1]] && ft_is_quote(cmd[*n[1]]) == 1)
+		cpy_quote(cpy, cmd, n, s);
+	cpy[*n[0]] = 0;
 	return (0);
 }
 
@@ -113,6 +88,7 @@ char	*one_token_quote(char *cmd, int *i, t_struct *s)
 	char	*a_token;
 	int		start;
 	int		end;
+	int		*norme[2];
 
 	start = *i;
 	skip_quote(cmd, cmd[*i], i);
@@ -124,7 +100,9 @@ char	*one_token_quote(char *cmd, int *i, t_struct *s)
 		return (NULL);
 	*i = start;
 	start = 0;
-	if (cpy_quote(a_token, cmd, &start, i, s) == -1)
+	norme[0] = &start;
+	norme[1] = i;
+	if (cpy_quote(a_token, cmd, norme, s) == -1)
 		return (NULL);
 	return (a_token);
 }

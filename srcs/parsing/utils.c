@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:01:30 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 15:39:04 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,41 @@ int	token_len(char *cmd, int i)
 			i++;
 	}
 	return (i);
+}
+
+int	dollar_in_quote(char *cpy, char *cmd, int *norme[2], t_struct *s)
+{
+	char	*dollars;
+	int		k;
+
+	k = 0;
+	dollars = one_token(cmd, norme[1], s);
+	if (dollars == NULL)
+		return (-1);
+	while (dollars && dollars[k])
+		add_char(cpy, dollars, norme[0], &k);
+	cpy[*norme[0]] = 0;
+	free(dollars);
+	return (0);
+}
+
+int	cpy_quote_avant(char *cpy, char *cmd, int *n[2], t_struct *s)
+{
+	char	quote;
+
+	quote = cmd[*n[1]];
+	(*n[1])++;
+	while (cmd[*n[1]] && cmd[*n[1]] != quote)
+	{
+		if (cmd[*n[1]] == '$' && quote == '\"')
+		{
+			if (dollar_in_quote(cpy, cmd, n, s) == -1)
+				return (-1);
+		}
+		else
+			add_char(cpy, cmd, n[0], n[1]);
+	}
+	return (1);
 }
 
 void	printf_lst(t_bob *bob)
