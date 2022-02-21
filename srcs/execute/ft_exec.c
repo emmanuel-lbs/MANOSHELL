@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:59 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/21 12:07:31 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/21 12:37:11 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	ft_exec(t_struct *s, int i)
 		else if (!s->bob->token[0][0])
 		{
 			printf("Command not found: \n");
+			s->bob = s->bob->next;
 			g_errna = 1;
 		}
 		else if (is_first_builtin(s, i) == 1)
