@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 14:36:04 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/02/21 14:37:53 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -42,8 +54,8 @@ char		*one_token_dollars(char *cmd, int *i, t_struct *s);
 char		*fusion_double_token(char *str, char *cmd, int *i, t_struct *s);
 int			resize_len_for_dollar(char *cmd, int start, int end, t_struct *s);
 /*FAKE_DOLLARS*/
-int	not_a_dollar(char *cmd, int i);
-char	*fake_dollars(char *cmd, int *i, t_struct *s);
+int			not_a_dollar(char *cmd, int i);
+char		*fake_dollars(char *cmd, int *i, t_struct *s);
 /*DOLLARS_UTILS*/
 char		*dollars_erno(char **a_token, int *i);
 char		*normal_token(char *cmd, int *i, t_struct *s);
@@ -130,5 +142,5 @@ char		*heredocs_end_word(char	**token, int i);
 int			is_heredocs(t_struct *s);
 int			ft_check_path(t_struct *s, char **envp, int ac, char **av);
 
-void	printf_lst(t_bob *bob);////////////////
+void		printf_lst(t_bob *bob);
 #endif
