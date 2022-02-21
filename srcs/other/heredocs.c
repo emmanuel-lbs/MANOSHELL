@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:00:32 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:26:46 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/21 14:36:47 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,22 @@ char	*heredocs(char	*end_word)
 	return (hered);
 }
 
+static void	child_airdog(char *end_word, int *fd)
+{
+	char	*hered;
+
+	signal(SIGINT, &sig_airdog);
+	hered = heredocs(end_word);
+	ft_putstr_fd(hered, fd[1]);
+	ft_redir_close(fd[1], 1);
+	close(fd[0]);
+	exit(0);
+}
+
 int	second_airdog(t_bob *bob, char *end_word)
 {
 	int		pid;
 	int		status;
-	char	*hered;
 	int		fd[2];
 
 	if (pipe(fd) == -1)
@@ -76,14 +87,7 @@ int	second_airdog(t_bob *bob, char *end_word)
 	}
 	signal(SIGINT, SIG_IGN);
 	if (pid == 0)
-	{
-		signal(SIGINT, &sig_airdog);
-		hered = heredocs(end_word);
-		ft_putstr_fd(hered, fd[1]);
-		ft_redir_close(fd[1], 1);
-		close(fd[0]);
-		exit(0);
-	}
+		child_airdog(end_word, fd);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_errna = WEXITSTATUS(status);
