@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:59 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/21 12:37:11 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/21 12:43:14 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	ft_exec(t_struct *s, int i)
 		i++;
 	}
 	ft_check_exit(s, status, builtin);
+	if (s->data.end[0])
+		close(s->data.end[0]);
 	s->env = s->first;
 	return (0);
 }
