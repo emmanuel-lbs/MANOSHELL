@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:00:32 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/18 12:19:43 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/21 12:44:57 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int	second_airdog(t_bob *bob, char *end_word)
 		close(fd[0]);
 		exit(0);
 	}
+	waitpid(pid, 0, 0);
 	bob->fd[0] = fd[0];
 	bob->fd[1] = fd[1];
 	return (0);
