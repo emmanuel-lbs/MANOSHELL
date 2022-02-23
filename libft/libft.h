@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:05:28 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/23 11:42:44 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/23 12:23:10 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*jpp_norme(const char *start, const char *s);
 char		**ft_split(char const *s, char c);
-char		**ft_splitone(char const *s, char c, int one, char **tab);
+char		**ft_splitone(char const *s, char c, int one);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		ft_putchar_fd(char c, int fd);
