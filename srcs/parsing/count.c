@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:06:06 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 16:23:26 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 12:45:45 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,11 @@ int	should_mod(char *cmd, int i, char *a_token, t_struct *s)
 	if (first_word == NULL)
 		return (0);
 	if (!(ft_is_builtin(first_word) == 1 || is_cmd(s, first_word) == 1))
+	{
+		free(first_word);
 		return (0);
+	}
+	free(first_word);
 	return (1);
 }
 
