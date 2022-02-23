@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:16:21 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/10 16:25:38 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 13:58:32 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	search_diff(char *cmd, int *start, t_struct *s)
 	if (dollars[0] != 0)
 	{
 		search_dollars(dollars, s);
+		free (dollars);
 		return (diff_in_var_env(s->env->content));
 	}
 	free (dollars);
@@ -64,7 +65,7 @@ int	last_caractr(char *var)
 	int	i;
 
 	i = ft_strlen(var);
-	while (ft_is_quote(var[i]) != 1)
+	while (ft_is_quote(var[i]) == 1)
 		i--;
 	i--;
 	if (var[i] != ' ')
