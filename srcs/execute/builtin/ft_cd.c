@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:40 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/23 12:26:59 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/23 12:54:21 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	ft_cd_home(t_struct *s)
 		{
 			s->old_pwd.content = s->pwd.content;
 			s->pwd.content = pwd;
-			s->pwd.content = ft_strjoin("PWD=", s->pwd.content);
+			s->pwd.content = ft_strjoinfree("PWD=", s->pwd.content, 2);
 			s->old_pwd.content = ft_strjoin("OLD", s->old_pwd.content);
 		}
 		g_errna = 0;
@@ -61,7 +61,7 @@ static void	ft_cd_old(t_struct *s)
 		{
 			s->old_pwd.content = s->pwd.content;
 			s->pwd.content = pwd;
-			s->pwd.content = ft_strjoin("PWD=", s->pwd.content);
+			s->pwd.content = ft_strjoinfree("PWD=", s->pwd.content, 2);
 			s->old_pwd.content = ft_strjoin("OLD", s->old_pwd.content);
 		}
 		g_errna = 0;
@@ -85,7 +85,7 @@ static void	ft_cd_all(t_struct *s)
 		{
 			s->old_pwd.content = s->pwd.content;
 			s->pwd.content = pwd;
-			s->pwd.content = ft_strjoin("PWD=", s->pwd.content);
+			s->pwd.content = ft_strjoinfree("PWD=", s->pwd.content, 2);
 			s->old_pwd.content = ft_strjoin("OLD", s->old_pwd.content);
 		}
 		g_errna = 0;
@@ -103,5 +103,4 @@ void	ft_cd(t_struct *s)
 		ft_cd_old(s);
 	else
 		ft_cd_all(s);
-	printf("errno = %d\n", g_errna);
 }
