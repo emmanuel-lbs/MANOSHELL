@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:52 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 13:28:55 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/23 14:14:28 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_lstcontent_swp(t_list *lst1, t_list *lst2)
 t_list	*ft_lstcopy(t_struct *s)
 {
 	t_list	*mem;
+	t_list	*tmp;
 
 	s->env = s->first;
 	mem = ft_lstnew(NULL);
@@ -33,7 +34,9 @@ t_list	*ft_lstcopy(t_struct *s)
 		s->env = s->env->next;
 	}
 	ft_lstadd_back(&mem->next, ft_lstnew(s->env->content));
+	tmp = mem;
 	mem = mem->next;
+	free(tmp);
 	return (mem);
 }
 
@@ -50,6 +53,7 @@ void	ft_lstfree(t_list **lst)
 		free(current);
 		current = next;
 	}
+	free(current);
 	*lst = NULL;
 }
 
@@ -88,5 +92,6 @@ void	ft_lstsort_str(t_struct *s)
 	ft_lstprint(first);
 	first = sortlist;
 	ft_lstfree(&sortlist);
+	free(mem);
 	g_errna = 0;
 }

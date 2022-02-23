@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:54 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/23 12:23:33 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/23 13:30:10 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ static void	ft_checkequal(t_list *lst, int i, char **mem)
 	}
 	else
 		printf("declare -x %s\n", lst->content);
+	free(mem[0]);
+	free(mem[1]);
+	free(mem);
 }
 
 void	ft_lstprint(t_list *lst)
