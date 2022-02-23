@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:05:28 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/20 18:47:53 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 11:14:21 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ void		*ft_calloc(size_t nmemb, size_t size);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
+char		*jpp_norme(const char *start, const char *s);
 char		**ft_split(char const *s, char c);
-char		**ft_splitone(char const *s, char c, int one);
+char		**ft_splitone(char const *s, char c, int one, char **tab);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		ft_putchar_fd(char c, int fd);
