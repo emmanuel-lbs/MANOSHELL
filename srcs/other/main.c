@@ -14,8 +14,6 @@ void	destroy_bob(t_struct *s)
 			close(s->bob->fd_in);
 		s->bob = s->bob->next;
 	}
-	free(s->data.id1);
-	free(s->first_bob);
 }
 
 void	str_zero(void)
