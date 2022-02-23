@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:06:06 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/23 12:45:45 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/23 14:21:03 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,5 @@ void	modif_token(char *a_token, char **lst_tkn, int *nb_word)
 	lst_tkn[*nb_word] = first_word;
 	(*nb_word)++;
 	lst_tkn[*nb_word] = next_token(a_token);
+	free(a_token);
 }
