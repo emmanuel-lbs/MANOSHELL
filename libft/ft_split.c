@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 18:36:25 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 15:12:12 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/23 12:44:04 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ char	**ft_split(char const *s, char c)
 
 char	**ft_splitone(char const *s, char c, int one)
 {
-	int			i;
 	const char	*start;
 	char		**tab;
+	int			i;
 
 	i = 0;
 	tab = ft_calloc(sizeof(char *), (2 + 1));
@@ -91,8 +91,7 @@ char	**ft_splitone(char const *s, char c, int one)
 	{
 		if (one == 1)
 		{
-			s++;
-			start = s;
+			start = ++s;
 			while (*s)
 				s++;
 		}
