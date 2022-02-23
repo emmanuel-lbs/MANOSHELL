@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **envp)
 			g_errna = 0;
 		else
 		{
-			ft_exec(&s, 0, 0, 0);
+//			ft_exec(&s, 0, 0, 0);
 			destroy_bob(&s);
 		}
 		free(str);
