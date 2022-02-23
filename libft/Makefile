@@ -6,7 +6,7 @@
 #    By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 15:33:24 by elabasqu          #+#    #+#              #
-#    Updated: 2022/02/21 15:34:16 by rozhou           ###   ########.fr        #
+#    Updated: 2022/02/20 18:47:06 by elabasqu         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRCS = ft_memset.c \
 	   ft_calloc.c \
 	   ft_strjoin.c \
 	   ft_split.c \
-	   ft_splitone.c \
 	   ft_itoa.c \
 	   ft_strmapi.c \
 	   ft_putchar_fd.c \

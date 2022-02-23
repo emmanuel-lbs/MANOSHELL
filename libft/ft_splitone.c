@@ -5,23 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 15:33:34 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/23 10:54:40 by rozhou           ###   ########.fr       */
+/*   Created: 2022/02/23 11:13:44 by rozhou            #+#    #+#             */
+/*   Updated: 2022/02/23 11:13:54 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static char	*jpp_norme(const char *start, const char *s)
-{
-	char	*tab;
-
-	tab = malloc(sizeof(char) * (s - start + 1));
-	if (!(tab))
-		return (NULL);
-	ft_strlcpy(tab, start, s - start + 1);
-	return (tab);
-}
 
 static int	ft_splitone2(char const *s, char const *start, int *one, char **tab)
 {
@@ -69,6 +58,5 @@ char	**ft_splitone(char const *s, char c, int one, char	**tab)
 		if (ft_splitone2(s, start, &one, tab) != 1)
 			return (NULL);
 	}
-	printf("tab = %s\n", tab[0]);
 	return (tab);
 }

@@ -6,13 +6,13 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 18:36:25 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/23 10:49:58 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/23 11:14:27 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*jpp_norme(const char *start, const char *s)
+char	*jpp_norme(const char *start, const char *s)
 {
 	char	*tab;
 
