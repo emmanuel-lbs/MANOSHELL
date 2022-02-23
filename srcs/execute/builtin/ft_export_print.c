@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:54 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:29:54 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/23 10:53:36 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_checkequal(t_list *lst, int i, char **mem)
 {
 	if (ft_strchr(lst->content, '='))
 	{
-		mem = ft_splitone(lst->content, '=', 0);
+		mem = ft_splitone(lst->content, '=', 0, 0);
 		printf("declare -x %s=\"", mem[0]);
 		while (mem && mem[i])
 		{
