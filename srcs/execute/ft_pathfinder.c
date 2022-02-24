@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:01 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 13:45:03 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/24 12:59:34 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static int	ft_checkfile(struct stat *buf, t_struct *s)
 		return (1);
 	else if (access(s->bob->token[0], F_OK) == 0)
 	{
-		printf("%s: Permission denied\n", s->bob->token[0]);
-		g_errna = 126;
+		printf("Command not found: %s\n", s->bob->token[0]);
+		g_errna = 127;
 		return (-1);
 	}
 	else
