@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 18:36:25 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/23 12:44:04 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/23 17:25:39 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,29 @@ char	**ft_splitone(char const *s, char c, int one)
 	const char	*start;
 	char		**tab;
 	int			i;
+	int			j;
 
+	j = 0;
 	i = 0;
 	tab = ft_calloc(sizeof(char *), (2 + 1));
 	if (!(tab))
 		return (NULL);
-	while (*s)
+	while (s[j])
 	{
 		if (one == 1)
 		{
-			start = ++s;
-			while (*s)
-				s++;
+			j++;
+			start = &s[j];
+			while (s[j])
+				j++;
 		}
 		else
 		{
-			while (*s && *s == c)
-				s++;
-			start = s;
-			while (*s && *s != c)
-				s++;
+			while (s[j] && s[j] == c)
+				j++;
+			start = &s[j];
+			while (s[j] && s[j] != c)
+				j++;
 		}
 		if (s != start)
 		{

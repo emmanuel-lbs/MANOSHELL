@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:00:32 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:36:47 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/23 16:24:31 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,21 @@ char	*heredocs(char	*end_word)
 	char	*str;
 	char	*hered;
 
-	str = "";
 	str = readline("<<");
 	if (str == 0 || strcmp(str, end_word) == 0)
 	{
 		hered = ft_strdup("");
+		free(str);
 		return (hered);
 	}
-	hered = ft_strjoin(str, "\n");
-	free(str);
+	hered = ft_strjoinfree(str, "\n", 1);
 	while (1)
 	{
 		str = readline("<<");
 		if (str == 0 || strcmp(str, end_word) == 0)
 			return (hered);
-		hered = ft_strjoin(hered, str);
-		hered = ft_strjoin(hered, "\n");
-		free(str);
+		hered = ft_strjoinfree(hered, str, 3);
+		hered = ft_strjoinfree(hered, "\n", 1);
 	}
 	return (hered);
 }
@@ -64,6 +62,7 @@ static void	child_airdog(char *end_word, int *fd)
 	hered = heredocs(end_word);
 	ft_putstr_fd(hered, fd[1]);
 	ft_redir_close(fd[1], 1);
+	free(hered);
 	close(fd[0]);
 	exit(0);
 }
