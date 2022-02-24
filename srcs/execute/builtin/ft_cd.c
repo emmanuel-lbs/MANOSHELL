@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:40 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/23 12:54:21 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/24 11:26:32 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ static void	ft_cd_home(t_struct *s)
 		pwd = getcwd(pwd, 0);
 		if (pwd)
 		{
+			if (s->data.n == 1 && ft_strcmp(s->pwd.content, s->old_pwd.content) != 0)
+				free(s->old_pwd.content);
 			s->old_pwd.content = s->pwd.content;
+			if (s->data.n == 1)
+				free(s->pwd.content);
 			s->pwd.content = pwd;
 			s->pwd.content = ft_strjoinfree("PWD=", s->pwd.content, 2);
 			s->old_pwd.content = ft_strjoin("OLD", s->old_pwd.content);
@@ -59,7 +63,11 @@ static void	ft_cd_old(t_struct *s)
 		pwd = getcwd(pwd, 0);
 		if (pwd)
 		{
+			if (s->data.n == 1)
+				free(s->old_pwd.content);
 			s->old_pwd.content = s->pwd.content;
+			if (s->data.n == 1)
+				free(s->pwd.content);
 			s->pwd.content = pwd;
 			s->pwd.content = ft_strjoinfree("PWD=", s->pwd.content, 2);
 			s->old_pwd.content = ft_strjoin("OLD", s->old_pwd.content);
@@ -83,7 +91,11 @@ static void	ft_cd_all(t_struct *s)
 		pwd = getcwd(pwd, 0);
 		if (pwd)
 		{
+			if (s->data.n == 1)
+				free(s->old_pwd.content);
 			s->old_pwd.content = s->pwd.content;
+			if (s->data.n == 1)
+				free(s->pwd.content);
 			s->pwd.content = pwd;
 			s->pwd.content = ft_strjoinfree("PWD=", s->pwd.content, 2);
 			s->old_pwd.content = ft_strjoin("OLD", s->old_pwd.content);
@@ -103,4 +115,5 @@ void	ft_cd(t_struct *s)
 		ft_cd_old(s);
 	else
 		ft_cd_all(s);
+	s->data.n = 1;
 }
