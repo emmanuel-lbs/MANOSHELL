@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:59 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/23 12:16:07 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/24 14:58:50 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ static void	ft_check_exit(t_struct *s, int status, int builtin)
 		{
 			g_errna = 130;
 			printf("\n");
+		}
+		else if (WTERMSIG(status) == SIGQUIT)
+		{
+			g_errna = 130;
+			printf("Quit: 3\n");
 		}
 	}
 	else

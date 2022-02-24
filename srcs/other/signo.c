@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:25:50 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/24 13:29:07 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/24 15:01:50 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ctrl_child(int n)
 void	ctrl_quit(int n)
 {
 	(void)n;
-	printf("Quit: 3\n");
 	g_errna = 131;
 }
 

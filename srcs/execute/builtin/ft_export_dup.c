@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:51 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/24 14:04:07 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/24 15:05:46 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_checkdup(t_struct *s, char *str)
 		{
 			if (ft_checkalldup(s, strdup) == 0)
 			{
-				//free(strdup);
+				free(strdup);
 				return (0);
 			}
 		}
@@ -86,10 +86,10 @@ int	ft_checkdup(t_struct *s, char *str)
 	}
 	if (ft_checkequal(s, strdup) == 0)
 	{	
-		//free(strdup);
+		free(strdup);
 		return (0);
 	}
 	ft_setenv(s, strdup);
-	//free(strdup);
+	free(strdup);
 	return (1);
 }
