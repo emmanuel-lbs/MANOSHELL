@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:45 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/18 11:50:23 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/24 12:54:43 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	echo_flag(char *str)
 
 	i = 0;
 	if (!str)
-		return (-1);
+		return (0);
 	if (!str[i] || !(str[0] == '-'))
-		return (-1);
+		return (0);
 	i = 1;
 	while (str[i])
 	{	
@@ -28,6 +28,8 @@ static int	echo_flag(char *str)
 			return (0);
 		i++;
 	}
+	if (i == 1)
+		return (0);
 	return (1);
 }
 
