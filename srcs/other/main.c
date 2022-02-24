@@ -12,10 +12,10 @@ void	destroy_bob(t_struct *s)
 			close(s->bob->fd_out);
 		if (s->bob->fd_in != 0)
 			close(s->bob->fd_in);
+		free(s->bob);
 		s->bob = s->bob->next;
 	}
 	free(s->data.id1);
-	free(s->first_bob);
 }
 
 void	str_zero(void)
@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **envp)
 			g_errna = 0;
 		else
 		{
-//			ft_exec(&s, 0, 0, 0);
+			ft_exec(&s, 0, 0, 0);
 			destroy_bob(&s);
 		}
 		free(str);
