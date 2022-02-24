@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:50 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/24 13:12:33 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/24 15:47:19 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ static int	ft_checkdigit(char *str)
 	int	i;
 
 	i = 0;
+	if (str[0] == '-' && str[1])
+		i++;
+	if (str[i] >= 20)
+		return (-1);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -50,7 +54,7 @@ void	ft_exit(t_struct *s)
 	else if (ft_checkdigit(s->bob->token[1]) == -1)
 		ft_print_exit(s, "exit: numeric argument required", 2);
 	else
-		ft_print_exit(s, "exit ", atoi(s->bob->token[1]));
+		ft_print_exit(s, "exit ", ft_atoi(s->bob->token[1]));
 }
 
 void	ft_pipexit(t_struct *s)
@@ -60,5 +64,5 @@ void	ft_pipexit(t_struct *s)
 	else if (ft_checkdigit(s->bob->token[1]) == -1)
 		ft_print_noexit(s, "exit: numeric argument required", 255);
 	else
-		g_errna = atoi(s->bob->token[1]);
+		g_errna = ft_atoi(s->bob->token[1]);
 }
