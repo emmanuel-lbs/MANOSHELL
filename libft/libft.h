@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:05:28 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/23 16:45:55 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/24 10:19:08 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);
-char		**ft_splitone(char const *s, char c, int one);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		ft_putchar_fd(char c, int fd);
@@ -88,5 +87,6 @@ void		ft_double_free(char ***str);
 int			ft_is_quote(char c);
 int			ft_is_chevron(char c);
 void		add_char(char *cpy, char *str, int *i, int *j);
+int			len_jusque(char *str, char c);
 
 #endif
