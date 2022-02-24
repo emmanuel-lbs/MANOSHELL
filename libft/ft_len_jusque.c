@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:17:37 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/24 10:18:48 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/24 11:20:16 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	len_jusque(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] && str[i] != c)
