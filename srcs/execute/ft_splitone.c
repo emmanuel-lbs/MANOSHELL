@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:20:34 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/24 11:20:47 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/24 12:00:53 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**ft_splitone(char *s, char c)
 	tab[1] = malloc(sizeof(char) * (ft_strlen(s) - len_jusque(s, c) + 1));
 	if (tab[1] == NULL)
 		return (NULL);
-	i = len_jusque(s, c);
+	i = len_jusque(s, c) + 1;
 	j = 0;
 	while (s[i])
 		add_char(tab[1], s, &j, &i);
