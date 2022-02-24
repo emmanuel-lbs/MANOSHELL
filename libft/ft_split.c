@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 18:36:25 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/23 17:25:39 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/24 10:00:55 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,44 +77,47 @@ char	**ft_split(char const *s, char c)
 	return (tab);
 }
 
-char	**ft_splitone(char const *s, char c, int one)
-{
-	const char	*start;
-	char		**tab;
-	int			i;
-	int			j;
-
-	j = 0;
-	i = 0;
-	tab = ft_calloc(sizeof(char *), (2 + 1));
-	if (!(tab))
-		return (NULL);
-	while (s[j])
-	{
-		if (one == 1)
-		{
-			j++;
-			start = &s[j];
-			while (s[j])
-				j++;
-		}
-		else
-		{
-			while (s[j] && s[j] == c)
-				j++;
-			start = &s[j];
-			while (s[j] && s[j] != c)
-				j++;
-		}
-		if (s != start)
-		{
-			tab[i] = jpp_norme(start, s);
-			one = 1;
-			if (!tab[i])
-				return (ft_free_split(tab));
-			if (start != s)
-				i++;
-		}
-	}
-	return (tab);
-}
+//char	**ft_splitone(char const *s, char c, int one)
+//{
+//	const char	*start;
+//	char		**tab;
+//	int			i;
+//	int			j;
+//
+//	j = 0;
+//	i = 0;
+//	tab = ft_calloc(sizeof(char *), (2 + 1));
+//	if (!(tab))
+//		return (NULL);
+//	tab[0] = "";
+//	tab[1] = "";
+//	tab[2] = "";
+//	while (s[j])
+//	{
+//		if (one == 1)
+//		{
+//			j++;
+//			start = &s[j];
+//			while (s[j])
+//				j++;
+//		}
+//		else
+//		{
+//			while (s[j] && s[j] == c)
+//				j++;
+//			start = &s[j];
+//			while (s[j] && s[j] != c)
+//				j++;
+//		}
+//		if (s != start)
+//		{
+//			tab[i] = jpp_norme(start, s);
+//			one = 1;
+//			if (!tab[i])
+//				return (ft_free_split(tab));
+//			if (start != s)
+//				i++;
+//		}
+//	}
+//	return (tab);
+//}

@@ -6,7 +6,7 @@
 #    By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 15:33:24 by elabasqu          #+#    #+#              #
-#    Updated: 2022/02/23 12:43:40 by rozhou           ###   ########.fr        #
+#    Updated: 2022/02/24 10:19:34 by elabasqu         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@
 SRCS = ft_memset.c \
 	   ft_bzero.c \
 	   ft_memcpy.c \
+	   ft_len_jusque.c \
 	   ft_strlen.c \
 	   ft_is_all.c \
 	   ft_is_all_2.c \
