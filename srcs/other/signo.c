@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:25:50 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:25:51 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/24 13:29:07 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ctrl_c(int n)
 {
 	(void)n;
-	g_errna = 130;
+	g_errna = 1;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

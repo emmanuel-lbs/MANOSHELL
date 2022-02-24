@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:29:58 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/24 14:53:29 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	ft_unset2(t_struct *s, int i, int j)
 		{
 			g_errna = 1;
 			printf("unset: \'%s\': not a valid identifier\n", s->bob->token[i]);
+			return ;
 		}
 		j++;
 	}

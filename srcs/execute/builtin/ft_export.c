@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:55 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/24 12:47:24 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/24 14:52:12 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	ft_exportall(t_struct *s, int i, int j, int *n)
 				*n = 1;
 				printf("export: \'%s\': not a valid identifier\n",
 					s->bob->token[i]);
+				return ;
 			}
 			j++;
 		}
