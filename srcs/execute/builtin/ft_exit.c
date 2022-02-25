@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:50 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/25 15:13:41 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/25 15:16:56 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_exit(t_struct *s)
 	else if (s->bob->token[1] && s->bob->token[2] != NULL)
 		ft_print_noexit(s, "exit: too many arguments", 1);
 	else if (ft_checkdigit(s->bob->token[1]) == -1)
-		ft_print_exit(s, "exit: numeric argument required", 288);
+		ft_print_exit(s, "exit: numeric argument required", 255);
 	else
 		ft_print_exit(s, "exit ", ft_atoi(s->bob->token[1]));
 }
