@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:51 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/25 15:26:14 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/25 16:56:15 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int	ft_checkalldup(t_struct *s, char *str)
 				printf("str = %s\n", str);
 				s->home.content = ft_strdup(str);
 			}
+			if (s->data.n2 == 1)
+				free(s->env->content);
 			s->env->content = ft_strdup(str);
 		}
 		return (0);
@@ -48,6 +50,8 @@ static int	ft_checkequal(t_struct *s, char *str)
 			}
 			else if (ft_strncmp(str, "HOME=", 5) == 0)
 				s->home.content = ft_strdup(str);
+			if (s->data.n2 == 1)
+				free(s->env->content);
 			s->env->content = ft_strdup(str);
 		}
 		return (0);
@@ -91,5 +95,6 @@ int	ft_checkdup(t_struct *s, char *str)
 	}
 	ft_setenv(s, strdup);
 	free(strdup);
+	s->data.n2 = 1;
 	return (1);
 }

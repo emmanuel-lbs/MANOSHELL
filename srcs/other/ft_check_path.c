@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:02:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/24 11:13:13 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/25 16:52:55 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	ft_setup_data(t_struct *s, int ac, char **av, char **envp)
 	s->data.av = av;
 	s->data.ac = ac;
 	s->data.n = 0;
+	s->data.n2 = 0;
 	if (envp[0] == NULL)
 		ft_create_env(s);
 	else
