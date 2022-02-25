@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:40 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/25 13:33:22 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/25 14:57:50 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,16 @@ static void	ft_cd_home(t_struct *s, int *status)
 		}
 	}
 	else
+	{
+		*status = 1;
 		ft_do_cd(s, status, pwd);
+	}
 }
 
 static void	ft_cd_old(t_struct *s, int *status)
 {
 	char	*pwd;
 
-	*status = 1;
 	pwd = NULL;
 	if (s->old_pwd.content == NULL)
 	{
@@ -71,13 +73,17 @@ static void	ft_cd_old(t_struct *s, int *status)
 		printf("%s : No such file or directory\n", s->old_pwd.content + 7);
 	}
 	else
+	{
+		*status = 1;
 		ft_do_cd(s, status, pwd);
+	}
 }
 
 static void	ft_cd_all(t_struct *s, int *status)
 {
 	char	*pwd;
 
+	*status = 1;
 	pwd = NULL;
 	if (chdir(s->bob->token[1]))
 	{
@@ -85,7 +91,10 @@ static void	ft_cd_all(t_struct *s, int *status)
 		printf("%s : No such file or directory\n", s->bob->token[1]);
 	}
 	else
+	{
+		*status = 1;
 		ft_do_cd(s, status, pwd);
+	}
 }
 
 static void	ft_putenv(t_struct *s)
