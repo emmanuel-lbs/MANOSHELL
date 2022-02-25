@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:11:37 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 13:45:54 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/24 14:16:09 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	**lst_cmd(t_struct *s, char *str)
 {
 	int		n;
 	char	**cmd;
+	char	*tmp;
 
 	cmd = malloc(sizeof(char **) * (ft_super_strlen(s->data.env_path) + 1));
 	if (access(str, X_OK) == 0)
@@ -24,7 +25,9 @@ char	**lst_cmd(t_struct *s, char *str)
 	while (s->data.env_path[n])
 	{
 		cmd[n] = ft_strjoin(s->data.env_path[n], "/");
+		tmp = cmd[n];
 		cmd[n] = ft_strjoin(cmd[n], str);
+		free(tmp);
 		n++;
 	}
 	cmd[n] = 0;
@@ -47,8 +50,10 @@ int	is_cmd(t_struct *s, char *str)
 		if (!cmd[n])
 		{
 			printf("Command not found: %s\n", str);
+			ft_free_double_char(cmd);
 			return (0);
 		}
+		ft_free_double_char(cmd);
 		return (1);
 	}
 	printf("Command not found: %s\n", str);
