@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/23 13:45:19 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/25 10:47:19 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	search_dollars(char *dollars, t_struct *s)
 	while (s->env->next != NULL)
 	{
 		if (s->env->content)
-			if (ft_strncmp(dollars, s->env->content, len_env(dollars)) == 0)
+			if (ft_strnncmp(dollars, s->env->content, len_env(dollars)) == 0)
 				return (1);
 		s->env = s->env->next;
 	}
 	if (s->env->content)
-		if (ft_strncmp(dollars, s->env->content, len_env(dollars)) == 0)
+		if (ft_strnncmp(dollars, s->env->content, len_env(dollars)) == 0)
 			return (1);
 	s->env = s->first;
 	return (-1);

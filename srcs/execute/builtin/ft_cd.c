@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:40 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/24 15:35:57 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/25 10:44:03 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,13 @@ void	ft_cd(t_struct *s)
 		ft_cd_all(s);
 	while (s->env != NULL)
 	{
-		if (ft_strncmp("PWD=", s->env->content, 4) == 0)
+		if (ft_strnncmp("PWD=", s->env->content, 3) == 0)
 		{
 			if (s->data.n == 1)
 				free(s->env->content);
 			s->env->content = ft_strdup(s->pwd.content);
 		}
-		else if (ft_strncmp("OLDPWD=", s->env->content, 7) == 0)
+		else if (ft_strnncmp("OLDPWD=", s->env->content, 6) == 0)
 		{
 			if (s->data.n == 1)
 				free(s->env->content);
