@@ -45,7 +45,8 @@ int	main(int ac, char **av, char **envp)
 			str_zero();
 			break ;
 		}
-		add_history(str);
+		if (str[0] != '\0')
+			add_history(str);
 		if (parsing(str, &s) == -1)
 			g_errna = 0;
 		else
