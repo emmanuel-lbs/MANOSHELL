@@ -18,12 +18,41 @@ void	destroy_bob(t_struct *s)
 	free(s->data.id1);
 }
 
-void	str_zero(void)
+void	str_zero(t_struct *s)
 {
+	int		i;
+	t_list	*tmp;
+
+	i = 0;
 	printf("exit\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	g_errna = 0;
+	if (s->data.env_path)
+	{
+		free(s->data.env_path[i++] - 5);
+		while (s->data.env_path[i])
+		{
+			free(s->data.env_path[i]);
+			i++;
+		}
+		free(s->data.env_path);
+	}
+	while (s->env)
+	{
+		tmp = s->env->next;
+		free(s->env);
+		s->env = tmp;
+	}
+	free(s->prompt);
+	free(s->first);
+	if (s->data.n == 1)
+	{
+		free(s->old_pwd.content);
+		free(s->pwd.content);
+		free(s->data.pwdpos.content);
+		free(s->data.oldpwdpos.content);
+	}
 }
 
 int	main(int ac, char **av, char **envp)
@@ -42,10 +71,11 @@ int	main(int ac, char **av, char **envp)
 		tcsetattr(0, TCSANOW, &s.old_termios);
 		if (str == 0)
 		{
-			str_zero();
+			str_zero(&s);
 			break ;
 		}
-		add_history(str);
+		if (str[0] != '\0')
+			add_history(str);
 		if (parsing(str, &s) == -1)
 			g_errna = 0;
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:39:24 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 14:39:26 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 14:22:24 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ typedef struct s_data{
 	char	**av;
 	int		end[2];
 	int		n;
+	int		n2;
 	int		*id1;
 	int		shlvl;
 	char	**path;
 	char	**args;
 	char	**envp;
 	char	**env_path;
+	t_list	pwdpos;
+	t_list	oldpwdpos;
 }				t_data;
 
 typedef struct s_bob {
