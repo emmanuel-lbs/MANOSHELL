@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 11:00:39 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/28 11:01:04 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/28 13:42:45 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,20 @@ void	ft_putenv(t_struct *s)
 	{
 		if (s->data.n == 1)
 			free(s->env->content);
-		s->env->content = ft_strdup(s->pwd.content);
+		if (s->old_pwd.content)
+		{
+			s->env->content = ft_strdup(s->pwd.content);
+			s->data.pwdpos = *s->env;
+		}
 	}
 	else if (ft_strnncmp("OLDPWD=", s->env->content, 6) == 0)
 	{
 		if (s->data.n == 1)
 			free(s->env->content);
-		s->env->content = ft_strdup(s->old_pwd.content);
+		if (s->old_pwd.content)
+		{
+			s->env->content = ft_strdup(s->old_pwd.content);
+			s->data.oldpwdpos = *s->env;
+		}
 	}
 }
