@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:36:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/28 11:02:17 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/28 12:57:59 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,10 @@ void		sig_airdog(int n);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 void		beging_hered(char	**str, int actual_word, t_bob *bob);
 t_bob		*heredocs_bob(t_bob *bob);
+char		*dollars_for_hered(char *cmd, int *i, t_struct *s);
 char		*heredocs_end_word(char	**token, int i);
 int			is_heredocs(t_struct *s);
+int			last_carat(char *cmd, int i);
 int			ft_check_path(t_struct *s, char **envp, int ac, char **av);
 
 void		printf_lst(t_bob *bob);
