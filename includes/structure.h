@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:39:24 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/25 16:53:08 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/28 13:08:41 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_data{
 	char	**args;
 	char	**envp;
 	char	**env_path;
+	t_list	pwdpos;
+	t_list	oldpwdpos;
 }				t_data;
 
 typedef struct s_bob {

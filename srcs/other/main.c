@@ -28,13 +28,16 @@ void	str_zero(t_struct *s)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	g_errna = 0;
-	free(s->data.env_path[i++] - 5);
-	while (s->data.env_path[i])
+	if (s->data.env_path)
 	{
-		free(s->data.env_path[i]);
-		i++;
+		free(s->data.env_path[i++] - 5);
+		while (s->data.env_path[i])
+		{
+			free(s->data.env_path[i]);
+			i++;
+		}
+		free(s->data.env_path);
 	}
-	free(s->data.env_path);
 	while (s->env)
 	{
 		tmp = s->env->next;
@@ -43,6 +46,15 @@ void	str_zero(t_struct *s)
 	}
 	free(s->prompt);
 	free(s->first);
+	if (s->data.n == 1)
+	{
+		free(s->old_pwd.content);
+		free(s->pwd.content);
+		free(s->data.pwdpos.content);
+		free(s->data.oldpwdpos.content);
+	}
+	if (s->data.n2 == 1)
+		free(s->env->content);
 }
 
 int	main(int ac, char **av, char **envp)
