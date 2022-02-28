@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:02:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/25 16:52:55 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/02/28 11:19:54 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,22 @@ static void	ft_setenv(t_struct *s)
 			s->pwd = *s->env;
 		else if (ft_strncmp(s->env->content, "OLDPWD", 6) == 0)
 		{
-				s->old_pwd = *s->env;
-				s->old_pwd.content = NULL;
+			s->old_pwd = *s->env;
+			s->old_pwd.content = NULL;
 		}
 		else if (ft_strncmp(s->env->content, "HOME=", 5) == 0)
-				s->home = *s->env;
+			s->home = *s->env;
 		s->env = s->env->next;
 	}
 	if (ft_strncmp(s->env->content, "PWD=", 4) == 0)
-			s->pwd = *s->env;
+		s->pwd = *s->env;
 	else if (ft_strncmp(s->env->content, "OLDPWD", 6) == 0)
 	{
-			s->old_pwd = *s->env;
-			s->old_pwd.content = NULL;
+		s->old_pwd = *s->env;
+		s->old_pwd.content = NULL;
 	}
 	else if (ft_strncmp(s->env->content, "HOME=", 5) == 0)
-			s->home = *s->env;
+		s->home = *s->env;
 }
 
 static void	ft_setup_data(t_struct *s, int ac, char **av, char **envp)
@@ -99,11 +99,11 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 	ft_setenv(s);
 	i = 0;
 	while (s->data.envp[i] && ft_strncmp(s->data.envp[i], "PATH=", 5))
-			i++;
+		i++;
 	if (s->data.envp[i])
 	{
-			s->data.env_path = ft_split((s->data.envp[i]), ':');
-			s->data.env_path[0] = (s->data.env_path[0] + 5);
+		s->data.env_path = ft_split((s->data.envp[i]), ':');
+		s->data.env_path[0] = (s->data.env_path[0] + 5);
 	}
 	return (1);
 }
