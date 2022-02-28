@@ -64,6 +64,7 @@ static void	ft_setup_data(t_struct *s, int ac, char **av, char **envp)
 	s->data.av = av;
 	s->data.ac = ac;
 	s->data.n = 0;
+	s->data.n2 = 0;
 	if (envp[0] == NULL)
 		ft_create_env(s);
 	else

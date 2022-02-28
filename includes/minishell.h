@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:36:04 by elabasqu          #+#    #+#             */
 /*   Updated: 2022/02/28 12:57:59 by elabasqu         ###   ########lyon.fr   */
@@ -115,6 +115,8 @@ void		ft_lstc(t_list **lst);
 void		ft_lstsort_str(t_struct *s);
 char		*ft_strjoinfree(const char *s1, const char *s2, int alloc_args);
 char		**ft_splitone(char *s, char c);
+void		ft_putenv(t_struct *s);
+void		ft_do_cd(t_struct *s, int *status, char *pwd);
 /*Builtin function*/
 void		ft_echo(t_struct *s);
 void		ft_cd(t_struct *s);
