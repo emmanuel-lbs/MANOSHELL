@@ -53,8 +53,6 @@ void	str_zero(t_struct *s)
 		free(s->data.pwdpos.content);
 		free(s->data.oldpwdpos.content);
 	}
-	if (s->data.n2 == 1)
-		free(s->env->content);
 }
 
 int	main(int ac, char **av, char **envp)
