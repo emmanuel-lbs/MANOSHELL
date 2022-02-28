@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:00:32 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/23 16:24:31 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 13:35:35 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,26 @@ t_bob	*heredocs_bob(t_bob *bob)
 	return (bob);
 }
 
+//Void	dollars_hered(char *str)
+//{
+//	int	i;
+//	char	*dollars;
+//
+//	i = 0;
+//	while (str[i])
+//	{
+//		if (str[i] == '$')
+//			dollars = one_token(str, i, s);
+//	}
+//}
+
 char	*heredocs(char	*end_word)
 {
 	char	*str;
 	char	*hered;
 
 	str = readline("<<");
+//	dollars_hered(str);
 	if (str == 0 || strcmp(str, end_word) == 0)
 	{
 		hered = ft_strdup("");
@@ -46,6 +60,7 @@ char	*heredocs(char	*end_word)
 	while (1)
 	{
 		str = readline("<<");
+	//dollars_hered(str);
 		if (str == 0 || strcmp(str, end_word) == 0)
 			return (hered);
 		hered = ft_strjoinfree(hered, str, 3);
@@ -99,3 +114,5 @@ void	beging_hered(char **str, int actual_word, t_bob *bob)
 {
 	second_airdog(bob, heredocs_end_word(str, actual_word));
 }
+
+//rajouter la struct partout pour one token

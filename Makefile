@@ -6,6 +6,7 @@ SRCS = srcs/other/main.c \
 		srcs/other/heredocs.c \
 		srcs/other/heredocs_utils.c \
 		srcs/other/signo.c \
+		srcs/other/dollars_herede.c \
 		srcs/parsing/parsing.c \
 		srcs/parsing/tokenisation.c \
 		srcs/parsing/syntax.c \
