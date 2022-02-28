@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:02 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/28 13:14:24 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 13:58:22 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ char	*one_token(char *cmd, int *i, t_struct *s)
 		a_token = cpy_chevron(cmd, i);
 	else if (ft_is_quote(cmd[*i]) == 1)
 		a_token = one_token_quote(cmd, i, s);
-	else if (cmd[*i] == '$' && last_carat(cmd, *i) == 0)
+	else if (cmd[*i] == '$' /*&& last_carat(cmd, *i) == 0*/)
 		a_token = one_token_dollars(cmd, i, s);
-	else if (cmd[*i] == '$' && last_carat(cmd, *i) == 1)
-		a_token = dollars_for_hered(cmd, i, s);
+//	else if (cmd[*i] == '$' && last_carat(cmd, *i) == 1)
+//		a_token = dollars_for_hered(cmd, i, s);
 	else if (cmd[*i] == '|')
 	{
 		(*i)++;
