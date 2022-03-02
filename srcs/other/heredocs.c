@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:45:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 15:36:55 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 18:33:13 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,6 @@ int	second_airdog(t_bob *bob, char *end_word, t_struct *s)
 	bob->fd[0] = fd[0];
 	bob->fd[1] = fd[1];
 	return (0);
-}
-
-void	beging_hered(char **str, int actual_word, t_bob *bob, t_struct *s)
-{
-	second_airdog(bob, heredocs_end_word(str, actual_word), s);
 }
 
 //rajouter la struct partout pour one token
