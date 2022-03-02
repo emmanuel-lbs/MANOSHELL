@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 14:43:58 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 15:13:40 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	dollar_in_quote(char *cpy, char *cmd, int *norme[2], t_struct *s)
 		k++;
 	}
 	cpy[*norme[0]] = 0;
-//	free(dollars);
+	free(dollars);
 	return (0);
 }
 
