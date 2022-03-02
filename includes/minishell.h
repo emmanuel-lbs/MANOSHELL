@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:36:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/28 12:57:59 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 13:50:24 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			strlen_var_env(char *var);
 int			last_caractr(char *var);
 int			len_env(char *env);
 /*CHEVRONS*/
-int			gere_chevron(char **str, int *actual_word, t_bob *bob);
+int			gere_chevron(char **str, int *actual_word, t_bob *bob, t_struct *s);
 int			lst_ajustement(char **str, int start, int end);
 char		*cpy_chevron(char *cmd, int *i);
 /*COUNT*/
@@ -92,7 +92,7 @@ int			should_mod(char *cmd, int i, char *a_token, t_struct *s);
 void		modif_token(char *a_token, char **lst_tkn, int *nb_word);
 int			token_len(char *cmd, int i);
 /*lst_bob*/
-t_bob		*create_bob(char **str);
+void		create_bob(char **str, t_struct *s);
 void		add_back_bob(t_bob **bob, t_bob *add);
 void		new_block(t_struct *s, char **str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -141,7 +141,7 @@ void		ctrl_quit(int n);
 void		ft_signal(t_struct *s);
 void		sig_airdog(int n);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-void		beging_hered(char	**str, int actual_word, t_bob *bob);
+void		beging_hered(char	**str, int actual_word, t_bob *bob, t_struct *s);
 t_bob		*heredocs_bob(t_bob *bob);
 char		*dollars_for_hered(char *cmd, int *i, t_struct *s);
 char		*heredocs_end_word(char	**token, int i);

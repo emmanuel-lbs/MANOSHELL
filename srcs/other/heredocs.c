@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   heredocs.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 12:00:32 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/28 13:35:35 by elabasqu         ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
@@ -30,26 +19,64 @@ t_bob	*heredocs_bob(t_bob *bob)
 	return (bob);
 }
 
-//Void	dollars_hered(char *str)
-//{
-//	int	i;
-//	char	*dollars;
-//
-//	i = 0;
-//	while (str[i])
-//	{
-//		if (str[i] == '$')
-//			dollars = one_token(str, i, s);
-//	}
-//}
+char	*modif_here_dol(char *str, char *dollars, t_struct *s)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*newstr;
 
-char	*heredocs(char	*end_word)
+	j = 0;
+	i = 0;
+	newstr = malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(dollars)));
+	while (str[i])
+	{
+		if (str[i] == '$')
+		{
+			k = 0;
+			while (dollars[k])
+				add_char(newstr, dollars, &j, &k);
+			free(one_token(str, &i, s));
+		}
+		else
+			add_char(newstr, str, &j, &i);
+	}
+	newstr[j] = 0;
+	return (newstr);
+}
+
+char	*dollars_hered(char *str, t_struct *s)
+{
+	int		i;
+	char	*dollars;
+	char	*new_str;
+
+	i = 0;
+	new_str = NULL;
+	while (str[i])
+	{
+		if (str[i] == '$')
+		{
+			if (new_str != NULL)
+				free(new_str);
+			dollars = one_token(str, &i, s);
+			new_str = modif_here_dol(str, dollars, s);
+			free(dollars);
+		}
+		else
+			i++;
+	}
+	free(str);
+	return (new_str);
+}
+
+char	*heredocs(char	*end_word, t_struct *s)
 {
 	char	*str;
 	char	*hered;
 
 	str = readline("<<");
-//	dollars_hered(str);
+	str = dollars_hered(str, s);
 	if (str == 0 || strcmp(str, end_word) == 0)
 	{
 		hered = ft_strdup("");
@@ -60,7 +87,7 @@ char	*heredocs(char	*end_word)
 	while (1)
 	{
 		str = readline("<<");
-	//dollars_hered(str);
+		str = dollars_hered(str, s);
 		if (str == 0 || strcmp(str, end_word) == 0)
 			return (hered);
 		hered = ft_strjoinfree(hered, str, 3);
@@ -69,12 +96,12 @@ char	*heredocs(char	*end_word)
 	return (hered);
 }
 
-static void	child_airdog(char *end_word, int *fd)
+static void	child_airdog(char *end_word, int *fd, t_struct *s)
 {
 	char	*hered;
 
 	signal(SIGINT, &sig_airdog);
-	hered = heredocs(end_word);
+	hered = heredocs(end_word, s);
 	ft_putstr_fd(hered, fd[1]);
 	ft_redir_close(fd[1], 1);
 	free(hered);
@@ -82,7 +109,7 @@ static void	child_airdog(char *end_word, int *fd)
 	exit(0);
 }
 
-int	second_airdog(t_bob *bob, char *end_word)
+int	second_airdog(t_bob *bob, char *end_word, t_struct *s)
 {
 	int		pid;
 	int		status;
@@ -101,7 +128,7 @@ int	second_airdog(t_bob *bob, char *end_word)
 	}
 	signal(SIGINT, SIG_IGN);
 	if (pid == 0)
-		child_airdog(end_word, fd);
+		child_airdog(end_word, fd, s);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_errna = WEXITSTATUS(status);
@@ -110,9 +137,9 @@ int	second_airdog(t_bob *bob, char *end_word)
 	return (0);
 }
 
-void	beging_hered(char **str, int actual_word, t_bob *bob)
+void	beging_hered(char **str, int actual_word, t_bob *bob, t_struct *s)
 {
-	second_airdog(bob, heredocs_end_word(str, actual_word));
+	second_airdog(bob, heredocs_end_word(str, actual_word), s);
 }
 
 //rajouter la struct partout pour one token

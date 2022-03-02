@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:07 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/28 13:33:52 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 12:35:44 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,60 +59,58 @@ char	*one_token_for_bob(char *str)
 	return (a_token);
 }
 
-int	fct(char **str, int start, int end, t_bob *bob)
+int	fct(char **str, int start, int end, t_struct *s)
 {
 	int	word;
 	int	file_ret;
 
 	file_ret = 0;
-	bob = lastbob(bob);
+	s->bob = lastbob(s->bob);
 	word = end - start + lst_ajustement(str, start, end);
-	bob->token = malloc(sizeof(char *) * (word + 1));
-	if (!bob->token)
+	s->bob->token = malloc(sizeof(char *) * (word + 1));
+	if (!s->bob->token)
 		return (-1);
 	word = 0;
 	while (start < end)
 	{
 		if (ft_is_chevron(str[start][0]) && file_ret != -1)
-			file_ret = gere_chevron(str, &start, bob);
+			file_ret = gere_chevron(str, &start, s->bob, s);
 		else if (ft_is_chevron(str[start][0]))
 			start++;
 		else
 		{
-			bob->token[word] = one_token_for_bob(str[start]);
+			s->bob->token[word] = one_token_for_bob(str[start]);
 			word++;
 		}
 		start++;
 	}
-	bob->token[word] = 0;
+	s->bob->token[word] = 0;
 	return (0);
 }
 
-t_bob	*create_bob(char **str)
+void	create_bob(char **str, t_struct *s)
 {
-	t_bob	*bob;
 	int		start;
 	int		end;
-	t_bob	*first_bob;
 
 	start = 0;
 	end = 0;
-	bob = new_bob();
-	first_bob = bob;
+	s->bob = new_bob();
+	s->first_bob = s->bob;
 	while (str[end])
 	{
 		while (str[end] && str[end][0] != '|')
 			end++;
-		if (fct(str, start, end, bob) == -1)
-			return (NULL);
+		if (fct(str, start, end, s) == -1)
+			return ;
 		if (str[end] && str[end][0] == '|')
 			end += 1;
 		if (str[end])
 		{
-			bob->next = new_bob();
-			bob = bob->next;
+			s->bob->next = new_bob();
+			s->bob = s->bob->next;
 		}
 		start = end;
 	}
-	return (first_bob);
+	s->bob = s->first_bob;
 }

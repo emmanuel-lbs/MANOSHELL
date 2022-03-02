@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/28 13:33:58 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/02/28 13:48:55 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	gere_out(char **str, int *i, t_bob *bob)
 	}
 }
 
-void	gere_in(char **str, int *actual_word, t_bob *bob)
+void	gere_in(char **str, int *actual_word, t_bob *bob, t_struct *s)
 {
 	if (bob->fd_in != 0)
 		close(bob->fd_in);
@@ -39,18 +39,18 @@ void	gere_in(char **str, int *actual_word, t_bob *bob)
 	}
 	else
 	{
-		beging_hered(str, *actual_word, bob);
+		beging_hered(str, *actual_word, bob, s);
 		(*actual_word)++;
 		bob->mode_in = 2;
 	}
 }
 
-int	gere_chevron(char **str, int *actual_word, t_bob *bob)
+int	gere_chevron(char **str, int *actual_word, t_bob *bob, t_struct *s)
 {
 	if (str[*actual_word][0] == '>')
 		gere_out(str, actual_word, bob);
 	else if (str[*actual_word][0] == '<')
-		gere_in(str, actual_word, bob);
+		gere_in(str, actual_word, bob, s);
 	if (bob->fd_in == -1 || bob->fd_out == -1)
 	{
 		if (bob->fd_in == -1)
