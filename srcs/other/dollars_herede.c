@@ -1,8 +1,18 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollars_herede.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 12:42:55 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/03/02 12:44:10 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*fusion_double_tok_her(char *str,char *cmd,int *i, t_struct *s)
+char	*fusion_double_tok_her(char *str, char *cmd, int *i, t_struct *s)
 {
 	char	*dollars;
 	char	*retur;
@@ -48,4 +58,3 @@ char	*dollars_for_hered(char *cmd, int *i, t_struct *s)
 		return (fusion_double_tok_her(a_token, cmd, i, s));
 	return (a_token);
 }
-
