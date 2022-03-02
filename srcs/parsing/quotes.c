@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:45:38 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/23 14:06:29 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 14:38:40 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	cpy_quote(char *cpy, char *cmd, int *n[2], t_struct *s)
 		add_char(cpy, cmd, n[0], n[1]);
 	if (cmd[*n[1]] && ft_is_quote(cmd[*n[1]]) == 1)
 		cpy_quote(cpy, cmd, n, s);
-	cpy[*n[0]] = 0;
 	return (0);
 }
 
