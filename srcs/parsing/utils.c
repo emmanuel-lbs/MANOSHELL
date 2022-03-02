@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 15:13:40 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 17:18:49 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,14 @@ int	cpy_quote_avant(char *cpy, char *cmd, int *n[2], t_struct *s)
 	(*n[1])++;
 	while (cmd[*n[1]] && cmd[*n[1]] != quote)
 	{
-		if (cmd[*n[1]] == '$' && quote == '\"')
+		if (cmd[*n[1]] && cmd[*n[1]] == '$' && quote == '\"')
 		{
 			if (dollar_in_quote(cpy, cmd, n, s) == -1)
 				return (-1);
 		}
 		else
 			add_char(cpy, cmd, n[0], n[1]);
+		cpy[*n[0] + 1] = 0;
 	}
 	return (1);
 }
