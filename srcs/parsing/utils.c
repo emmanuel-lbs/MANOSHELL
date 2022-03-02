@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 13:04:25 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 14:43:58 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,18 @@ int	dollar_in_quote(char *cpy, char *cmd, int *norme[2], t_struct *s)
 	char	*dollars;
 	int		k;
 
-	k = 0;
 	dollars = one_token(cmd, norme[1], s);
 	if (dollars == NULL)
 		return (-1);
-	while (dollars && dollars[k])
-		add_char(cpy, dollars, norme[0], &k);
+	k = 0;
+	while (dollars[k])
+	{
+		cpy[*norme[0]] = dollars[k];
+		(*norme[0])++;
+		k++;
+	}
 	cpy[*norme[0]] = 0;
-	free(dollars);
+//	free(dollars);
 	return (0);
 }
 
@@ -101,3 +105,23 @@ int	cpy_quote_avant(char *cpy, char *cmd, int *n[2], t_struct *s)
 	}
 	return (1);
 }
+
+void	printf_lst(t_bob *bob)
+{
+	int	i;
+
+	while (bob != NULL)
+	{
+		i = 0;
+		while (bob->token[i])
+		{
+			printf(" -%s- ", bob->token[i]);
+			i++;
+		}
+		printf("out = %d in = %d", bob->fd_out, bob->fd_in);
+		printf("mode in = %d, heredocs = \n", bob->mode_in);
+		printf("\n");
+		bob = bob->next;
+	}
+}
+

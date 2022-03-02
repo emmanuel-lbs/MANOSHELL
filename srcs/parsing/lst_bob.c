@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:07 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 12:35:44 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 15:01:13 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	create_bob(char **str, t_struct *s)
 		if (fct(str, start, end, s) == -1)
 			return ;
 		if (str[end] && str[end][0] == '|')
-			end += 1;
+		end += 1;
 		if (str[end])
 		{
 			s->bob->next = new_bob();

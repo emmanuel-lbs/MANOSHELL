@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:52:46 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 12:36:23 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 15:01:45 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int	parsing(char *str, t_struct *s)
 	s->first_bob = s->bob;
 	s->no_pipe = number_pipe(str);
 	ft_free_double_char(tokeniser);
+//	printf_lst(s->bob);
 	return (0);
 }
