@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:02:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/28 11:19:54 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 12:21:46 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int	ft_check_path(t_struct *s, char **envp, int ac, char **av)
 		s->data.env_path = ft_split((s->data.envp[i]), ':');
 		s->data.env_path[0] = (s->data.env_path[0] + 5);
 	}
+	s->data.lastenv = ft_lstlast(s->env);
 	return (1);
 }
