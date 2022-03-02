@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:45:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 12:48:25 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 13:10:23 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,20 @@ char	*heredocs(char	*end_word, t_struct *s)
 	char	*hered;
 
 	str = readline("<<");
-	str = dollars_hered(str, s);
 	if (str == 0 || strcmp(str, end_word) == 0)
 	{
 		hered = ft_strdup("");
 		free(str);
 		return (hered);
 	}
+	str = dollars_hered(str, s);
 	hered = ft_strjoinfree(str, "\n", 1);
 	while (1)
 	{
 		str = readline("<<");
-		str = dollars_hered(str, s);
 		if (str == 0 || strcmp(str, end_word) == 0)
 			return (hered);
+		str = dollars_hered(str, s);
 		hered = ft_strjoinfree(hered, str, 3);
 		hered = ft_strjoinfree(hered, "\n", 1);
 	}
