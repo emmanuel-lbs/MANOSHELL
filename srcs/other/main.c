@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 13:03:10 by elabasqu          #+#    #+#             */
+/*   Updated: 2022/03/02 13:03:12 by elabasqu         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	g_errna = 0;
@@ -46,7 +58,7 @@ void	ft_freee(t_struct *s)
 	}
 }
 
-void	str_zero(t_struct *s)
+int	str_zero(t_struct *s)
 {
 	int		i;
 
@@ -66,11 +78,35 @@ void	str_zero(t_struct *s)
 		free(s->data.env_path);
 	}
 	ft_freee(s);
+	return (-1);
+}
+
+int	manoshell(t_struct *s)
+{
+	char			*str;
+
+	ft_get_pwd(s, s->pwd.content);
+	ft_signal(s);
+	str = readline(s->prompt);
+	tcsetattr(0, TCSANOW, &s->old_termios);
+	if (str == 0)
+		return (str_zero(s));
+	if (str[0] != '\0')
+		add_history(str);
+	if (parsing(str, s) == -1)
+		g_errna = 0;
+	else
+	{
+		ft_exec(s, 0, 0, 0);
+		destroy_bob(s);
+	}
+	free(str);
+	free(s->prompt);
+	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
 {
-	char			*str;
 	t_struct		s;
 
 	ft_check_path(&s, envp, ac, av);
@@ -78,25 +114,7 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	while (1)
 	{
-		ft_get_pwd(&s, s.pwd.content);
-		ft_signal(&s);
-		str = readline(s.prompt);
-		tcsetattr(0, TCSANOW, &s.old_termios);
-		if (str == 0)
-		{
-			str_zero(&s);
+		if (manoshell(&s) == -1)
 			break ;
-		}
-		if (str[0] != '\0')
-			add_history(str);
-		if (parsing(str, &s) == -1)
-			g_errna = 0;
-		else
-		{
-			ft_exec(&s, 0, 0, 0);
-			destroy_bob(&s);
-		}
-		free(str);
-		free(s.prompt);
 	}
 }

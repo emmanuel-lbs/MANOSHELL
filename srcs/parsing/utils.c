@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/21 15:39:04 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 13:04:25 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,23 +100,4 @@ int	cpy_quote_avant(char *cpy, char *cmd, int *n[2], t_struct *s)
 			add_char(cpy, cmd, n[0], n[1]);
 	}
 	return (1);
-}
-
-void	printf_lst(t_bob *bob)
-{
-	int	i;
-
-	while (bob != NULL)
-	{
-		i = 0;
-		while (bob->token[i])
-		{
-			printf(" -%s- ", bob->token[i]);
-			i++;
-		}
-		printf("out = %d in = %d", bob->fd_out, bob->fd_in);
-		printf("mode in = %d, heredocs = \n", bob->mode_in);
-		printf("\n");
-		bob = bob->next;
-	}
 }
