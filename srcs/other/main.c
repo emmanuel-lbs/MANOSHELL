@@ -18,25 +18,16 @@ void	destroy_bob(t_struct *s)
 	free(s->data.id1);
 }
 
-void	str_zero(t_struct *s)
+void	ft_freee(t_struct *s)
 {
-	int		i;
 	t_list	*tmp;
 
-	i = 0;
-	printf("exit\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	g_errna = 0;
-	if (s->data.env_path)
+	s->data.lastenv = s->data.lastenv->next;
+	while (s->data.lastenv)
 	{
-		free(s->data.env_path[i++] - 5);
-		while (s->data.env_path[i])
-		{
-			free(s->data.env_path[i]);
-			i++;
-		}
-		free(s->data.env_path);
+		tmp = s->data.lastenv->next;
+		free(s->data.lastenv->content);
+		s->data.lastenv = tmp;
 	}
 	while (s->env)
 	{
@@ -53,6 +44,28 @@ void	str_zero(t_struct *s)
 		free(s->data.pwdpos.content);
 		free(s->data.oldpwdpos.content);
 	}
+}
+
+void	str_zero(t_struct *s)
+{
+	int		i;
+
+	i = 0;
+	printf("exit\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_errna = 0;
+	if (s->data.env_path)
+	{
+		free(s->data.env_path[i++] - 5);
+		while (s->data.env_path[i])
+		{
+			free(s->data.env_path[i]);
+			i++;
+		}
+		free(s->data.env_path);
+	}
+	ft_freee(s);
 }
 
 int	main(int ac, char **av, char **envp)

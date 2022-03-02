@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:55 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/28 14:25:20 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/03/02 12:25:05 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_exportoken(t_struct *s, int i, int *n)
 {
 	if (ft_checkdup(s, s->bob->token[i]) == 1)
-		ft_lstadd_back(&s->env->next,
+		ft_lstadd_back(&s->env,
 			ft_lstnew(ft_strdup(s->bob->token[i])));
 	if (n == 0)
 		g_errna = 0;
