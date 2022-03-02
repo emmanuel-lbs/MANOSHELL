@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:45:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 13:10:23 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 15:36:55 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ t_bob	*heredocs_bob(t_bob *bob)
 	return (bob);
 }
 
+int	is_dollar(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 char	*heredocs(char	*end_word, t_struct *s)
 {
 	char	*str;
@@ -42,14 +56,16 @@ char	*heredocs(char	*end_word, t_struct *s)
 		free(str);
 		return (hered);
 	}
-	str = dollars_hered(str, s);
+	if (is_dollar(str) == 1)
+		str = dollars_hered(str, s);
 	hered = ft_strjoinfree(str, "\n", 1);
 	while (1)
 	{
 		str = readline("<<");
 		if (str == 0 || strcmp(str, end_word) == 0)
 			return (hered);
-		str = dollars_hered(str, s);
+		if (is_dollar(str) == 1)
+			str = dollars_hered(str, s);
 		hered = ft_strjoinfree(hered, str, 3);
 		hered = ft_strjoinfree(hered, "\n", 1);
 	}

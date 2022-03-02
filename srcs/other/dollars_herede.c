@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:42:55 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 12:44:10 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 15:39:28 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*dollars_for_hered(char *cmd, int *i, t_struct *s)
 	int		*norme[2];
 
 	(*i)++;
-	a_token = malloc(sizeof(char) * (token_len(cmd, *i) - *i));
+	a_token = malloc(sizeof(char) * (token_len(cmd, *i) - *i) + 50);
 	if (a_token == NULL)
 		return (NULL);
 	(*i)--;

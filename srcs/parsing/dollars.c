@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 09:07:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 15:09:42 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 17:29:58 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,6 @@ char	*one_token_dollars(char *cmd, int *i, t_struct *s)
 		return (NULL);
 	if (cmd[*i] != 0 && cmd[*i] != ' ' && (verif_quote(cmd, *i) == 0 \
 				|| cmd[*i] == '$' || cmd[*i] == '/' || cmd[*i] == '='))
-		a_token = fusion_double_token(a_token, cmd, i, s);
+		a_token = ft_strjoinfree(a_token, one_token(cmd, i, s), 2);
 	return (a_token);
 }
