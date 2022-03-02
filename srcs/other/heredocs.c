@@ -45,23 +45,29 @@ char	*modif_here_dol(char *str, char *dollars, t_struct *s)
 	return (newstr);
 }
 
-void	dollars_hered(char *str, t_struct *s)
+char	*dollars_hered(char *str, t_struct *s)
 {
 	int		i;
 	char	*dollars;
 	char	*new_str;
 
 	i = 0;
+	new_str = NULL;
 	while (str[i])
 	{
 		if (str[i] == '$')
 		{
+			if (new_str != NULL)
+				free(new_str);
 			dollars = one_token(str, &i, s);
 			new_str = modif_here_dol(str, dollars, s);
+			free(dollars);
 		}
 		else
 			i++;
 	}
+	free(str);
+	return (new_str);
 }
 
 char	*heredocs(char	*end_word, t_struct *s)
@@ -70,7 +76,7 @@ char	*heredocs(char	*end_word, t_struct *s)
 	char	*hered;
 
 	str = readline("<<");
-	dollars_hered(str, s);
+	str = dollars_hered(str, s);
 	if (str == 0 || strcmp(str, end_word) == 0)
 	{
 		hered = ft_strdup("");
@@ -81,7 +87,7 @@ char	*heredocs(char	*end_word, t_struct *s)
 	while (1)
 	{
 		str = readline("<<");
-		//dollars_hered(str);
+		str = dollars_hered(str, s);
 		if (str == 0 || strcmp(str, end_word) == 0)
 			return (hered);
 		hered = ft_strjoinfree(hered, str, 3);
