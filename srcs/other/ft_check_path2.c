@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_check_path2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/27 11:02:05 by rozhou            #+#    #+#             */
-/*   Updated: 2022/03/03 12:13:25 by rozhou           ###   ########.fr       */
+/*   Created: 2022/03/03 12:24:35 by rozhou            #+#    #+#             */
+/*   Updated: 2022/03/03 12:25:58 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_checkcd(t_struct *s)
 {
-	t_list	*list;
-
-	list = malloc(sizeof(*list));
-	if (!list)
-		return (0);
-	list->content = content;
-	list->tofree = 1;
-	list->next = NULL;
-	return (list);
+	s->env->tofree = 0;
+	if (ft_strncmp(s->env->content, "PWD=", 4) == 0)
+		s->pwd = *s->env;
+	else if (ft_strncmp(s->env->content, "OLDPWD", 6) == 0)
+	{
+		s->old_pwd = *s->env;
+		s->old_pwd.content = NULL;
+		s->env->content = "OLDPWD";
+	}
+	else if (ft_strncmp(s->env->content, "HOME=", 5) == 0)
+		s->home = *s->env;
 }

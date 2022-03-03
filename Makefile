@@ -3,6 +3,7 @@
 SRCS = srcs/other/main.c \
 		srcs/other/ft_getpwd.c \
 		srcs/other/ft_check_path.c \
+		srcs/other/ft_check_path2.c \
 		srcs/other/heredocs.c \
 		srcs/other/heredocs_utils.c \
 		srcs/other/signo.c \

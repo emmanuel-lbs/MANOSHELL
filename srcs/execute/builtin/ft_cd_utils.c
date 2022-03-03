@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 11:00:39 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/28 13:42:45 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/03/03 12:30:02 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_putenv(t_struct *s)
 			free(s->env->content);
 		if (s->old_pwd.content)
 		{
+			s->env->tofree = 1;
 			s->env->content = ft_strdup(s->pwd.content);
 			s->data.pwdpos = *s->env;
 		}
@@ -54,6 +55,7 @@ void	ft_putenv(t_struct *s)
 			free(s->env->content);
 		if (s->old_pwd.content)
 		{
+			s->env->tofree = 1;
 			s->env->content = ft_strdup(s->old_pwd.content);
 			s->data.oldpwdpos = *s->env;
 		}

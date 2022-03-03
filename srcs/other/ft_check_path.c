@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:02:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/03/03 10:35:40 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/03/03 12:51:33 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,10 @@ static void	ft_setenv(t_struct *s)
 {
 	while (s->env->next != NULL)
 	{
-		if (ft_strncmp(s->env->content, "PWD=", 4) == 0)
-			s->pwd = *s->env;
-		else if (ft_strncmp(s->env->content, "OLDPWD", 6) == 0)
-		{
-			s->old_pwd = *s->env;
-			s->old_pwd.content = NULL;
-			s->env->content = "OLDPWD";
-		}
-		else if (ft_strncmp(s->env->content, "HOME=", 5) == 0)
-			s->home = *s->env;
+		ft_checkcd(s);
 		s->env = s->env->next;
 	}
-	if (ft_strncmp(s->env->content, "PWD=", 4) == 0)
-		s->pwd = *s->env;
-	else if (ft_strncmp(s->env->content, "OLDPWD", 6) == 0)
-	{
-		s->old_pwd = *s->env;
-		s->old_pwd.content = NULL;
-		s->env->content = "OLDPWD";
-	}
-	else if (ft_strncmp(s->env->content, "HOME=", 5) == 0)
-		s->home = *s->env;
+	ft_checkcd(s);
 }
 
 static void	ft_setup_data(t_struct *s, int ac, char **av, char **envp)

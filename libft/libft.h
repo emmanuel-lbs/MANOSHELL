@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:05:28 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/25 10:44:41 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/03/03 12:11:19 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_list
 {
 	void			*content;
+	int				tofree;
 	struct s_list	*next;
 }		t_list;
 

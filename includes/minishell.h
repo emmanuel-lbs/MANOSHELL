@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:36:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 18:34:35 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 12:26:12 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void		new_block(t_struct *s, char **str);
 /*Utils*/
 int			ft_isalnum_(int c);
 int			ft_isalpha_(int c);
+void		ft_checkcd(t_struct *s);
 void		ft_delfirst(t_list **lst);
 void		ft_delone(t_list **lst);
 int			ft_strclen(char *str, char c);
