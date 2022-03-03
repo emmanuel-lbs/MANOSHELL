@@ -5,4 +5,4 @@
 **/*.o
 .DS_Store
 .*.sw*
-MANOSHELL
+minishell
