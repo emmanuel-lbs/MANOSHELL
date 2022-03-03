@@ -50,18 +50,19 @@ OBJS = $(SRCS:.c=.o)
 
 NAME = minishell
 
-INCLUDE = includes/minishell.h includes/structure.h
+INCLUDE = includes/minishell.h includes/structure.h libft/libft.h
 
 RM = rm -f
 
 GCCF = gcc -Wall -Wextra #-Werror
 
+POINT_A = libft/libft.a
+
 ##################################  RULES  #####################################
 
 all :	libf $(NAME)
 
-
-$(NAME):	$(INCLUDE) $(OBJS)
+$(NAME):	$(POINT_A) $(INCLUDE) $(OBJS)
 	$(GCCF) $(OBJS) -lreadline libft.a -o $(NAME)
 
 %.o: %.c	$(INCLUDE) 
@@ -70,6 +71,8 @@ $(NAME):	$(INCLUDE) $(OBJS)
 libf:
 	$(MAKE) -C libft
 	ln -sf libft/libft.a
+
+$(POINT_A) : libf
 
 ############################  CLEAN & RE & phony  ##############################
 
