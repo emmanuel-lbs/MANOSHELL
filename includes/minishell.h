@@ -141,7 +141,7 @@ void		ctrl_quit(int n);
 void		ft_signal(t_struct *s);
 void		sig_airdog(int n);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OTHER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-void		beging_hered(char **str, int actual_word, t_bob *bob, t_struct *s);
+int			second_airdog(t_bob *bob, char *end_word, t_struct *s);
 t_bob		*heredocs_bob(t_bob *bob);
 char		*dollars_hered(char *str, t_struct *s);
 char		*dollars_for_hered(char *cmd, int *i, t_struct *s);

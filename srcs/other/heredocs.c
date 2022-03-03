@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   heredocs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:45:20 by elabasqu          #+#    #+#             */
 /*   Updated: 2022/03/02 18:33:13 by elabasqu         ###   ########lyon.fr   */
@@ -112,5 +112,3 @@ int	second_airdog(t_bob *bob, char *end_word, t_struct *s)
 	bob->fd[1] = fd[1];
 	return (0);
 }
-
-//rajouter la struct partout pour one token
