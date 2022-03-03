@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredocs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:45:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 18:33:13 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 12:43:00 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*heredocs(char	*end_word, t_struct *s)
 	hered = ft_strjoinfree(str, "\n", 1);
 	while (1)
 	{
-		str = readline("<<");
+		str = readline("> ");
 		if (str == 0 || strcmp(str, end_word) == 0)
 			return (hered);
 		if (is_dollar(str) == 1)
@@ -112,3 +112,5 @@ int	second_airdog(t_bob *bob, char *end_word, t_struct *s)
 	bob->fd[1] = fd[1];
 	return (0);
 }
+
+//rajouter la struct partout pour one token
