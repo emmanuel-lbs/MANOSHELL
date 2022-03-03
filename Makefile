@@ -47,13 +47,13 @@ OBJS = $(SRCS:.c=.o)
 
 ################################  VARIABLES  ###################################
 
-NAME = MANOSHELL
+NAME = minishell
 
 INCLUDE = includes/minishell.h includes/structure.h
 
 RM = rm -f
 
-GCCF = gcc -Wall -Wextra #-g3 -fsanitize=address #-Werror
+GCCF = gcc -Wall -Wextra #-Werror
 
 ##################################  RULES  #####################################
 

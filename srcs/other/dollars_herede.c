@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:42:55 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 15:39:28 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/02 18:32:50 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,9 @@ char	*dollars_for_hered(char *cmd, int *i, t_struct *s)
 	if (cmd[*i] == '$')
 		return (fusion_double_tok_her(a_token, cmd, i, s));
 	return (a_token);
+}
+
+void	beging_hered(char **str, int actual_word, t_bob *bob, t_struct *s)
+{
+	second_airdog(bob, heredocs_end_word(str, actual_word), s);
 }

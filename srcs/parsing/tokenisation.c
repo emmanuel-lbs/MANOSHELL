@@ -6,7 +6,7 @@
 /*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:02 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 17:39:58 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 11:34:24 by elabasqu         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*normal_token(char *cmd, int *i, t_struct *s)
 	char	*a_token;
 	int		*norme[2];
 
-	a_token = malloc(sizeof(char) * (token_len(cmd, *i) - *i));
+	a_token = malloc(sizeof(char) * (token_len(cmd, *i) - *i + 1));
 	if (a_token == NULL)
 		return (NULL);
 	j = 0;
@@ -76,12 +76,8 @@ char	*normal_token(char *cmd, int *i, t_struct *s)
 	norme[0] = &j;
 	norme[1] = i;
 	a_token[j] = 0;
-	if (cmd[*i] != '$' && ft_is_quote(cmd[*i]) == 1)
-		return (ft_strjoinfree(a_token, one_token(cmd, i, s), 2));
-	else
-		a_token[*norme[0]] = 0;
-	if (cmd[*i] == '$')
-		return (ft_strjoinfree(a_token, one_token(cmd, i, s), 2));
+	if (cmd[*i] == '$' || ft_is_quote(cmd[*i]) == 1)
+		return (ft_strjoinfree(a_token, one_token(cmd, i, s), 3));
 	return (a_token);
 }
 
@@ -103,7 +99,9 @@ char	*one_token(char *cmd, int *i, t_struct *s)
 		a_token = ft_strdup("|");
 	}
 	else
+	{
 		a_token = normal_token(cmd, i, s);
+	}
 	if (a_token == NULL)
 		a_token = ft_strdup("");
 	return (a_token);
