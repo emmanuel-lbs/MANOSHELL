@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:25:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 17:18:49 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 10:57:37 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,23 +106,3 @@ int	cpy_quote_avant(char *cpy, char *cmd, int *n[2], t_struct *s)
 	}
 	return (1);
 }
-
-void	printf_lst(t_bob *bob)
-{
-	int	i;
-
-	while (bob != NULL)
-	{
-		i = 0;
-		while (bob->token[i])
-		{
-			printf(" -%s- ", bob->token[i]);
-			i++;
-		}
-		printf("out = %d in = %d", bob->fd_out, bob->fd_in);
-		printf("mode in = %d, heredocs = \n", bob->mode_in);
-		printf("\n");
-		bob = bob->next;
-	}
-}
-

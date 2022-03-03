@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chevron.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:51:11 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/02/28 13:48:55 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 11:02:03 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	gere_in(char **str, int *actual_word, t_bob *bob, t_struct *s)
 	}
 	else
 	{
-		beging_hered(str, *actual_word, bob, s);
+		second_airdog(bob, heredocs_end_word(str, *actual_word), s);
 		(*actual_word)++;
 		bob->mode_in = 2;
 	}
