@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredocs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:45:20 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/03 12:43:00 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 13:30:30 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_bob	*heredocs_bob(t_bob *bob)
 	while (bob != NULL)
 	{
 		i = 0;
-		while (bob->token[i] && strcmp("<<", bob->token[i]) != 0)
+		while (bob->token[i] && ft_strcmp("<<", bob->token[i]) != 0)
 			i++;
-		if (bob->token[i] && strcmp("<<", bob->token[i]) == 0)
+		if (bob->token[i] && ft_strcmp("<<", bob->token[i]) == 0)
 			return (bob);
 		bob = bob->next;
 	}
@@ -50,7 +50,7 @@ char	*heredocs(char	*end_word, t_struct *s)
 	char	*hered;
 
 	str = readline("<<");
-	if (str == 0 || strcmp(str, end_word) == 0)
+	if (str == 0 || ft_strcmp(str, end_word) == 0)
 	{
 		hered = ft_strdup("");
 		free(str);
@@ -62,7 +62,7 @@ char	*heredocs(char	*end_word, t_struct *s)
 	while (1)
 	{
 		str = readline("> ");
-		if (str == 0 || strcmp(str, end_word) == 0)
+		if (str == 0 || ft_strcmp(str, end_word) == 0)
 			return (hered);
 		if (is_dollar(str) == 1)
 			str = dollars_hered(str, s);

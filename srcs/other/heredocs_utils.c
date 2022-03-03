@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredocs_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:11:14 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/03 12:59:22 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 13:30:43 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	is_heredocs(t_struct *s)
 
 char	*heredocs_end_word(char	**token, int i)
 {
-	while (token[i] && strcmp("<<", token[i]) != 0)
+	while (token[i] && ft_strcmp("<<", token[i]) != 0)
 		i++;
-	if (token[i] && strcmp("<<", token[i]) != 0)
+	if (token[i] && ft_strcmp("<<", token[i]) != 0)
 		return (NULL);
 	return (token[i + 1]);
 }

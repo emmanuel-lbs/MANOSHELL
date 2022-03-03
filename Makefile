@@ -54,7 +54,7 @@ INCLUDE = includes/minishell.h includes/structure.h
 
 RM = rm -f
 
-GCCF = gcc -Wall -Wextra #-Werror
+GCCF = gcc -Wall -Wextra -Werror
 
 ##################################  RULES  #####################################
 
