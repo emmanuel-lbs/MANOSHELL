@@ -54,7 +54,7 @@ INCLUDE = includes/minishell.h includes/structure.h libft/libft.h
 
 RM = rm -f
 
-GCCF = gcc -Wall -Wextra #-Werror
+GCCF = gcc -Wall -Wextra -Werror
 
 POINT_A = libft/libft.a
 
