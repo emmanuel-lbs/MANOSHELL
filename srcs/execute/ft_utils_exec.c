@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:04 by rozhou            #+#    #+#             */
-/*   Updated: 2022/03/03 12:14:11 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/03/03 13:58:11 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	ft_delone(t_list **lst)
 	mem = tmp->next;
 	tmp->next = tmp->next->next;
 	if (mem->tofree == 1)
+	{
 		free(mem->content);
+		mem->tofree = 0;
+	}
 	free(mem);
 }
 

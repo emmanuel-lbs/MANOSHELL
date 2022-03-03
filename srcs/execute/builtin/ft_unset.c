@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/03/03 13:14:28 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/03/03 14:01:23 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ void	ft_freepath(t_struct *s)
 			i++;
 		}
 		free(s->data.env_path);
+	}
+	if (ft_strncmp(s->env->next->content, "HOME", 4) == 0)
+	{
+		if (s->home.tofree == 1)
+		{
+			free(s->env->next->content);
+			free(s->home.content);
+			s->home.tofree = 0;
+		}
 	}
 }
 
