@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:30:05 by rozhou            #+#    #+#             */
-/*   Updated: 2022/02/16 13:30:06 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/03/03 13:14:22 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_setenv_null(t_struct *s)
 {
+	ft_freepath(s);
 	if (ft_strncmp(s->env->next->content, "OLDPWD=", 5) == 0)
 		s->old_pwd.content = NULL;
 	else if (ft_strncmp(s->env->next->content, "PATH=", 5) == 0)

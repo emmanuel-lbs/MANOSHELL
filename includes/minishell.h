@@ -6,7 +6,7 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:36:04 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/03 12:26:12 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/03/03 13:14:12 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void		add_back_bob(t_bob **bob, t_bob *add);
 void		new_block(t_struct *s, char **str);
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EXEC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*Utils*/
+void		ft_freepath(t_struct *s);
 int			ft_isalnum_(int c);
 int			ft_isalpha_(int c);
 void		ft_checkcd(t_struct *s);

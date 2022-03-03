@@ -6,11 +6,28 @@
 /*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:29:57 by rozhou            #+#    #+#             */
-/*   Updated: 2022/03/03 13:09:00 by rozhou           ###   ########.fr       */
+/*   Updated: 2022/03/03 13:14:28 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+void	ft_freepath(t_struct *s)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strncmp(s->env->next->content, "PATH", 4) == 0)
+	{
+		s->data.env_path[0] = s->data.env_path[0] - 5;
+		while (s->data.env_path[i])
+		{
+			free(s->data.env_path[i]);
+			i++;
+		}
+		free(s->data.env_path);
+	}
+}
 
 static int	ft_unset_all(t_struct *s, int i)
 {
@@ -19,29 +36,12 @@ static int	ft_unset_all(t_struct *s, int i)
 	{
 		ft_setenv_null(s);
 		s->first = s->first->next;
-		if (ft_strncmp(s->env->content, "PATH", 4) == 0)
-		{
-			free(s->data.env_path[i]);
-		}
 		ft_delfirst(&s->env);
 		return (1);
 	}
 	if (ft_strncmp(s->env->next->content, s->bob->token[i],
 			ft_strclen(s->env->next->content, '=')) == 0)
 	{
-		int	i;
-
-		i = 0;
-		if (ft_strncmp(s->env->next->content, "PATH", 4) == 0)
-		{
-			s->data.env_path[0] = s->data.env_path[0] - 5;
-			while (s->data.env_path[i])
-			{
-				free(s->data.env_path[i]);
-				i++;
-			}
-			free(s->data.env_path);
-		}
 		ft_setenv_null(s);
 		ft_delone(&s->env);
 		return (1);
@@ -51,10 +51,6 @@ static int	ft_unset_all(t_struct *s, int i)
 		if (ft_strcmp(s->env->next->content, s->bob->token[i]) == 0)
 		{
 			ft_setenv_null(s);
-			if (ft_strncmp(s->env->next->content, "PATH", 4) == 0)
-			{
-				free(s->data.env_path);
-			}
 			ft_delone(&s->env);
 			return (1);
 		}
