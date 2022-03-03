@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elabasqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rozhou <rozhou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:45:38 by elabasqu          #+#    #+#             */
-/*   Updated: 2022/03/02 17:47:43 by elabasqu         ###   ########lyon.fr   */
+/*   Updated: 2022/03/03 10:29:29 by rozhou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	cpy_quote(char *cpy, char *cmd, int *n[2], t_struct *s)
 	while (cmd[*n[1]] && cmd[*n[1]] != ' ' && ft_is_chevron(cmd[*n[1]]) == 0 \
 			&& ft_is_quote(cmd[*n[1]]) == 0 && cmd[*n[1]] != '$' && cmd[*n[1]] != '|')
 		add_char(cpy, cmd, n[0], n[1]);
-	cpy[*n[0] + 1] = 0;
+	cpy[*n[0]] = 0;
 	printf("%s\n", &cmd[*n[1]]);
 	if (cmd[*n[1]] && (ft_is_quote(cmd[*n[1]]) == 1 || cmd[*n[1]] == '$'))
 		cpy_quote(cpy, cmd, n, s);
